@@ -1,0 +1,13 @@
+html,body{
+    height: 100%;
+	background:#bfd7ea;
+
+}
+
+.border-dark {
+	border : 3px solid #7c616c!important;
+}
+.container {
+	height:75.6%;
+	margin-top:11%;
+}

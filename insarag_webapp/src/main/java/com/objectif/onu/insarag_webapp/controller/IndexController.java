@@ -15,7 +15,7 @@ public class IndexController {
 
 	@RequestMapping("/")
 	public String index() throws Exception {
-		return "index";
+		return "accueil";
 	}   
 	
 	
