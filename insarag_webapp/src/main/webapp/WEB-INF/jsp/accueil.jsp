@@ -14,6 +14,7 @@
 <link href="css\utils\header.css" rel="stylesheet" id="header-css">
 <link href="css\utils\footer.css" rel="stylesheet" id="footer-css">
 <link href="css\accueil.css" rel="stylesheet" id="accueil-css">
+<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
 <!------ Include the above in your HEAD tag ---------->
 
 </head>
@@ -31,32 +32,27 @@
 
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid border border-dark rounded-circle" src="img\accueil\mission.png" alt="">
+            <button class="btn btn-info com rounded-circle">COM.</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid border border-dark rounded-circle" src="img\accueil\profil.png" alt="">
+			<button class="btn btn-info admin rounded-circle">PROFIL</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid border border-dark rounded-circle" src="img\accueil\message.png" alt="">
+            <button class="btn btn-info alert rounded-circle">ALERTE</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid border border-dark rounded-circle" src="img\accueil\mail.png" alt="">
+			<button class="btn btn-info carte rounded-circle">CARTE</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid border border-dark rounded-circle" src="img\accueil\carte.png" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <img class="img-fluid border border-dark rounded-circle" src="img\accueil\organisation.png" alt="">
+            <button class="btn btn-info orga rounded-circle">ORGA.</button>
           </a>
         </div>
 

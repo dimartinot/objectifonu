@@ -1,6 +1,6 @@
 html,body{
-    height: 100%;
-	background:#bfd7ea;
+    height: auto;
+	background:White;
 
 }
 
@@ -8,6 +8,65 @@ html,body{
 	border : 3px solid #7c616c!important;
 }
 .container {
-	height:75.6%;
+	height:75.5vh;
 	margin-top:11%;
 }
+
+
+.com{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+.alert{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+.admin{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+.carte{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+.orga{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+
+
