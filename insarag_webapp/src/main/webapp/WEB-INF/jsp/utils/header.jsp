@@ -1,8 +1,12 @@
- <link href="bootstrap-4-dev\dist\css\bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+
+<link href="<c:url value="\css\bootstrap\bootstrap.min.css" />" rel="stylesheet" id="bootstrap-css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="bootstrap-4-dev\dist\js\bootstrap.min.js" rel="stylesheet" id="bootstrap-js" ></script>
-<link href="css\header.css" rel="stylesheet" id="header-css"> 
+<script src="<c:url value="\js\bootstrap.min.js" />" rel="stylesheet" id="bootstrap-js" ></script>
+<link href="<c:url value="\css\utils\header.css" />" rel="stylesheet" id="header-css">
 
 <header>
 
@@ -18,14 +22,14 @@
   <div class="collapse navbar-collapse " id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link color1" href="#">Accueil <span class="sr-only">(current)</span></a>
+        <a class="nav-link color1" href="/">Accueil <span class="sr-only">(current)</span></a>
       </li>
 	  <li class="nav-item color1 dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Chat
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Mail</a>
+          <a class="dropdown-item" href="/chat/mail">Mail</a>
 		  <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Contact</a>
 

@@ -1,5 +1,9 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!-- Footer -->
 <footer class="page-footer font-small blue rounded">
+<link href="<c:url value="\css\utils\footer.css" />" rel="stylesheet" id="footer-css">
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3 footer-color">

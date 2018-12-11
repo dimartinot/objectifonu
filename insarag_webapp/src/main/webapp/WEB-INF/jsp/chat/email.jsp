@@ -1,34 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A layout example that shows off a responsive email layout.">
-    <title>Email &ndash; Layout Examples &ndash; Pure</title>
+    <title>Email</title>
     
+
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
-    
-    
-    
-        <!--[if lte IE 8]>
-            <link rel="stylesheet" href="css/layouts/email-old-ie.css">
-        <![endif]-->
-        <!--[if gt IE 8]><!-->
-            <link rel="stylesheet" href="<c:url value="/resources/static/css/chat/email.css"/>">
-        <!--<![endif]-->
+    <link rel="stylesheet" href="<c:url value="\css\chat\email-old-ie.css" />">
+    <link rel="stylesheet" href="<c:url value="\css\chat\email.css" />">
 </head>
+
+
+<!-- Header -->
+<jsp:include page="../utils/header.jsp" />
+<!-- Header -->
 <body>
 
 
-
-
-
-
-<div id="layout" class="content pure-g">
+<div>
+	<div id="layout" class="content pure-g">
     <div id="nav" class="pure-u">
         <a href="#" class="nav-menu-button">Menu</a>
 
@@ -41,7 +36,7 @@
     <div id="list" class="pure-u-1">
         <div class="email-item email-item-selected pure-g">
             <div class="pure-u">
-                <img width="64" height="64" alt="Tilo Mitra&#x27;s avatar" class="email-avatar" src="img/common/tilo-avatar.png">
+                <img width="64" height="64" alt="Tilo Mitra&#x27;s avatar" class="email-avatar" src="img/yui-avatar.png">
             </div>
 
             <div class="pure-u-3-4">
@@ -55,7 +50,7 @@
 
         <div class="email-item email-item-unread pure-g">
             <div class="pure-u">
-                <img width="64" height="64" alt="Eric Ferraiuolo&#x27;s avatar" class="email-avatar" src="img/common/ericf-avatar.png">
+                <img width="64" height="64" alt="Eric Ferraiuolo&#x27;s avatar" class="email-avatar" src="img/yui-avatar.png">
             </div>
 
             <div class="pure-u-3-4">
@@ -69,7 +64,7 @@
 
         <div class="email-item email-item-unread pure-g">
             <div class="pure-u">
-                <img width="64" height="64" alt="YUI&#x27;s avatar" class="email-avatar" src="img/common/yui-avatar.png">
+                <img width="64" height="64" alt="YUI&#x27;s avatar" class="email-avatar" src="img/yui-avatar.png">
             </div>
 
             <div class="pure-u-3-4">
@@ -83,7 +78,7 @@
 
         <div class="email-item pure-g">
             <div class="pure-u">
-                <img width="64" height="64" alt="Reid Burke&#x27;s avatar" class="email-avatar" src="img/common/reid-avatar.png">
+                <img width="64" height="64" alt="Reid Burke&#x27;s avatar" class="email-avatar" src="img/yui-avatar.png">
             </div>
 
             <div class="pure-u-3-4">
@@ -97,7 +92,7 @@
 
         <div class="email-item pure-g">
             <div class="pure-u">
-                <img width="64" height="64" alt="Andrew Wooldridge&#x27;s avatar" class="email-avatar" src="img/common/andrew-avatar.png">
+                <img width="64" height="64" alt="Andrew Wooldridge&#x27;s avatar" class="email-avatar" src="img/yui-avatar.png">
             </div>
 
             <div class="pure-u-3-4">
@@ -111,7 +106,7 @@
 
         <div class="email-item pure-g">
             <div class="pure-u">
-                <img width="64" height="64" alt="Yahoo! Finance&#x27;s Avatar" class="email-avatar" src="img/common/yfinance-avatar.png">
+                <img width="64" height="64" alt="Yahoo! Finance&#x27;s Avatar" class="email-avatar" src="img/yui-avatar.png">
             </div>
 
             <div class="pure-u-3-4">
@@ -125,7 +120,7 @@
 
         <div class="email-item pure-g">
             <div class="pure-u">
-                <img width="64" height="64" alt="Yahoo! News&#x27; avatar" class="email-avatar" src="img/common/ynews-avatar.png">
+                <img width="64" height="64" alt="Yahoo! News&#x27; avatar" class="email-avatar" src="img/yui-avatar.png">
             </div>
 
             <div class="pure-u-3-4">
@@ -143,9 +138,14 @@
             <div class="email-content-header pure-g">
                 <div class="pure-u-1-2">
                     <h1 class="email-content-title">fenetre de chat</h1>
+					  
+
                     
                 </div>
-
+				<input class="droite" type="image" src="img/greenPhone.png"   name="call">
+				
+			
+				
                 
             </div>
 
@@ -190,6 +190,10 @@
 
 
 
-
+</div>
 </body>
+ <!-- Footer -->
+<jsp:include page="../utils/footer.jsp" />
+
+<!-- Footer -->
 </html>

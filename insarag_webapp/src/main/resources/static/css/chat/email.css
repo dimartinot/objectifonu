@@ -14,6 +14,27 @@ a {
 }
 
 
+
+div input.droite{
+  float:right;
+  
+  width: 50px;
+  height: 50px;
+
+}
+div input.droite:active{
+
+content :  url("img/common/greenPhoneHover.png");	
+	
+	
+	
+	
+}
+
+
+
+
+
 /*
  * -- HELPER STYLES --
  * Over-riding some of the .pure-button styles to make my buttons look unique
