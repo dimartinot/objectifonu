@@ -39,15 +39,19 @@
                         <div class="form-group">
                             <input type="text" name="dateFin" class="form-control" placeholder="Date de fin" value="" />
                         </div>
-                        <div class="form-group">
-                            <input type="submit" name="btnSubmit" class="btnContact" value="Créer l'alerte !" />
-                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <textarea name="txtMsg" class="form-control" placeholder="Informations supplémentaires.." style="width: 100%; height: 150px;"></textarea>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <input type="submit" name="btnSubmit" class="btnContact" value="Créer l'alerte !" />
+                        </div>
+                	</div>
                 </div>
             </form>
 </div>
