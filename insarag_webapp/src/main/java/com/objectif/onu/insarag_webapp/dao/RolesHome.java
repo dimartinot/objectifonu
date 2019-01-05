@@ -3,15 +3,19 @@ package com.objectif.onu.insarag_webapp.dao;
 
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
+import org.hibernate.query.Query;
+import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Roles;
+import com.objectif.onu.insarag_webapp.model.Users;
 
 /**
  * Home object for domain model class Roles.
@@ -26,7 +30,16 @@ public class RolesHome {
 
 	protected SessionFactory getSessionFactory() {
 		try {
-			return (SessionFactory) new InitialContext().lookup("SessionFactory");
+			Configuration configuration = new Configuration().configure();
+			ServiceRegistry registry = new StandardServiceRegistryBuilder()
+	                .applySettings(configuration.getProperties())
+	                .build();
+			SessionFactory s = configuration
+					.addClass(Users.class)
+					.addClass(Roles.class)
+					.buildSessionFactory(registry);
+			return s;
+			//return (SessionFactory) new InitialContext().lookup("SessionFactory");
 		} catch (Exception e) {
 			log.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException("Could not locate SessionFactory in JNDI");
@@ -90,9 +103,19 @@ public class RolesHome {
 	}
 
 	public Roles findById(int id) {
-		log.debug("getting Roles instance with id: " + id);
+		
 		try {
-			Roles instance = (Roles) sessionFactory.getCurrentSession().get("dao.Roles", id);
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		log.debug("getting Roles instance with id: " + id);
+		
+		try {
+			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+			Roles instance = (Roles) sessionFactory.getCurrentSession().get("com.objectif.onu.insarag_webapp.model.Roles", id);
+			tx.commit();
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -104,12 +127,49 @@ public class RolesHome {
 			throw re;
 		}
 	}
+	
+public Roles findByUserId(int id) {
+		
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		log.debug("getting Roles instance with id: " + id);
+		
+		try {
+			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+			Query query = sessionFactory.getCurrentSession().createQuery("from Roles as roles where roles.users = "+id);
+			Roles res = (Roles) query.getSingleResult();
+			tx.commit();
+			if (res == null) {
+				log.debug("get successful, no instance found");
+			} else {
+				log.debug("get successful, instance found");
+			}
+			return res;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
 
-	public List findByExample(Roles instance) {
+	public List<Users> findByExample(Roles instance) {
+		
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		
 		log.debug("finding Roles instance by example");
 		try {
-			List results = sessionFactory.getCurrentSession().createCriteria("dao.Roles").add(Example.create(instance))
+			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+			List results = sessionFactory.getCurrentSession().createCriteria("com.objectif.onu.insarag_webapp.model.Roles").add(Example.create(instance))
 					.list();
+			tx.commit();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;
 		} catch (RuntimeException re) {
@@ -117,4 +177,6 @@ public class RolesHome {
 			throw re;
 		}
 	}
+	
+	
 }
