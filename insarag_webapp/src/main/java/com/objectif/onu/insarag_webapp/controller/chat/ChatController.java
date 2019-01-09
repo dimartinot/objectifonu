@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ChatController {
 
 
-		@RequestMapping("/mail")
+		@RequestMapping("/chat")
 		public String index() throws Exception {
-			return "/chat/email";
+			return "/chat/chat";
 		}   
 	
 }
