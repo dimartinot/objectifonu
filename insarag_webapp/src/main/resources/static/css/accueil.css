@@ -13,7 +13,7 @@ html,body{
 }
 
 
-.com{
+button.com{
   background-color: #bfd7ea; /* bleu */
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
@@ -24,7 +24,7 @@ html,body{
   font-size: 30px;
 }
 
-.alert{
+button.alert{
   background-color: #bfd7ea; /* bleu */
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
@@ -35,7 +35,7 @@ html,body{
   font-size: 30px;
 }
 
-.admin{
+button.admin{
   background-color: #bfd7ea; /* bleu */
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
@@ -46,7 +46,7 @@ html,body{
   font-size: 30px;
 }
 
-.carte{
+button.carte{
   background-color: #bfd7ea; /* bleu */
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
@@ -57,7 +57,7 @@ html,body{
   font-size: 30px;
 }
 
-.orga{
+button.orga{
   background-color: #bfd7ea; /* bleu */
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
@@ -67,6 +67,3 @@ html,body{
   display: inline-block;
   font-size: 30px;
 }
-
-
-
