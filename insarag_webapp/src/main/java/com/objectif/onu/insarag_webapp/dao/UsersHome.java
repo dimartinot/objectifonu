@@ -1,19 +1,22 @@
 package com.objectif.onu.insarag_webapp.dao;
-// Generated 03-Jan-2019 17:56:06 by Hibernate Tools 5.3.0.Beta2
+// Generated 13-Jan-2019 15:01:39 by Hibernate Tools 5.0.6.Final
+
+import static org.hibernate.criterion.Example.create;
 
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
-import org.hibernate.query.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Example;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
+import com.objectif.onu.insarag_webapp.model.Grade;
+import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
 import com.objectif.onu.insarag_webapp.model.Users;
 
@@ -37,6 +40,8 @@ public class UsersHome {
 			SessionFactory s = configuration
 					.addClass(Users.class)
 					.addClass(Roles.class)
+					.addClass(Grade.class)
+					.addClass(Postes.class)
 					.buildSessionFactory(registry);
 			return s;
 			//return (SessionFactory) new InitialContext().lookup("SessionFactory");
@@ -109,9 +114,9 @@ public class UsersHome {
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		
 		log.debug("getting Users instance with id: " + id);
 		try {
+
 			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
 			Users instance = (Users) sessionFactory.getCurrentSession().get("dao.Users", id);
 			tx.commit();
@@ -127,20 +132,11 @@ public class UsersHome {
 		}
 	}
 
-	public List findByExample(Users instance) {
-		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		
+	public List<Users> findByExample(Users instance) {
 		log.debug("finding Users instance by example");
 		try {
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			List results = sessionFactory.getCurrentSession().createCriteria("dao.Users").add(Example.create(instance))
-					.list();
-			tx.commit();
+			List<Users> results = (List<Users>) sessionFactory.getCurrentSession().createCriteria("dao.Users")
+					.add(create(instance)).list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;
 		} catch (RuntimeException re) {
@@ -156,7 +152,7 @@ public class UsersHome {
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		
+
 		log.debug("finding Users instance by example");
 		try {
 			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();

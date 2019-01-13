@@ -45,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			Users u = (Users) o;
 			Roles r = rh.findByUserId(u.getIdusers());
 			auth.inMemoryAuthentication()
-	          .withUser(u.getUserName()).password(passwordEncoder().encode(u.getPassword())).roles(r.getTitre());
-			log.info(u.getUserName()+"-"+u.getPassword()+"-"+r.getTitre());
+	          .withUser(u.getEmail()).password(passwordEncoder().encode(u.getPassword())).roles(r.getTitre());
+			log.info(u.getEmail()+"-"+u.getPassword()+"-"+r.getTitre());
 		}
 //		
 //         auth.inMemoryAuthentication()
