@@ -7,9 +7,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.objectif.onu.insarag_webapp.bean.ActiveUserBean;
 import com.objectif.onu.insarag_webapp.dao.RolesHome;
 import com.objectif.onu.insarag_webapp.dao.UsersHome;
 import com.objectif.onu.insarag_webapp.model.Roles;
@@ -70,14 +72,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .and()
           .formLogin()
           .loginPage("/login")
+//          .successHandler(activeUserBean())
           .defaultSuccessUrl("/", true)
           .failureUrl("/login?error=true")
           .and()
-          .logout();
+          .logout()
+          .and()
+          .sessionManagement()
+          .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }
-     
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    
+    public ActiveUserBean activeUserBean() {
+    	return new ActiveUserBean();
     }
 }

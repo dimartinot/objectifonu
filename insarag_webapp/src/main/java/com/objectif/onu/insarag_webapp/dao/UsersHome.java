@@ -131,6 +131,31 @@ public class UsersHome {
 			throw re;
 		}
 	}
+	
+	public Users findByUsername(String username) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		log.debug("getting Users instance with username: " + username);
+		try {
+
+			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+			Users instance = (Users) sessionFactory.getCurrentSession().createQuery("from Users u where u.email = '"+username+"'").getSingleResult();
+			tx.commit();
+			if (instance == null) {
+				log.debug("get successful, no instance found");
+			} else {
+				log.debug("get successful, instance found");
+			}
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
 
 	public List<Users> findByExample(Users instance) {
 		log.debug("finding Users instance by example");

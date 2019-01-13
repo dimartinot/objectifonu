@@ -16,12 +16,15 @@ public class Users implements java.io.Serializable {
 	private String password;
 	private String telephone;
 	private Byte enMission;
+	private String nom;
+	private String prenom;
 	private Set<Roles> roleses = new HashSet<Roles>(0);
+
 
 	public Users() {
 	}
 
-	public Users(int idusers, Grade grade, Postes postes, String email, String password) {
+	public Users(int idusers, Grade grade, Postes postes, String email, String password, String nom, String prenom) {
 		this.idusers = idusers;
 		this.grade = grade;
 		this.postes = postes;
@@ -30,7 +33,7 @@ public class Users implements java.io.Serializable {
 	}
 
 	public Users(int idusers, Grade grade, Postes postes, String email, String password, String telephone,
-			Byte enMission, Set<Roles> roleses) {
+			Byte enMission, String nom, String prenom, Set<Roles> roleses) {
 		this.idusers = idusers;
 		this.grade = grade;
 		this.postes = postes;
@@ -97,6 +100,22 @@ public class Users implements java.io.Serializable {
 		this.enMission = enMission;
 	}
 
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
 	public Set<Roles> getRoleses() {
 		return this.roleses;
 	}
@@ -104,5 +123,14 @@ public class Users implements java.io.Serializable {
 	public void setRoleses(Set<Roles> roleses) {
 		this.roleses = roleses;
 	}
+
+	@Override
+	public String toString() {
+		return "Users [idusers=" + idusers + ", " + "email=" + email
+				+ ", password=" + password + ", telephone=" + telephone + ", enMission=" + enMission + ", nom=" + nom
+				+ ", prenom=" + prenom + "]";
+	}
+	
+	
 
 }
