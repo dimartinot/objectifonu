@@ -43,9 +43,9 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-		<a class="nav-link" href="#">
+		<a class="nav-link" href="/profil">
 		<img class="rounded" src="http://placehold.it/400x300" width="30" height="30" alt="">
-  Profile:  <% session.getAttribute("name"); %></a>
+  Profil:  <% session.getAttribute("name"); %></a>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>

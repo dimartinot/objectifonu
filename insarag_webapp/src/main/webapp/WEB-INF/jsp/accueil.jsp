@@ -38,7 +38,7 @@
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
+          <a href="/profil" class="d-block mb-4 h-100">
 			<button class="btn btn-info accueil rounded-circle">PROFIL</button>
           </a>
         </div>
