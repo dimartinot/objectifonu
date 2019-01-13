@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A layout example that shows off a responsive product landing page.">
-    <title>Objectif ONU</title>
+    <title>Profil - INSARAG</title>
 
 
 <link href="css\bootstrap\bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -20,51 +20,38 @@
 </head>
 
 <!-- Header -->
-<jsp:include page="utils/header.jsp" />
+<jsp:include page="../utils/header.jsp" />
 <!-- Header -->
 
  <body>
 	<div class="container">
 
-      <h1 class="my-4 text-center text-lg-left">Bienvenue Profil1,</h1>
+      <h1 class="my-4 text-center text-lg-left">PROFIL</h1>
 
       <div class="row text-center text-lg-left">
 
         <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil rounded-circle">COM.</button>
+          <a href="/modifprofil" class="d-block mb-4 h-100">
+            <button class="btn btn-info accueil modif rounded-circle">MODIFIER</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-			<button class="btn btn-info accueil rounded-circle">PROFIL</button>
+          <a href="/consulprofil" class="d-block mb-4 h-100">
+			<button class="btn btn-info accueil consult rounded-circle">CONSULTER</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil rounded-circle">ALERTE</button>
+          <a href="/lien" class="d-block mb-4 h-100">
+            <button class="btn btn-info accueil lien rounded-circle">LIENS UTILES</button>
           </a>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-			<button class="btn btn-info accueil rounded-circle">CARTE</button>
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil rounded-circle">ORGA.</button>
-          </a>
-        </div>
-
-
-      
+        
       </div>
-	<div class="push"></div>
-    </div>
+     </div>
 
  </body>
  <!-- Footer -->
-<jsp:include page="utils/footer.jsp" />
+<jsp:include page="../utils/footer.jsp" />
 
 <!-- Footer -->
 </html>

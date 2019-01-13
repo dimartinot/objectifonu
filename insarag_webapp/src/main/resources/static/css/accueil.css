@@ -1,5 +1,6 @@
 html,body{
-    height: auto;
+    height: 100%;
+    margin: 0;
 	background:White;
 
 }
@@ -8,12 +9,17 @@ html,body{
 	border : 3px solid #7c616c!important;
 }
 .container {
-	height:75.5vh;
-	margin-top:11%;
+	min-height: 100%;	
+	margin-bottom: 40px;
 }
 
 
-.com{
+.push {
+  height: 50px;
+}
+
+
+.accueil{
   background-color: #bfd7ea; /* bleu */
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
@@ -24,49 +30,16 @@ html,body{
   font-size: 30px;
 }
 
-.alert{
-  background-color: #bfd7ea; /* bleu */
-  border : 3px solid #7c616c!important;
-  font-family: 'Poiret One', cursive;
-  color: black;
-  padding: 63px 50px;
-  text-align: center;
-  display: inline-block;
-  font-size: 30px;
+.modif{
+  font-size: 25px;
 }
 
-.admin{
-  background-color: #bfd7ea; /* bleu */
-  border : 3px solid #7c616c!important;
-  font-family: 'Poiret One', cursive;
-  color: black;
-  padding: 63px 50px;
-  text-align: center;
-  display: inline-block;
-  font-size: 30px;
-}
-
-.carte{
-  background-color: #bfd7ea; /* bleu */
-  border : 3px solid #7c616c!important;
-  font-family: 'Poiret One', cursive;
-  color: black;
-  padding: 63px 50px;
-  text-align: center;
-  display: inline-block;
-  font-size: 30px;
-}
-
-.orga{
-  background-color: #bfd7ea; /* bleu */
-  border : 3px solid #7c616c!important;
-  font-family: 'Poiret One', cursive;
-  color: black;
-  padding: 63px 50px;
-  text-align: center;
-  display: inline-block;
-  font-size: 30px;
+.consult{
+  font-size: 20px;
 }
 
 
+.lien{
+  font-size: 20px;
+}
 
