@@ -3,6 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="bootstrap-4-dev\dist\js\bootstrap.min.js" rel="stylesheet" id="bootstrap-js" ></script>
 <link href="css\header.css" rel="stylesheet" id="header-css"> 
+<%@ page session="true" %>
 
 <header>
 
@@ -44,7 +45,7 @@
     <form class="form-inline my-2 my-lg-0">
 		<a class="nav-link" href="#">
 		<img class="rounded" src="http://placehold.it/400x300" width="30" height="30" alt="">
-  Profile</a>
+  Profile:  <% session.getAttribute("name"); %></a>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>

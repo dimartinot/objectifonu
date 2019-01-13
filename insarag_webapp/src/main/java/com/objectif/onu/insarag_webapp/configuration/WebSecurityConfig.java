@@ -1,4 +1,4 @@
-package com.objectif.onu.insarag_webapp.security;
+package com.objectif.onu.insarag_webapp.configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
@@ -41,9 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-		
-		
-		
 		for (Object o : uh.selectAll()) {
 			Users u = (Users) o;
 			Roles r = rh.findByUserId(u.getIdusers());

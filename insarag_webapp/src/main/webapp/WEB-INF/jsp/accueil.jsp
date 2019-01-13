@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ page session="true" %>
+
 <html lang="fr">
 <head>
     <meta charset="utf-8">
@@ -26,7 +28,7 @@
  <body>
 	<div class="container">
 
-      <h1 class="my-4 text-center text-lg-left">Bienvenue Profil1,</h1>
+      <h1 class="my-4 text-center text-lg-left">Bienvenue , <% session.getAttribute("name"); %></h1>
 
       <div class="row text-center text-lg-left">
 
