@@ -1,3 +1,5 @@
+<%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

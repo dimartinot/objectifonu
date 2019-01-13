@@ -77,6 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .failureUrl("/login?error=true")
           .and()
           .logout()
+          .deleteCookies("user")
           .and()
           .sessionManagement()
           .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);

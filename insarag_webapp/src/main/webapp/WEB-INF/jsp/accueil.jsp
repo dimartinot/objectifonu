@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page session="true" %>
+<%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
 
 <html lang="fr">
 <head>
@@ -28,7 +29,10 @@
  <body>
 	<div class="container">
 
-      <h1 class="my-4 text-center text-lg-left">Bienvenue , <% session.getAttribute("name"); %></h1>
+      <h1 class="my-4 text-center text-lg-left">Bienvenue , <%
+				Users obj = (Users)request.getSession().getAttribute("user");
+				out.print(obj.getNom()+" "+obj.getPrenom());
+				%></h1>
 
       <div class="row text-center text-lg-left">
 

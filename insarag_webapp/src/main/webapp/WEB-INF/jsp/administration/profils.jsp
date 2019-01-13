@@ -1,3 +1,5 @@
+<%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -38,12 +40,21 @@
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                        NOM (Grade + Nom)
+		                                Grade + <%
+						Users obj = (Users)request.getSession().getAttribute("user");
+						out.print(obj.getNom()+" "+obj.getPrenom());
+						%>
                                     </h5>
                                     <h6>
-                                        POSTE OCCUPE
+                                        Grade
                                     </h6>
+                                    <%
+									
+										if (obj.getEnMission() == 1) { %>			
                                     <p class="proile-rating">ACTIVITE : <span>EN MISSION</span></p>
+                                    <% } else { %>
+                                    <p class="proile-rating">ACTIVITE : <span>DISPONIBLE</span></p>
+                                    <% } %>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Infos</a>
@@ -67,18 +78,18 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>User Id</label>
+                                                <label>Prenom</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>ID</p>
+                                                <p><%= obj.getPrenom() %></p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Name</label>
+                                                <label>Nom</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>John Smith</p>
+                                                <p><%= obj.getNom() %></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -86,23 +97,29 @@
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>JohnSmith@gmail.com</p>
+                                                <p><%= obj.getEmail() %></p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Phone</label>
+                                                <label>Téléphone</label>
                                             </div>
+                                            <% if (obj.getTelephone() == null) { %>
                                             <div class="col-md-6">
-                                                <p>123 456 7890</p>
+                                                <p><i>Non communiqué</i></p>
                                             </div>
+                                            <% } else { %>
+                                            <div class="col-md-6">
+                                                <p><i><%= obj.getTelephone() %></i></p>
+                                            </div>
+                                            <% } %>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Profession</label>
+                                                <label>Poste</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Web Developer and Designer</p>
+                                                <p>À implémenter...<%-- <%= obj.getPostes() %> --%></p>
                                             </div>
                                         </div>
                             </div>

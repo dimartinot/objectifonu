@@ -1,3 +1,5 @@
+<%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -42,32 +44,39 @@
          		<div class="form-group">
             <label class="col-lg-3 control-label">Prénom :</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Jane">
+              <input class="form-control" type="text" value="<%
+						Users obj = (Users)request.getSession().getAttribute("user");
+						out.print(obj.getPrenom());
+						%>">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Nom :</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Bishop">
+              <input class="form-control" type="text" value="<%= obj.getNom()%>">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Téléphone :</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="">
+            <% if ( obj.getTelephone() != null) { %>
+              <input class="form-control" type="text" value="<% out.print(obj.getTelephone()); %>">
+            <% } else { %>
+           	<input class="form-control" type="text" value="">
+              <% } %>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Email :</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="janesemail@gmail.com">
+              <input class="form-control" type="text" value="<%= obj.getEmail()%>">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Poste:</label>
             <div class="col-lg-8">
               <div class="ui-select">
-                <select id="user_time_zone" class="form-control">
+                <select id="user_time_zone" class="form-control" disabled>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -77,18 +86,18 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-3 control-label">Profession:</label>
+            <label class="col-md-3 control-label">Grade:</label>
             <div class="col-md-8">
-              <input class="form-control" type="text" value="janeuser">
+              <input class="form-control" type="text" value="Grade" disabled>
             </div>
           </div>
           
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
-              <input type="button" class="btn btn-primary" value="Save Changes">
+              <input type="button" class="btn btn-primary" value="Sauvegarder les changements">
               <span></span>
-              <input type="reset" class="btn btn-default" value="Cancel">
+              <input type="reset" class="btn btn-default" value="Annuler">
             </div>
           </div>
             </form>

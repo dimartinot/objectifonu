@@ -4,6 +4,7 @@
 <script src="bootstrap-4-dev\dist\js\bootstrap.min.js" rel="stylesheet" id="bootstrap-js" ></script>
 <link href="css\header.css" rel="stylesheet" id="header-css"> 
 <%@ page session="true" %>
+<%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
 
 <header>
 
@@ -45,7 +46,15 @@
     <form class="form-inline my-2 my-lg-0">
 		<a class="nav-link" href="/profil">
 		<img class="rounded" src="http://placehold.it/400x300" width="30" height="30" alt="">
-  Profil:  <% session.getAttribute("name"); %></a>
+  Profil:  <%
+  				Object obj = request.getSession().getAttribute("user");
+				if (obj != null) {
+					Users us = (Users)request.getSession().getAttribute("user");
+					out.print(us.getNom()+" "+us.getPrenom());
+				} else {
+					out.print(" Non connecté ");
+				}
+				%>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>

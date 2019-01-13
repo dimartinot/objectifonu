@@ -11,8 +11,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
+import com.objectif.onu.insarag_webapp.model.Grade;
 import com.objectif.onu.insarag_webapp.model.Postes;
+import com.objectif.onu.insarag_webapp.model.Roles;
+import com.objectif.onu.insarag_webapp.model.Users;
 
 /**
  * Home object for domain model class Postes.
@@ -27,7 +33,18 @@ public class PostesHome {
 
 	protected SessionFactory getSessionFactory() {
 		try {
-			return (SessionFactory) new InitialContext().lookup("SessionFactory");
+			Configuration configuration = new Configuration().configure();
+			ServiceRegistry registry = new StandardServiceRegistryBuilder()
+	                .applySettings(configuration.getProperties())
+	                .build();
+			SessionFactory s = configuration
+					.addClass(Users.class)
+					.addClass(Roles.class)
+					.addClass(Grade.class)
+					.addClass(Postes.class)
+					.buildSessionFactory(registry);
+			return s;
+			//return (SessionFactory) new InitialContext().lookup("SessionFactory");
 		} catch (Exception e) {
 			log.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException("Could not locate SessionFactory in JNDI");
