@@ -1,12 +1,7 @@
 package com.objectif.onu.insarag_webapp.controller.administration;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
- 
-
-
- 
+import org.springframework.web.bind.annotation.RequestMapping; 
  
 @Controller 
 public class AdministrationController {
@@ -27,6 +22,11 @@ public class AdministrationController {
 	@RequestMapping("/modifprofil")
 	public String modifierProfil() throws Exception {
 		return "/administration/params";
+	}
+	
+	@RequestMapping("/login")
+	public String login() throws Exception {
+		return "/administration/login";
 	}
 	
 }
