@@ -36,7 +36,7 @@
     </div>
 </div>
 </body>
-<jsp:include page="../utils/header.jsp" />
+<jsp:include page="../utils/footer.jsp" />
 
 <script type="text/javascript">
 function validate() {

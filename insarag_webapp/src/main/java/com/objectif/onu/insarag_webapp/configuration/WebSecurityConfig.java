@@ -1,4 +1,4 @@
-package com.objectif.onu.insarag_webapp.security;
+package com.objectif.onu.insarag_webapp.configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
@@ -7,9 +7,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.objectif.onu.insarag_webapp.bean.ActiveUserBean;
 import com.objectif.onu.insarag_webapp.dao.RolesHome;
 import com.objectif.onu.insarag_webapp.dao.UsersHome;
 import com.objectif.onu.insarag_webapp.model.Roles;
@@ -41,15 +43,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-		
-		
-		
 		for (Object o : uh.selectAll()) {
 			Users u = (Users) o;
 			Roles r = rh.findByUserId(u.getIdusers());
 			auth.inMemoryAuthentication()
-	          .withUser(u.getUserName()).password(passwordEncoder().encode(u.getPassword())).roles(r.getTitre());
-			log.info(u.getUserName()+"-"+u.getPassword()+"-"+r.getTitre());
+	          .withUser(u.getEmail()).password(passwordEncoder().encode(u.getPassword())).roles(r.getTitre());
+			log.info(u.getEmail()+"-"+u.getPassword()+"-"+r.getTitre());
 		}
 //		
 //         auth.inMemoryAuthentication()
@@ -73,14 +72,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .and()
           .formLogin()
           .loginPage("/login")
+//          .successHandler(activeUserBean())
           .defaultSuccessUrl("/", true)
           .failureUrl("/login?error=true")
           .and()
-          .logout();
+          .logout()
+          .deleteCookies("user")
+          .and()
+          .sessionManagement()
+          .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }
-     
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    
+    public ActiveUserBean activeUserBean() {
+    	return new ActiveUserBean();
     }
 }

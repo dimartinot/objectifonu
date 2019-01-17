@@ -1,5 +1,6 @@
 html,body{
-    height: auto;
+    height: 100%;
+    margin: 0;
 	background:White;
 
 }
@@ -8,10 +9,9 @@ html,body{
 	border : 3px solid #7c616c!important;
 }
 .container {
-	height:75.5vh;
-	margin-top:11%;
+	min-height: 100%;	
+	margin-bottom: 40px;
 }
-
 
 button.com{
   background-color: #bfd7ea; /* bleu */
@@ -35,7 +35,12 @@ button.alert{
   font-size: 30px;
 }
 
-button.admin{
+.push {
+  height: 50px;
+}
+
+
+.accueil{
   background-color: #bfd7ea; /* bleu */
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
@@ -67,3 +72,16 @@ button.orga{
   display: inline-block;
   font-size: 30px;
 }
+.modif{
+  font-size: 25px;
+}
+
+.consult{
+  font-size: 20px;
+}
+
+
+.lien{
+  font-size: 20px;
+}
+

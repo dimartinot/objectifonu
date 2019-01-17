@@ -1,5 +1,5 @@
 package com.objectif.onu.insarag_webapp.model;
-// Generated 03-Jan-2019 17:58:35 by Hibernate Tools 5.3.0.Beta2
+// Generated 13-Jan-2019 14:59:36 by Hibernate Tools 5.0.6.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,21 +10,37 @@ import java.util.Set;
 public class Users implements java.io.Serializable {
 
 	private int idusers;
-	private String userName;
+	private Grade grade;
+	private Postes postes;
+	private String email;
 	private String password;
-	private Set roleses = new HashSet(0);
+	private String telephone;
+	private Byte enMission;
+	private String nom;
+	private String prenom;
+	private Set<Roles> roleses = new HashSet<Roles>(0);
+
 
 	public Users() {
 	}
 
-	public Users(int idusers) {
+	public Users(int idusers, Grade grade, Postes postes, String email, String password, String nom, String prenom) {
 		this.idusers = idusers;
+		this.grade = grade;
+		this.postes = postes;
+		this.email = email;
+		this.password = password;
 	}
 
-	public Users(int idusers, String userName, String password, Set roleses) {
+	public Users(int idusers, Grade grade, Postes postes, String email, String password, String telephone,
+			Byte enMission, String nom, String prenom, Set<Roles> roleses) {
 		this.idusers = idusers;
-		this.userName = userName;
+		this.grade = grade;
+		this.postes = postes;
+		this.email = email;
 		this.password = password;
+		this.telephone = telephone;
+		this.enMission = enMission;
 		this.roleses = roleses;
 	}
 
@@ -36,12 +52,28 @@ public class Users implements java.io.Serializable {
 		this.idusers = idusers;
 	}
 
-	public String getUserName() {
-		return this.userName;
+	public Grade getGrade() {
+		return this.grade;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
+
+	public Postes getPostes() {
+		return this.postes;
+	}
+
+	public void setPostes(Postes postes) {
+		this.postes = postes;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -52,12 +84,53 @@ public class Users implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Set getRoleses() {
+	public String getTelephone() {
+		return this.telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public Byte getEnMission() {
+		return this.enMission;
+	}
+
+	public void setEnMission(Byte enMission) {
+		this.enMission = enMission;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public Set<Roles> getRoleses() {
 		return this.roleses;
 	}
 
-	public void setRoleses(Set roleses) {
+	public void setRoleses(Set<Roles> roleses) {
 		this.roleses = roleses;
 	}
+
+	@Override
+	public String toString() {
+		return "Users [idusers=" + idusers + ", " + "email=" + email
+				+ ", password=" + password + ", telephone=" + telephone + ", enMission=" + enMission + ", nom=" + nom
+				+ ", prenom=" + prenom + "]";
+	}
+	
+	
 
 }

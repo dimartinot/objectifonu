@@ -6,16 +6,10 @@
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/insarag?useSSL=false</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/insarag</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.default_schema">insarag</property>
-        
-	    <!-- SQL dialect -->
-	    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-	    
-	    <!-- Déclare la session hibernate comme Thread dépendante -->
-	    <property name="hibernate.current_session_context_class">thread</property>
-	    <mapping resource="Users.hbm.xml"/>
-		<mapping resource="Roles.hbm.xml"/>	
+    
+    	<property name="hibernate.current_session_context_class">thread</property>
+    	
     </session-factory>
 </hibernate-configuration>

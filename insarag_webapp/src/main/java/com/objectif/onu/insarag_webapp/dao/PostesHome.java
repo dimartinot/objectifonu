@@ -5,14 +5,14 @@ import static org.hibernate.criterion.Example.create;
 
 import java.util.List;
 
+import javax.naming.InitialContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Grade;
@@ -21,13 +21,13 @@ import com.objectif.onu.insarag_webapp.model.Roles;
 import com.objectif.onu.insarag_webapp.model.Users;
 
 /**
- * Home object for domain model class Users.
- * @see dao.Users
+ * Home object for domain model class Postes.
+ * @see dao.Postes
  * @author Hibernate Tools
  */
-public class UsersHome {
+public class PostesHome {
 
-	private static final Log log = LogFactory.getLog(UsersHome.class);
+	private static final Log log = LogFactory.getLog(PostesHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -51,8 +51,8 @@ public class UsersHome {
 		}
 	}
 
-	public void persist(Users transientInstance) {
-		log.debug("persisting Users instance");
+	public void persist(Postes transientInstance) {
+		log.debug("persisting Postes instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -62,8 +62,8 @@ public class UsersHome {
 		}
 	}
 
-	public void attachDirty(Users instance) {
-		log.debug("attaching dirty Users instance");
+	public void attachDirty(Postes instance) {
+		log.debug("attaching dirty Postes instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -73,8 +73,8 @@ public class UsersHome {
 		}
 	}
 
-	public void attachClean(Users instance) {
-		log.debug("attaching clean Users instance");
+	public void attachClean(Postes instance) {
+		log.debug("attaching clean Postes instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -84,8 +84,8 @@ public class UsersHome {
 		}
 	}
 
-	public void delete(Users persistentInstance) {
-		log.debug("deleting Users instance");
+	public void delete(Postes persistentInstance) {
+		log.debug("deleting Postes instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -95,10 +95,10 @@ public class UsersHome {
 		}
 	}
 
-	public Users merge(Users detachedInstance) {
-		log.debug("merging Users instance");
+	public Postes merge(Postes detachedInstance) {
+		log.debug("merging Postes instance");
 		try {
-			Users result = (Users) sessionFactory.getCurrentSession().merge(detachedInstance);
+			Postes result = (Postes) sessionFactory.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -107,44 +107,10 @@ public class UsersHome {
 		}
 	}
 
-	public Users findById(int id) {
+	public Postes findById(int id) {
+		log.debug("getting Postes instance with id: " + id);
 		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		log.debug("getting Users instance with id: " + id);
-		try {
-
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Users instance = (Users) sessionFactory.getCurrentSession().get("dao.Users", id);
-			tx.commit();
-			if (instance == null) {
-				log.debug("get successful, no instance found");
-			} else {
-				log.debug("get successful, instance found");
-			}
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
-	
-	public Users findByUsername(String username) {
-		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		log.debug("getting Users instance with username: " + username);
-		try {
-
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Users instance = (Users) sessionFactory.getCurrentSession().createQuery("from Users u where u.email = '"+username+"'").getSingleResult();
-			tx.commit();
+			Postes instance = (Postes) sessionFactory.getCurrentSession().get("dao.Postes", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -157,35 +123,13 @@ public class UsersHome {
 		}
 	}
 
-	public List<Users> findByExample(Users instance) {
-		log.debug("finding Users instance by example");
+	public List<Postes> findByExample(Postes instance) {
+		log.debug("finding Postes instance by example");
 		try {
-			List<Users> results = (List<Users>) sessionFactory.getCurrentSession().createCriteria("dao.Users")
+			List<Postes> results = (List<Postes>) sessionFactory.getCurrentSession().createCriteria("dao.Postes")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
-	
-	public List selectAll() {
-		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-
-		log.debug("finding Users instance by example");
-		try {
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Query query = sessionFactory.getCurrentSession().createQuery("from Users");
-			List<Users> list = query.list();
-			tx.commit();
-			log.debug("find all successfull, result size: " + list.size());
-			return list;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
 			throw re;
