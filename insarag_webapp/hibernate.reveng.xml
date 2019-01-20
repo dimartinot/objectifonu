@@ -6,4 +6,9 @@
   <table-filter match-catalog="insarag" match-name="postes"/>
   <table-filter match-catalog="insarag" match-name="roles"/>
   <table-filter match-catalog="insarag" match-name="users"/>
+  <table-filter match-catalog="insarag" match-name="alerte"/>
+  <table-filter match-catalog="insarag" match-name="arepondu"/>
+  <table-filter match-catalog="insarag" match-name="pays"/>
+  <table-filter match-catalog="insarag" match-name="ville"/>
+
 </hibernate-reverse-engineering>

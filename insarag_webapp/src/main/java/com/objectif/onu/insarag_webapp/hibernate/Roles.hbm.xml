@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 13-Jan-2019 17:24:34 by Hibernate Tools 5.0.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-Jan-2019 19:44:53 by Hibernate Tools 5.0.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
-    <class catalog="insarag" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.objectif.onu.insarag_webapp.model.Roles" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="roles">
+    <class catalog="insarag" dynamic-insert="false" dynamic-update="false" mutable="true" name="hibernate.Roles" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="roles">
         <id name="id" type="java.lang.Integer">
             <column name="id"/>
             <generator class="identity"/>
         </id>
-        <many-to-one class="com.objectif.onu.insarag_webapp.model.Users" embed-xml="true" fetch="select" insert="true" name="users" not-found="exception" optimistic-lock="true" unique="false" update="true">
+        <many-to-one class="hibernate.Users" embed-xml="true" fetch="select" insert="true" name="users" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="user" not-null="true" unique="true"/>
         </many-to-one>
         <property generated="never" lazy="false" name="titre" optimistic-lock="true" type="string" unique="false">

@@ -1,18 +1,18 @@
 package com.objectif.onu.insarag_webapp.dao;
-// Generated 13-Jan-2019 15:01:39 by Hibernate Tools 5.0.6.Final
+// Generated 20-Jan-2019 19:48:17 by Hibernate Tools 5.0.6.Final
 
 import static org.hibernate.criterion.Example.create;
 
 import java.util.List;
 
+import javax.naming.InitialContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
@@ -24,13 +24,13 @@ import com.objectif.onu.insarag_webapp.model.Users;
 import com.objectif.onu.insarag_webapp.model.Ville;
 
 /**
- * Home object for domain model class Roles.
- * @see dao.Roles
+ * Home object for domain model class Alerte.
+ * @see dao.Alerte
  * @author Hibernate Tools
  */
-public class RolesHome {
+public class AlerteHome {
 
-	private static final Log log = LogFactory.getLog(RolesHome.class);
+	private static final Log log = LogFactory.getLog(AlerteHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -57,8 +57,8 @@ public class RolesHome {
 		}
 	}
 
-	public void persist(Roles transientInstance) {
-		log.debug("persisting Roles instance");
+	public void persist(Alerte transientInstance) {
+		log.debug("persisting Alerte instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -68,8 +68,8 @@ public class RolesHome {
 		}
 	}
 
-	public void attachDirty(Roles instance) {
-		log.debug("attaching dirty Roles instance");
+	public void attachDirty(Alerte instance) {
+		log.debug("attaching dirty Alerte instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -79,8 +79,8 @@ public class RolesHome {
 		}
 	}
 
-	public void attachClean(Roles instance) {
-		log.debug("attaching clean Roles instance");
+	public void attachClean(Alerte instance) {
+		log.debug("attaching clean Alerte instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -90,8 +90,8 @@ public class RolesHome {
 		}
 	}
 
-	public void delete(Roles persistentInstance) {
-		log.debug("deleting Roles instance");
+	public void delete(Alerte persistentInstance) {
+		log.debug("deleting Alerte instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -101,10 +101,10 @@ public class RolesHome {
 		}
 	}
 
-	public Roles merge(Roles detachedInstance) {
-		log.debug("merging Roles instance");
+	public Alerte merge(Alerte detachedInstance) {
+		log.debug("merging Alerte instance");
 		try {
-			Roles result = (Roles) sessionFactory.getCurrentSession().merge(detachedInstance);
+			Alerte result = (Alerte) sessionFactory.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -113,12 +113,10 @@ public class RolesHome {
 		}
 	}
 
-	public Roles findById(java.lang.Integer id) {
-		log.debug("getting Roles instance with id: " + id);
+	public Alerte findById(int id) {
+		log.debug("getting Alerte instance with id: " + id);
 		try {
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Roles instance = (Roles) sessionFactory.getCurrentSession().get("com.objectif.onu.insarag_webapp.model.Roles", id);
-			tx.commit();
+			Alerte instance = (Alerte) sessionFactory.getCurrentSession().get("dao.Alerte", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -131,37 +129,10 @@ public class RolesHome {
 		}
 	}
 
-	public Roles findByUserId(int id) {
-
+	public List<Alerte> findByExample(Alerte instance) {
+		log.debug("finding Alerte instance by example");
 		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		log.debug("getting Roles instance with id: " + id);
-
-		try {
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Query query = sessionFactory.getCurrentSession().createQuery("from Roles as roles where roles.users = "+id);
-			Roles res = (Roles) query.getSingleResult();
-			tx.commit();
-			if (res == null) {
-				log.debug("get successful, no instance found");
-			} else {
-				log.debug("get successful, instance found");
-			}
-			return res;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
-	
-	public List<Roles> findByExample(Roles instance) {
-		log.debug("finding Roles instance by example");
-		try {
-			List<Roles> results = (List<Roles>) sessionFactory.getCurrentSession().createCriteria("dao.Roles")
+			List<Alerte> results = (List<Alerte>) sessionFactory.getCurrentSession().createCriteria("dao.Alerte")
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;

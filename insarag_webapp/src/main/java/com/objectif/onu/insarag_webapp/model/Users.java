@@ -1,5 +1,5 @@
 package com.objectif.onu.insarag_webapp.model;
-// Generated 13-Jan-2019 14:59:36 by Hibernate Tools 5.0.6.Final
+// Generated 20-Jan-2019 19:43:36 by Hibernate Tools 5.0.6.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class Users implements java.io.Serializable {
 
-	private int idusers;
+	private Integer idusers;
 	private Grade grade;
 	private Postes postes;
 	private String email;
@@ -18,37 +18,40 @@ public class Users implements java.io.Serializable {
 	private Byte enMission;
 	private String nom;
 	private String prenom;
+	private Set<Alerte> alertes = new HashSet<Alerte>(0);
 	private Set<Roles> roleses = new HashSet<Roles>(0);
-
 
 	public Users() {
 	}
 
-	public Users(int idusers, Grade grade, Postes postes, String email, String password, String nom, String prenom) {
-		this.idusers = idusers;
+	public Users(Grade grade, Postes postes, String email, String password, String nom, String prenom) {
 		this.grade = grade;
 		this.postes = postes;
 		this.email = email;
 		this.password = password;
+		this.nom = nom;
+		this.prenom = prenom;
 	}
 
-	public Users(int idusers, Grade grade, Postes postes, String email, String password, String telephone,
-			Byte enMission, String nom, String prenom, Set<Roles> roleses) {
-		this.idusers = idusers;
+	public Users(Grade grade, Postes postes, String email, String password, String telephone, Byte enMission,
+			String nom, String prenom, Set<Alerte> alertes, Set<Roles> roleses) {
 		this.grade = grade;
 		this.postes = postes;
 		this.email = email;
 		this.password = password;
 		this.telephone = telephone;
 		this.enMission = enMission;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.alertes = alertes;
 		this.roleses = roleses;
 	}
 
-	public int getIdusers() {
+	public Integer getIdusers() {
 		return this.idusers;
 	}
 
-	public void setIdusers(int idusers) {
+	public void setIdusers(Integer idusers) {
 		this.idusers = idusers;
 	}
 
@@ -101,7 +104,7 @@ public class Users implements java.io.Serializable {
 	}
 
 	public String getNom() {
-		return nom;
+		return this.nom;
 	}
 
 	public void setNom(String nom) {
@@ -109,11 +112,19 @@ public class Users implements java.io.Serializable {
 	}
 
 	public String getPrenom() {
-		return prenom;
+		return this.prenom;
 	}
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	public Set<Alerte> getAlertes() {
+		return this.alertes;
+	}
+
+	public void setAlertes(Set<Alerte> alertes) {
+		this.alertes = alertes;
 	}
 
 	public Set<Roles> getRoleses() {
@@ -123,14 +134,5 @@ public class Users implements java.io.Serializable {
 	public void setRoleses(Set<Roles> roleses) {
 		this.roleses = roleses;
 	}
-
-	@Override
-	public String toString() {
-		return "Users [idusers=" + idusers + ", " + "email=" + email
-				+ ", password=" + password + ", telephone=" + telephone + ", enMission=" + enMission + ", nom=" + nom
-				+ ", prenom=" + prenom + "]";
-	}
-	
-	
 
 }

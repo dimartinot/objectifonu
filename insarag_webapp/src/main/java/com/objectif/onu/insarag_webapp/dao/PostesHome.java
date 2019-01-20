@@ -15,10 +15,13 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.objectif.onu.insarag_webapp.model.Alerte;
 import com.objectif.onu.insarag_webapp.model.Grade;
+import com.objectif.onu.insarag_webapp.model.Pays;
 import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
 import com.objectif.onu.insarag_webapp.model.Users;
+import com.objectif.onu.insarag_webapp.model.Ville;
 
 /**
  * Home object for domain model class Postes.
@@ -42,9 +45,12 @@ public class PostesHome {
 					.addClass(Roles.class)
 					.addClass(Grade.class)
 					.addClass(Postes.class)
+					.addClass(Ville.class)
+					.addClass(Pays.class)
+					.addClass(Alerte.class)
 					.buildSessionFactory(registry);
 			return s;
-			//return (SessionFactory) new InitialContext().lookup("SessionFactory");
+//			return (SessionFactory) new InitialContext().lookup("SessionFactory");
 		} catch (Exception e) {
 			log.error("Could not locate SessionFactory in JNDI", e);
 			throw new IllegalStateException("Could not locate SessionFactory in JNDI");
