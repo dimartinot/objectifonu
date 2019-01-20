@@ -37,10 +37,6 @@ public class IndexController {
 		      connectedUser.setUser(rufdb.getUserFromDatabase(auth.getName()));
 			session.setAttribute("user", connectedUser.getUser());
 		}
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        connectedUser.setUser(rufdb.getUserFromDatabase(auth.getName()));
-//        System.out.println(connectedUser.getUser());
-//		model.addAttribute("username", connectedUser.getUser().getEmail());
 		return "accueil";
 	}   
 	

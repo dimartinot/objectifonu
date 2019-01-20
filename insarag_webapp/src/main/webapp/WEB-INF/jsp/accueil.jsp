@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <%@ page session="true" %>
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+<%@ page import="com.objectif.onu.insarag_webapp.model.Roles" %>
+<%@ page import="java.util.HashSet" %>
 
 <html lang="fr">
 <head>
@@ -46,11 +48,23 @@
 			<button class="btn btn-info accueil rounded-circle">PROFIL</button>
           </a>
         </div>
+        <!-- We check if the user is an admin -->
+        <% obj = (Users)request.getSession().getAttribute("user");
+        	HashSet<Roles> s = (HashSet<Roles>)obj.getRoleses();
+        	boolean isAdmin = false;
+        	for (Roles r : s) {
+        		if (r.getTitre().toUpperCase().equals("ADMIN")) {
+        			isAdmin = true;
+        		}
+        	}
+        	if (isAdmin) {
+        %>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="#" class="d-block mb-4 h-100">
             <button class="btn btn-info accueil rounded-circle">ALERTE</button>
           </a>
         </div>
+        <% } %>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="#" class="d-block mb-4 h-100">
 			<button class="btn btn-info accueil rounded-circle">CARTE</button>
