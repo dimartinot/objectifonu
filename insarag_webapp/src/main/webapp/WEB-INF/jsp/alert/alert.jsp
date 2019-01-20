@@ -1,5 +1,9 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <!DOCTYPE html>
+<!DOCTYPE html>
+<%@ page session="true" %>
+<%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+<%@ page import="com.objectif.onu.insarag_webapp.model.Roles" %>
+<%@ page import="java.util.HashSet" %>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
@@ -37,7 +41,14 @@
 				</ul>
 			</p>
 			<hr class="my-4">
-			<h3 class="display-5">Vous êtes connecté en tant qu'Administrateur, vous pouvez donc :</h3>
+			<% 
+			boolean isAdmin = (Boolean)request.getSession().getAttribute("isAdmin");
+        	if (isAdmin) {
+        	%>
+				<h3 class="display-5">Vous êtes connecté en tant qu'Administrateur, vous pouvez donc :</h3>
+			<% } else {%>
+				<h3 class="display-5">Vous n'êtes pas connecté en tant qu'Administrateur, vous pouvez donc :</h3>
+			<% } %>
 			<div class="row">
 				<div class="col">
 				  <a class="quicklink link1" href="last_alert">
@@ -53,6 +64,7 @@
 	               </a>
 	             </div>
 	             <div class="col"></div>
+	             <% if (isAdmin) { %>
 	             <div class="col">
 	               <a class="quicklink link2" href="alert_editor">
 		               <span class="ql_caption">
@@ -66,6 +78,7 @@
 		              <span class="ql_bottom"></span>
 	              </a>
 	        	</div>
+	        	<% } %>
 	        </div>
 		</div>
 </body>

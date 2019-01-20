@@ -42,9 +42,9 @@ button.alert{
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
   color: black;
-  padding: 63px 50px;
+  padding: 63px 50px!important;
   text-align: center;
   display: inline-block;
-  font-size: 30px;
+  font-size: 30px!important;
 }
 
