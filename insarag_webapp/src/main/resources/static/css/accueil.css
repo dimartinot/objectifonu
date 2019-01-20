@@ -1,5 +1,7 @@
 html,body{
-    height: auto;
+
+    height: 100%;
+    margin: 0;
 	background:White;
 
 }
@@ -25,6 +27,17 @@ button.com{
 }
 
 button.alert{
+	min-height: 100%;	
+	margin-bottom: 40px;
+}
+
+
+.push {
+  height: 50px;
+}
+
+
+.accueil{
   background-color: #bfd7ea; /* bleu */
   border : 3px solid #7c616c!important;
   font-family: 'Poiret One', cursive;
@@ -35,35 +48,3 @@ button.alert{
   font-size: 30px;
 }
 
-button.admin{
-  background-color: #bfd7ea; /* bleu */
-  border : 3px solid #7c616c!important;
-  font-family: 'Poiret One', cursive;
-  color: black;
-  padding: 63px 50px;
-  text-align: center;
-  display: inline-block;
-  font-size: 30px;
-}
-
-button.carte{
-  background-color: #bfd7ea; /* bleu */
-  border : 3px solid #7c616c!important;
-  font-family: 'Poiret One', cursive;
-  color: black;
-  padding: 63px 50px;
-  text-align: center;
-  display: inline-block;
-  font-size: 30px;
-}
-
-button.orga{
-  background-color: #bfd7ea; /* bleu */
-  border : 3px solid #7c616c!important;
-  font-family: 'Poiret One', cursive;
-  color: black;
-  padding: 63px 50px;
-  text-align: center;
-  display: inline-block;
-  font-size: 30px;
-}

@@ -7,6 +7,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="<c:url value="\js\bootstrap.min.js" />" rel="stylesheet" id="bootstrap-js" ></script>
 <link href="<c:url value="\css\utils\header.css" />" rel="stylesheet" id="header-css">
+<!-- <script src="bootstrap-4-dev\dist\js\bootstrap.min.js" rel="stylesheet" id="bootstrap-js" ></script>
+<link href="css\header.css" rel="stylesheet" id="header-css">  -->
+<%@ page session="true" %>
+<%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
 
 <header>
 
@@ -46,12 +50,25 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-		<a class="nav-link" href="#">
+		<a class="nav-link" href="/profil">
 		<img class="rounded" src="http://placehold.it/400x300" width="30" height="30" alt="">
-  Profile</a>
+  Profil:  <%
+  				Object obj = request.getSession().getAttribute("user");
+				if (obj != null) {
+					Users us = (Users)request.getSession().getAttribute("user");
+					out.print(us.getNom()+" "+us.getPrenom());
+				} else {
+					out.print(" Non connecté ");
+				}
+				%>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+    <ul class="navbar-nav mr-auto">
+    	<li class="nav-item">
+    		<a class="nav-link color2" href="/logout">Deconnexion</a>
+    	</li>
+    </ul>
   </div>
 </nav>
 
