@@ -26,7 +26,7 @@
             <div class="contact-image">
                 <img src="<c:url value="\img\alerte\alert.png"/>" alt="ringbell" id="top_img"/>
             </div>
-            <form method="post">
+            <form method="post" action="create_alert">
                 <h3>Editeur d'alerte</h3>
                <div class="row">
                     <div class="col-md-6">
@@ -34,10 +34,16 @@
                             <input type="text" name="entete" class="form-control" placeholder="Entete d'alerte" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="text" name="dateDebut" class="form-control" placeholder="Date de début" value="" />
+                            <input type="text" name="pays" class="form-control" placeholder="Pays" value="" />
                         </div>
                         <div class="form-group">
-                            <input type="text" name="dateFin" class="form-control" placeholder="Date de fin" value="" />
+                            <input type="text" name="ville" class="form-control" placeholder="Ville" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="date" name="dateDebut" class="form-control" placeholder="Date de début" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="date" name="dateFin" class="form-control" placeholder="Date de fin" value="" />
                         </div>
                     </div>
                     <div class="col-md-6">

@@ -5,14 +5,14 @@ import static org.hibernate.criterion.Example.create;
 
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
@@ -140,5 +140,62 @@ public class PaysHome {
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+	
+	public Pays findByName(String name) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		log.debug("getting Country instance with name: " + name);
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			Pays instance = (Pays) sessionFactory.getCurrentSession().createQuery("from Pays p where p.nompays = '"+name+"'").getSingleResult();
+			tx.commit();
+			if (instance == null) {
+				log.debug("get unsuccessful, no instance found");
+			} else {
+				log.debug("get successful, instance found");
+			}
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	public boolean insertIfNotExists(Pays instance) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			sessionFactory.getCurrentSession().persist(instance);
+			try {
+				tx.commit();
+			} catch (ConstraintViolationException cve) {
+				log.info("pays existe déjà", cve);
+			}
+		} catch (RuntimeException re) {
+			log.error("insert failed", re);
+			throw re;
+		}
+		return false;
 	}
 }
