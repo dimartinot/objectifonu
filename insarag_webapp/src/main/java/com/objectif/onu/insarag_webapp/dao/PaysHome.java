@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
@@ -186,11 +187,16 @@ public class PaysHome {
 			} else {
 				tx = sessionFactory.getCurrentSession().getTransaction();
 			}
-			sessionFactory.getCurrentSession().persist(instance);
-			try {
-				tx.commit();
-			} catch (ConstraintViolationException cve) {
-				log.info("pays existe déjà", cve);
+			Query query = sessionFactory.getCurrentSession().createQuery("FROM Pays p where p.nompays = UPPER('"+instance.getNompays()+"')");
+			List results = query.list();
+			if (results.size() == 0) 
+			{
+				sessionFactory.getCurrentSession().persist(instance);
+				try {
+					tx.commit();
+				} catch (ConstraintViolationException cve) {
+					log.info("pays existe déjà", cve);
+				}
 			}
 		} catch (RuntimeException re) {
 			log.error("insert failed", re);

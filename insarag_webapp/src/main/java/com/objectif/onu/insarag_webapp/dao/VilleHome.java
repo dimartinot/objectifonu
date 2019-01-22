@@ -161,11 +161,16 @@ public class VilleHome {
 			} else {
 				tx = sessionFactory.getCurrentSession().getTransaction();
 			}
-			sessionFactory.getCurrentSession().persist(instance);
-			try {
-				tx.commit();
-			} catch (ConstraintViolationException cve) {
-				log.info("ville existe déjà", cve);
+			Query query = sessionFactory.getCurrentSession().createQuery("FROM Ville v where v.nomville = UPPER('"+instance.getNomville()+"')");
+			List results = query.list();
+			if (results.size() == 0) 
+			{
+				sessionFactory.getCurrentSession().persist(instance);
+				try {
+					tx.commit();
+				} catch (ConstraintViolationException cve) {
+					log.info("ville existe déjà", cve);
+				}
 			}
 		} catch (RuntimeException re) {
 			log.error("insert failed", re);
