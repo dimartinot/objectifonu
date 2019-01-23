@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
@@ -165,5 +166,35 @@ public class AlerteHome {
 			throw re;
 		}
 		return false;
+	}
+	
+	public Alerte selectLastFromUser(Users instance) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			//On recupere l'alerte la plus récente de l'utilisateur instance
+			Query q = sessionFactory.getCurrentSession().createQuery(
+					"FROM Alerte a ORDER BY a.idalerte DESC");
+			//("+ "SELECT idAlerte FROM arepondu WHERE idUser = "+instance.getIdusers()+")
+			List results = q.list();
+			if (results.get(0) != null) {
+				return (Alerte)results.get(0);
+			}
+		} catch (RuntimeException re) {
+			log.error("insert failed", re);
+			throw re;
+		}
+		return null;
 	}
 }

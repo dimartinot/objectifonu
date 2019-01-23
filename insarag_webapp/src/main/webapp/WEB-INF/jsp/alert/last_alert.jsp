@@ -1,4 +1,7 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ page import="com.objectif.onu.insarag_webapp.model.Alerte" %>
+  <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+ 
  <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -20,20 +23,23 @@
 <!-- Header -->
 <jsp:include page="../utils/header.jsp" />
 <body>
+<%
+				Alerte obj = (Alerte)request.getSession().getAttribute("alerte");
+				%></h1>
 	<div class="container">
 		<div class="jumbotron" id="main_jumb">
 			<div class="container contact-form">
 	            <div class="contact-image">
 	                <img src="<c:url value="\img\alerte\alert.png"/>" alt="ringbell" id="top_img"/>
 	            </div>
-	                <h3>Alerte en cours : [insérer-nom-d'alerte]</h3>
+	                <h3>Alerte en cours : <%= obj.getEntete() %></h3>
 	                <hr>
 	               <div class="row">
 	                    <div class="col-md-6">
-	                        <b>Du :</b> [inserer date début]
+	                        <b>Du :</b> <%= obj.getDateDebut().toString() %>
 	                    </div>
 	                    <div class="col-md-6">
-	                        <b>Au :</b> [inserer date fin]
+	                        <b>Au :</b> <%= obj.getDateFin().toString() %>
 	                    </div>
 	                </div>
 	               
@@ -41,12 +47,13 @@
 	                	<div class="col">
 		                	<b>Informations supplémentaires :</b>
 		                	<div class="textbox">
-		                	  [Inserer infos supplémentaires]  
+		                	  <%= obj.getInfosSupp().toString() %>
 		                	</div>
 		                </div>
 	               </div>
 	               <div class="row">
 		               <div class="col">
+		              
 		               	<h5>Participants :</h5>
 		               	<table class="table table-hover">
 		               		<thead>
@@ -63,13 +70,15 @@
 		               			</tr>
 		               		</thead>
 		               		<tbody>
+		               		 <% for (Users u : obj.getUserses()) { %>
 			               		<tr>
-			               			<td>John Doe</td>
+			               			<td><%= u.getNom() %> - <%= u.getPrenom() %></td>
 			               			<td>Lieutenant</td>
 			               			<td>
 			               				<input type="radio" aria-label="est présent" checked disabled />
 			               			</td>
 			               		</tr>
+			               		<% } %>
 			              	</tbody>
 		               	</table>
 		              </div>

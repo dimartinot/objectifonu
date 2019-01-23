@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,22 @@ import com.objectif.onu.insarag_webapp.model.Ville;
 @Controller
 @RequestMapping("/alert")
 public class AlertController {
+	
+
+	private AlerteHome ah = new AlerteHome();
+	private PaysHome ph = new PaysHome();
+	private VilleHome vh = new VilleHome();
 
 	@Autowired
 	ActiveUserBean connectedUser;
 	
 	@RequestMapping("/last_alert")
-	public String alert_popup() throws Exception {
+	public String alert_popup(HttpServletRequest request) throws Exception {
+		Alerte a = ah.selectLastFromUser(connectedUser.getUser());
+		HttpSession session = request.getSession();
+		session.setAttribute("alerte", a);
+		
+		
 		return "/alert/last_alert";
 	} 
 	
@@ -50,9 +61,6 @@ public class AlertController {
 		
 		
 		
-		AlerteHome ah = new AlerteHome();
-		PaysHome ph = new PaysHome();
-		VilleHome vh = new VilleHome();
 		
 		
 		//On tente d'insérer le pays et on voit s'il existe
