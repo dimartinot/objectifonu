@@ -32,4 +32,9 @@ public class AdministrationController {
 		return "/administration/params";
 	}
 	
+	@RequestMapping("/promute")
+	public String promute() throws Exception {
+		return "/administration/params";
+	}
+	
 }

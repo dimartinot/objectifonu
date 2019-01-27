@@ -1,4 +1,7 @@
+<%@ page session="true" %>
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+<%@ page import="com.objectif.onu.insarag_webapp.model.Roles" %>
+<%@ page import="java.util.HashSet" %>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,7 +13,7 @@
 
 
 <link href="css\bootstrap\bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="\js\bootstrap.min.js" rel="stylesheet" id="bootstrap-js" ></script>
 <link href="css\utils\header.css" rel="stylesheet" id="header-css">
@@ -29,7 +32,7 @@
 <body>
 <div class="page">
 <div class="container emp-profile">
-            <form action="/modifprofil" method="post">
+            <div class="post">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
@@ -63,12 +66,30 @@
                         </div>
                     </div>
                     <div class="col-md-2">
+                    	<form action ="modifprofil" method="post">
                         <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-                        <br></br>
-                        <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Promouvoir"/>
-                        <br></br>
-                        <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Supprimer"/>
+                        </form>
+                        <% obj = (Users)request.getSession().getAttribute("user");
+				        	HashSet<Roles> s = (HashSet<Roles>)obj.getRoleses();
+				        	boolean isAdmin = false;
+				        	for (Roles r : s) {
+				        		if (r.getTitre().toUpperCase().equals("ADMIN")) {
+				        			isAdmin = true;
+				        		}
+				        	}
+				        	if (isAdmin) {
+				        %>
                         
+                        <form method ="POST">
+                        <input style = "display: none" value = <%= obj.getIdusers() %> >
+                        <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Promouvoir" id = "promute"/>
+                        </form>
+                       
+                        <form method ="POST">
+                        <input style = "display: none" value = <%= obj.getIdusers() %> >
+                        <input type="button" class="btn-info profile-edit-btn" name="btnAddMore" value="Supprimer"/>
+                        </form>
+                        <% } %>
                     </div>
                    
                 </div>
@@ -126,8 +147,9 @@
                             
                         </div>
                     </div>
-                </div>
-            </form>
+                
+            </div>
+            </div>
                       
         
         
