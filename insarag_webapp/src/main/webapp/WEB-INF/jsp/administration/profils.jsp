@@ -81,12 +81,12 @@
 				        %>
                         
                         <form method ="POST">
-                        <input style = "display: none" value = <%= obj.getIdusers() %> >
+                        <input style = "display: none" name="id" value = <%= obj.getIdusers() %> >
                         <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Promouvoir" id = "promute"/>
                         </form>
                        
                         <form method ="POST">
-                        <input style = "display: none" value = <%= obj.getIdusers() %> >
+                        <input style = "display: none" name="id" value = <%= obj.getIdusers() %> >
                         <input type="button" class="btn-info profile-edit-btn" name="btnAddMore" value="Supprimer"/>
                         </form>
                         <% } %>
