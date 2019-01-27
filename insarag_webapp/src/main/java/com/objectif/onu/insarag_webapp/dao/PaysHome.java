@@ -187,7 +187,8 @@ public class PaysHome {
 			} else {
 				tx = sessionFactory.getCurrentSession().getTransaction();
 			}
-			Query query = sessionFactory.getCurrentSession().createQuery("FROM Pays p where p.nompays = UPPER('"+instance.getNompays()+"')");
+			Query query = sessionFactory.getCurrentSession().createQuery("FROM Pays p where p.nompays = UPPER(:nom_pays)");
+			query = query.setParameter("nom_pays","'"+instance.getNompays()+"'");
 			List results = query.list();
 			if (results.size() == 0) 
 			{

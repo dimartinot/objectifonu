@@ -161,7 +161,8 @@ public class VilleHome {
 			} else {
 				tx = sessionFactory.getCurrentSession().getTransaction();
 			}
-			Query query = sessionFactory.getCurrentSession().createQuery("FROM Ville v where v.nomville = UPPER('"+instance.getNomville()+"')");
+			Query query = sessionFactory.getCurrentSession().createQuery("FROM Ville v where v.nomville = UPPER(:nom_ville)");
+			query = query.setParameter("nom_ville", "'"+instance.getNomville()+"'");
 			List results = query.list();
 			if (results.size() == 0) 
 			{
