@@ -185,10 +185,13 @@ public class AlerteHome {
 			}
 			//On recupere l'alerte la plus récente de l'utilisateur instance
 			Query q = sessionFactory.getCurrentSession().createQuery(
-					"FROM Alerte a ORDER BY a.idalerte DESC");
+					"select alert FROM Alerte alert "
+					+ "JOIN alert.userses usr "
+					+ "WHERE usr.idusers = "+instance.getIdusers()+" "
+					+ "ORDER BY alert.idalerte DESC");
 			//("+ "SELECT idAlerte FROM arepondu WHERE idUser = "+instance.getIdusers()+")
-			List results = q.list();
-			if (results.get(0) != null) {
+			List<Alerte> results = (List<Alerte>) q.list();
+			if (results.size() != 0 && results.get(0) != null) {
 				return (Alerte)results.get(0);
 			}
 		} catch (RuntimeException re) {
@@ -196,5 +199,77 @@ public class AlerteHome {
 			throw re;
 		}
 		return null;
+	}
+	
+	public List<Alerte> selectAllFromFuture(Users usr) {
+		try {
+			sessionFactory.openSession();
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			//On recupere l'alerte la plus récente de l'utilisateur instance
+			Query q = sessionFactory.getCurrentSession().createQuery(
+					"FROM Alerte alert "
+							+ "WHERE alert.dateFin > NOW()"
+					);
+			List<Alerte> list = (List<Alerte>)q.list();
+			List<Alerte> listBis = (List<Alerte>)q.list();
+			for (Alerte a : list) {
+//				if (a.getUserses().contains(usr)) {
+//					listBis.remove(usr);
+//				}
+				//On vérifie que l'utilisateur ne s'est pas déjà inscrit dans une de ces alertes
+				log.info(a.getEntete());
+				for (Users u : a.getUserses()) {
+					if (u.getIdusers() == usr.getIdusers()) {
+						listBis.remove(a);
+						break;
+					}
+				}
+			}
+			return listBis;
+		} catch (RuntimeException re) {
+			log.error("Runtime exception au selectAll d'Alerte !");
+		}
+		return null;
+	}
+	
+	public boolean subscribeToAlert(Users usr, int idAlert) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			//On recupere l'alerte la plus récente de l'utilisateur instance
+			Query q = sessionFactory.getCurrentSession().createQuery("FROM Alerte alert WHERE alert.id = "+idAlert);
+			Alerte a = (Alerte)q.getSingleResult();
+			a.getUserses().add(usr);
+//			usr.getAlertes().add(a);
+			sessionFactory.getCurrentSession().saveOrUpdate(a);
+//			sessionFactory.getCurrentSession().saveOrUpdate(usr);
+			tx.commit();
+			return true;
+		} catch (RuntimeException re) {
+			log.error("Runtime exception au selectAll d'Alerte !");
+			throw re;
+		}
+	
 	}
 }

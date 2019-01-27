@@ -23,11 +23,13 @@
 <!-- Header -->
 <jsp:include page="../utils/header.jsp" />
 <body>
-<%
-				Alerte obj = (Alerte)request.getSession().getAttribute("alerte");
-				%></h1>
+
 	<div class="container">
 		<div class="jumbotron" id="main_jumb">
+			<% Boolean b = (Boolean)request.getAttribute("no_alert"); 
+	if (!b) {
+				Alerte obj = (Alerte)request.getAttribute("alerte");
+				%>
 			<div class="container contact-form">
 	            <div class="contact-image">
 	                <img src="<c:url value="\img\alerte\alert.png"/>" alt="ringbell" id="top_img"/>
@@ -84,8 +86,15 @@
 		              </div>
 	               </div>
 			</div>
+			<% } else { %>
+			<div class="container">
+				Pas d'alerte trouvée dans la base de données. Merci de répondre à une alerte avant de consulter cette page.
+			</div>
+			<% } %>
 		</div>
 	</div>
+	<!--  Si aucune alerte n'est trouvée, message d'erreur -->
+	
 </body>
 <jsp:include page="../utils/footer.jsp" />
 </html>

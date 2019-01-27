@@ -2,9 +2,9 @@ package com.objectif.onu.insarag_webapp.controller.alert;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,9 +34,13 @@ public class AlertController {
 	@RequestMapping("/last_alert")
 	public String alert_popup(HttpServletRequest request) throws Exception {
 		Alerte a = ah.selectLastFromUser(connectedUser.getUser());
-		HttpSession session = request.getSession();
-		session.setAttribute("alerte", a);
 		
+		if (a != null) {
+			request.setAttribute("no_alert", false);
+			request.setAttribute("alerte", a);
+		} else {
+			request.setAttribute("no_alert", true);
+		}
 		
 		return "/alert/last_alert";
 	} 
@@ -55,14 +59,9 @@ public class AlertController {
 		String nomPays = request.getParameter("pays");
 		String nomVille = request.getParameter("ville");
 
-		
 		Date dateDebut = new SimpleDateFormat("yyyy-MM-dd").parse(strDateDebut);
 		Date dateFin = new SimpleDateFormat("yyyy-MM-dd").parse(strDateFin);
-		
-		
-		
-		
-		
+				
 		//On tente d'insérer le pays et on voit s'il existe
 		Pays p = new Pays();
 		p.setNompays(nomPays);
@@ -88,8 +87,24 @@ public class AlertController {
 		return "alert/alert";
 	}
 	
+	@RequestMapping("/to_respond")
+	public String to_respond(HttpServletRequest request) throws Exception {
+		List<Alerte> list = ah.selectAllFromFuture(connectedUser.getUser());
+		request.setAttribute("list_of_alerts", list);
+		return "/alert/to_respond";
+	}
+	
+	@RequestMapping("/subscribe_to_alert")
+	public String alert_reponse(HttpServletRequest request) throws Exception {
+		int id = Integer.valueOf(request.getParameter("id"));
+		ah.subscribeToAlert(connectedUser.getUser(),id);
+		return "/alert/alert";
+	}
+	
 	@RequestMapping("/")
 	public String alert_index() throws Exception {
 		return "/alert/alert";
 	}
+	
+	
 }
