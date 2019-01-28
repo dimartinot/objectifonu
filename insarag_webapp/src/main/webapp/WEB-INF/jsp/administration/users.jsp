@@ -1,4 +1,4 @@
- <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,30 +29,40 @@
 
  <body>
 	<div class="container">
-
-      <h1 class="my-4 text-center text-lg-left">PROFIL</h1>
-
-      <div class="row text-center text-lg-left">
-
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="/modifprofil" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil modif rounded-circle">MODIFIER</button>
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="/consult" class="d-block mb-4 h-100">
-			<button class="btn btn-info accueil consult rounded-circle">CONSULTER</button>
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="/lien" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil lien rounded-circle">LIENS UTILES</button>
-          </a>
-        </div>
-        
-      </div>
-     </div>
-
+		</br>
+		</br>
+		<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+			
+			
+    </div>
  </body>
  <!-- Footer -->
 <jsp:include page="../utils/footer.jsp" />

@@ -30,25 +30,21 @@
  <body>
 	<div class="container">
 
-      <h1 class="my-4 text-center text-lg-left">PROFIL</h1>
+      <h1 class="my-4 text-center text-lg-left">CONSULTER PROFILS</h1>
 
       <div class="row text-center text-lg-left">
 
         <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="/modifprofil" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil modif rounded-circle">MODIFIER</button>
+          <a href="/consulprofil" class="d-block mb-4 h-100">
+            <button class="btn btn-info accueil modif rounded-circle">Mon Profile</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="/consult" class="d-block mb-4 h-100">
-			<button class="btn btn-info accueil consult rounded-circle">CONSULTER</button>
+          <a href="/consulusers" class="d-block mb-4 h-100">
+			<button class="btn btn-info accueil consult rounded-circle">Utilisateurs</button>
           </a>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="/lien" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil lien rounded-circle">LIENS UTILES</button>
-          </a>
-        </div>
+ 
         
       </div>
      </div>
