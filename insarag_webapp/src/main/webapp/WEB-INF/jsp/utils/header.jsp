@@ -7,8 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="<c:url value="\js\bootstrap.min.js" />" rel="stylesheet" id="bootstrap-js" ></script>
 <link href="<c:url value="\css\utils\header.css" />" rel="stylesheet" id="header-css">
-<!-- <script src="bootstrap-4-dev\dist\js\bootstrap.min.js" rel="stylesheet" id="bootstrap-js" ></script>
-<link href="css\header.css" rel="stylesheet" id="header-css">  -->
+
 <%@ page session="true" %>
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
 

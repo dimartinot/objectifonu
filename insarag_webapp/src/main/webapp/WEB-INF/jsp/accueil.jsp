@@ -49,7 +49,9 @@
           </a>
         </div>        
         <div class="col-lg-3 col-md-4 col-xs-6">
+
           <a href="/alert/" class="d-block mb-4 h-100">
+
             <button class="btn btn-info accueil rounded-circle">ALERTE</button>
           </a>
         </div>

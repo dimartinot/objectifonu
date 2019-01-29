@@ -1,9 +1,5 @@
 html,body{
 
-    height: 100%;
-    margin: 0;
-	background:White;
-
 }
 
 .border-dark {
@@ -13,7 +9,6 @@ html,body{
 	height:75.5vh;
 	margin-top:11%;
 }
-
 
 button.com{
   background-color: #bfd7ea; /* bleu */
@@ -31,7 +26,6 @@ button.alert{
 	margin-bottom: 40px;
 }
 
-
 .push {
   height: 50px;
 }
@@ -46,5 +40,6 @@ button.alert{
   text-align: center;
   display: inline-block;
   font-size: 30px!important;
+
 }
 
