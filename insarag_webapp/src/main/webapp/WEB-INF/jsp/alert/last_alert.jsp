@@ -72,7 +72,7 @@
 		               			</tr>
 		               		</thead>
 		               		<tbody>
-		               		 <% for (Users u : obj.getUserses()) { %>
+		               		<%--  <% for (Users u : obj.getUserses()) { %>
 			               		<tr>
 			               			<td><%= u.getNom() %> - <%= u.getPrenom() %></td>
 			               			<td>Lieutenant</td>
@@ -80,7 +80,7 @@
 			               				<input type="radio" aria-label="est présent" checked disabled />
 			               			</td>
 			               		</tr>
-			               		<% } %>
+			               		<% } %> --%>
 			              	</tbody>
 		               	</table>
 		              </div>

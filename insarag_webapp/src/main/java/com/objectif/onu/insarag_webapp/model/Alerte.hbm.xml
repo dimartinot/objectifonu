@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 20-Jan-2019 19:44:53 by Hibernate Tools 5.0.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-Feb-2019 17:09:42 by Hibernate Tools 5.3.0.Beta2 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="insarag" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.objectif.onu.insarag_webapp.model.Alerte" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="alerte">
-        <id name="idalerte" type="int">
+        <id name="idalerte" type="java.lang.Integer">
             <column name="idalerte"/>
-            <generator class="assigned"/>
+            <generator class="identity"/>
         </id>
         <property generated="never" lazy="false" name="entete" optimistic-lock="true" type="string" unique="false">
             <column length="45" name="entete"/>
@@ -24,13 +24,17 @@
         <property generated="never" lazy="false" name="ville" optimistic-lock="true" type="string" unique="false">
             <column length="45" name="ville"/>
         </property>
-        <set embed-xml="true" fetch="select" inverse="false" lazy="true" mutable="true" name="userses" optimistic-lock="true" sort="unsorted" table="arepondu">
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="missions" optimistic-lock="true" sort="unsorted" table="mission">
+            <key on-delete="noaction">
+                <column name="idalerte" not-null="true"/>
+            </key>
+            <one-to-many class="com.objectif.onu.insarag_webapp.model.Mission" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="arepondus" optimistic-lock="true" sort="unsorted" table="arepondu">
             <key on-delete="noaction">
                 <column name="idAlerte" not-null="true"/>
             </key>
-            <many-to-many embed-xml="true" entity-name="com.objectif.onu.insarag_webapp.model.Users" not-found="exception" unique="false">
-                <column name="idUser" not-null="true"/>
-            </many-to-many>
+            <one-to-many class="com.objectif.onu.insarag_webapp.model.Arepondu" embed-xml="true" not-found="exception"/>
         </set>
     </class>
 </hibernate-mapping>

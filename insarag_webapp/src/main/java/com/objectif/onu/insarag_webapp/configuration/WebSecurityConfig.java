@@ -43,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-		for (Object o : uh.selectAll()) {
-			Users u = (Users) o;
+		for (Users u : uh.selectAll()) {
+//			Users u = (Users) o;
 			Roles r = rh.findByUserId(u.getIdusers());
 			auth.inMemoryAuthentication()
 	          .withUser(u.getEmail()).password(passwordEncoder().encode(u.getPassword())).roles(r.getTitre());

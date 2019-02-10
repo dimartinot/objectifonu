@@ -1,5 +1,5 @@
 package com.objectif.onu.insarag_webapp.model;
-// Generated 20-Jan-2019 19:43:36 by Hibernate Tools 5.0.6.Final
+// Generated 10-Feb-2019 17:05:31 by Hibernate Tools 5.3.0.Beta2
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +11,7 @@ public class Grade implements java.io.Serializable {
 
 	private int idGrade;
 	private String libelle;
-	private Set<Users> userses = new HashSet<Users>(0);
+	private Set userses = new HashSet(0);
 
 	public Grade() {
 	}
@@ -21,7 +21,7 @@ public class Grade implements java.io.Serializable {
 		this.libelle = libelle;
 	}
 
-	public Grade(int idGrade, String libelle, Set<Users> userses) {
+	public Grade(int idGrade, String libelle, Set userses) {
 		this.idGrade = idGrade;
 		this.libelle = libelle;
 		this.userses = userses;
@@ -43,11 +43,11 @@ public class Grade implements java.io.Serializable {
 		this.libelle = libelle;
 	}
 
-	public Set<Users> getUserses() {
+	public Set getUserses() {
 		return this.userses;
 	}
 
-	public void setUserses(Set<Users> userses) {
+	public void setUserses(Set userses) {
 		this.userses = userses;
 	}
 

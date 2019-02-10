@@ -1,5 +1,5 @@
 package com.objectif.onu.insarag_webapp.model;
-// Generated 20-Jan-2019 19:43:36 by Hibernate Tools 5.0.6.Final
+// Generated 10-Feb-2019 17:05:31 by Hibernate Tools 5.3.0.Beta2
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,29 +9,27 @@ import java.util.Set;
  */
 public class Pays implements java.io.Serializable {
 
-	private int idpays;
+	private Integer idpays;
 	private String nompays;
-	private Set<Ville> villes = new HashSet<Ville>(0);
+	private Set villes = new HashSet(0);
 
 	public Pays() {
 	}
 
-	public Pays(int idpays, String nompays) {
-		this.idpays = idpays;
+	public Pays(String nompays) {
 		this.nompays = nompays;
 	}
 
-	public Pays(int idpays, String nompays, Set<Ville> villes) {
-		this.idpays = idpays;
+	public Pays(String nompays, Set villes) {
 		this.nompays = nompays;
 		this.villes = villes;
 	}
 
-	public int getIdpays() {
+	public Integer getIdpays() {
 		return this.idpays;
 	}
 
-	public void setIdpays(int idpays) {
+	public void setIdpays(Integer idpays) {
 		this.idpays = idpays;
 	}
 
@@ -43,11 +41,11 @@ public class Pays implements java.io.Serializable {
 		this.nompays = nompays;
 	}
 
-	public Set<Ville> getVilles() {
+	public Set getVilles() {
 		return this.villes;
 	}
 
-	public void setVilles(Set<Ville> villes) {
+	public void setVilles(Set villes) {
 		this.villes = villes;
 	}
 

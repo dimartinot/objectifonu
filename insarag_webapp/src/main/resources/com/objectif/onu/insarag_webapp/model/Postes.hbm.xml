@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 20-Jan-2019 19:44:53 by Hibernate Tools 5.0.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-Feb-2019 17:09:42 by Hibernate Tools 5.3.0.Beta2 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
-    <class catalog="insarag" dynamic-insert="false" dynamic-update="false" mutable="true" name="hibernate.Postes" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="postes">
+    <class catalog="insarag" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.objectif.onu.insarag_webapp.model.Postes" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="postes">
         <id name="idPoste" type="int">
             <column name="idPoste"/>
             <generator class="assigned"/>
@@ -13,7 +13,7 @@
             <key on-delete="noaction">
                 <column name="idPoste" not-null="true"/>
             </key>
-            <one-to-many class="hibernate.Users" embed-xml="true" not-found="exception"/>
+            <one-to-many class="com.objectif.onu.insarag_webapp.model.Users" embed-xml="true" not-found="exception"/>
         </set>
     </class>
 </hibernate-mapping>

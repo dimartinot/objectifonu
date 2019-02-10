@@ -5,8 +5,6 @@ import static org.hibernate.criterion.Example.create;
 
 import java.util.List;
 
-import javax.naming.InitialContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
@@ -18,7 +16,11 @@ import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
+import com.objectif.onu.insarag_webapp.model.Arepondu;
+import com.objectif.onu.insarag_webapp.model.AreponduId;
 import com.objectif.onu.insarag_webapp.model.Grade;
+import com.objectif.onu.insarag_webapp.model.Infomission;
+import com.objectif.onu.insarag_webapp.model.Mission;
 import com.objectif.onu.insarag_webapp.model.Pays;
 import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
@@ -50,6 +52,9 @@ public class AlerteHome {
 					.addClass(Ville.class)
 					.addClass(Pays.class)
 					.addClass(Alerte.class)
+					.addClass(Arepondu.class)
+					.addClass(Infomission.class)
+					.addClass(Mission.class)
 					.buildSessionFactory(registry);
 			return s;
 //			return (SessionFactory) new InitialContext().lookup("SessionFactory");
@@ -185,14 +190,18 @@ public class AlerteHome {
 			}
 			//On recupere l'alerte la plus récente de l'utilisateur instance
 			Query q = sessionFactory.getCurrentSession().createQuery(
-					"select alert FROM Alerte alert "
-					+ "JOIN alert.userses usr "
-					+ "WHERE usr.idusers = "+instance.getIdusers()+" "
-					+ "ORDER BY alert.idalerte DESC");
+					"FROM Alerte alerte "
+					+ "JOIN alerte.arepondus ar "
+					+ "WHERE ar.id.idUser = "+instance.getIdusers()+" "
+							+ "AND ar.id.idAlerte = alerte.idalerte");
 			//("+ "SELECT idAlerte FROM arepondu WHERE idUser = "+instance.getIdusers()+")
-			List<Alerte> results = (List<Alerte>) q.list();
+			List<Object[]> results = (List<Object[]>) q.list();
 			if (results.size() != 0 && results.get(0) != null) {
-				return (Alerte)results.get(0);
+				if (results.get(0).length == 0) {
+					return null;
+				} else {
+					return (Alerte)results.get(0)[0];
+				}
 			}
 		} catch (RuntimeException re) {
 			log.error("insert failed", re);
@@ -227,13 +236,13 @@ public class AlerteHome {
 //					listBis.remove(usr);
 //				}
 				//On vérifie que l'utilisateur ne s'est pas déjà inscrit dans une de ces alertes
-				log.info(a.getEntete());
-				for (Users u : a.getUserses()) {
-					if (u.getIdusers() == usr.getIdusers()) {
-						listBis.remove(a);
-						break;
-					}
-				}
+//				log.info(a.getEntete());
+//				for (Users u : a.getUserses()) {
+//					if (u.getIdusers() == usr.getIdusers()) {
+//						listBis.remove(a);
+//						break;
+//					}
+//				}
 			}
 			return listBis;
 		} catch (RuntimeException re) {
@@ -260,8 +269,12 @@ public class AlerteHome {
 			//On recupere l'alerte la plus récente de l'utilisateur instance
 			Query q = sessionFactory.getCurrentSession().createQuery("FROM Alerte alert WHERE alert.id = "+idAlert);
 			Alerte a = (Alerte)q.getSingleResult();
-			a.getUserses().add(usr);
-//			usr.getAlertes().add(a);
+			Arepondu ar = new Arepondu();
+			ar.setId(new AreponduId(a.getIdalerte(),usr.getIdusers()));
+			ar.setUsers(usr);
+			ar.setAlerte(a);
+			a.getArepondus().add(ar);
+			//			usr.getAlertes().add(a);
 			sessionFactory.getCurrentSession().saveOrUpdate(a);
 //			sessionFactory.getCurrentSession().saveOrUpdate(usr);
 			tx.commit();

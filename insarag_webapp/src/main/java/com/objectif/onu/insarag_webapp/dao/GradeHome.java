@@ -14,7 +14,10 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
+import com.objectif.onu.insarag_webapp.model.Arepondu;
 import com.objectif.onu.insarag_webapp.model.Grade;
+import com.objectif.onu.insarag_webapp.model.Infomission;
+import com.objectif.onu.insarag_webapp.model.Mission;
 import com.objectif.onu.insarag_webapp.model.Pays;
 import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
@@ -46,6 +49,9 @@ public class GradeHome {
 					.addClass(Ville.class)
 					.addClass(Pays.class)
 					.addClass(Alerte.class)
+					.addClass(Arepondu.class)
+					.addClass(Infomission.class)
+					.addClass(Mission.class)
 					.buildSessionFactory(registry);
 			return s;
 //			return (SessionFactory) new InitialContext().lookup("SessionFactory");

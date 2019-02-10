@@ -1,5 +1,5 @@
 package com.objectif.onu.insarag_webapp.model;
-// Generated 20-Jan-2019 19:43:36 by Hibernate Tools 5.0.6.Final
+// Generated 10-Feb-2019 17:05:31 by Hibernate Tools 5.3.0.Beta2
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,39 +10,36 @@ import java.util.Set;
  */
 public class Alerte implements java.io.Serializable {
 
-	private int idalerte;
+	private Integer idalerte;
 	private String entete;
 	private Date dateDebut;
 	private Date dateFin;
 	private String infosSupp;
 	private String pays;
 	private String ville;
-	private Set<Users> userses = new HashSet<Users>(0);
+	private Set missions = new HashSet(0);
+	private Set arepondus = new HashSet(0);
 
 	public Alerte() {
 	}
 
-	public Alerte(int idalerte) {
-		this.idalerte = idalerte;
-	}
-
-	public Alerte(int idalerte, String entete, Date dateDebut, Date dateFin, String infosSupp, String pays,
-			String ville, Set<Users> userses) {
-		this.idalerte = idalerte;
+	public Alerte(String entete, Date dateDebut, Date dateFin, String infosSupp, String pays, String ville,
+			Set missions, Set arepondus) {
 		this.entete = entete;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.infosSupp = infosSupp;
 		this.pays = pays;
 		this.ville = ville;
-		this.userses = userses;
+		this.missions = missions;
+		this.arepondus = arepondus;
 	}
 
-	public int getIdalerte() {
+	public Integer getIdalerte() {
 		return this.idalerte;
 	}
 
-	public void setIdalerte(int idalerte) {
+	public void setIdalerte(Integer idalerte) {
 		this.idalerte = idalerte;
 	}
 
@@ -94,12 +91,20 @@ public class Alerte implements java.io.Serializable {
 		this.ville = ville;
 	}
 
-	public Set<Users> getUserses() {
-		return this.userses;
+	public Set getMissions() {
+		return this.missions;
 	}
 
-	public void setUserses(Set<Users> userses) {
-		this.userses = userses;
+	public void setMissions(Set missions) {
+		this.missions = missions;
+	}
+
+	public Set getArepondus() {
+		return this.arepondus;
+	}
+
+	public void setArepondus(Set arepondus) {
+		this.arepondus = arepondus;
 	}
 
 }

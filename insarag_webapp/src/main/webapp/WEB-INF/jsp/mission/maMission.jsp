@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
     <%@ page session="true" %>
     <%@ page import="com.objectif.onu.insarag_webapp.model.Alerte" %>
+        <%@ page import="com.objectif.onu.insarag_webapp.model.Infomission" %>
+        <%@ page import="java.util.List" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -34,29 +36,52 @@
 
 
 <body>
-<% Alerte a = (Alerte)request.getAttribute("alerte"); %>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ma Mission :</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Ajout d'informations supplémentaires :</a>
-  </li>
-</ul>
-
-<div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-	<div class="jumbotron jumbotron-fluid">
-			<div class="container">
-				<h1 class="display-4">Ma mission : <%=a.getEntete() %></h1>
-				<p class="lead"><b>Details mission : <%= a.getInfosSupp() %> </b></p>
+<% Alerte a = (Alerte)request.getAttribute("alerte"); 
+	List<Infomission> list = (List<Infomission>)request.getAttribute("list_infomission");
+%>
+<div class =" container">
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+	  <li class="nav-item">
+	    <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Ma Mission :</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="add_info-tab" data-toggle="tab" href="#add_info" role="tab" aria-controls="add_info" aria-selected="false">Ajout d'informations supplémentaires :</a>
+	  </li>
+	</ul>
+	
+	<div class="tab-content" id="nav-tabContent">
+	  <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+		<div class="jumbotron jumbotron-fluid">
+				<div class="container">
+					<h1 class="display-4">Ma mission : <%=a.getEntete() %></h1>
+					<p class="lead"><b>Details mission : <%= a.getInfosSupp() %> </b></br>
+						<% for (Infomission i : list) { %>
+							<div class="alert alert-info" role="alert">
+								<%= i.getDetailMission() %>
+							</div>
+						<% } %>
+					</p>
+				</div>
 			</div>
 		</div>
+	  <div class="tab-pane fade" id="add_info" role="tabpanel" aria-labelledby="add_info-tab">
+	  	<div class="jumbotron jumbotron-fluid">
+				<div class="container">
+					<h1 class="display-4">Ajouter des informations missions</h1>
+					<p class="lead"><b>Information mission: </b></br>
+						<form method="POST" action="ajout_info">
+							<div class="form-group">
+						    	<textarea class="form-control" name="info-textarea" id="info-textarea" rows="1"></textarea>
+						    	<br>
+						    	<button type="submit" class="btn btn-info">Envoyer !</button> 
+							</div>
+						</form>
+					</p>
+				</div>
+			</div>
+	  </div>
 	</div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
 </div>
-
 </body>
 <jsp:include page="../utils/footer.jsp" />
 

@@ -1,10 +1,9 @@
 package com.objectif.onu.insarag_webapp.dao;
-// Generated 13-Jan-2019 15:01:39 by Hibernate Tools 5.0.6.Final
-
-import static org.hibernate.criterion.Example.create;
+// Generated 10-Feb-2019 17:07:34 by Hibernate Tools 5.3.0.Beta2
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,11 +12,12 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.text.StringEscapeUtils;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Example;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
@@ -32,11 +32,11 @@ import com.objectif.onu.insarag_webapp.model.Users;
 import com.objectif.onu.insarag_webapp.model.Ville;
 
 /**
- * Home object for domain model class Users.
- * @see dao.Users
+ * Home object for domain model class Infomission.
+ * @see com.objectif.onu.insarag_webapp.dao.Infomission
  * @author Hibernate Tools
  */
-public class UsersHome {
+public class InfomissionHome {
 	
 	   // JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
@@ -46,7 +46,7 @@ public class UsersHome {
 	   static final String USER = "root";
 	   static final String PASS = "root";
 
-	private static final Log log = LogFactory.getLog(UsersHome.class);
+	private static final Log log = LogFactory.getLog(InfomissionHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -76,8 +76,8 @@ public class UsersHome {
 		}
 	}
 
-	public void persist(Users transientInstance) {
-		log.debug("persisting Users instance");
+	public void persist(Infomission transientInstance) {
+		log.debug("persisting Infomission instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -87,8 +87,8 @@ public class UsersHome {
 		}
 	}
 
-	public void attachDirty(Users instance) {
-		log.debug("attaching dirty Users instance");
+	public void attachDirty(Infomission instance) {
+		log.debug("attaching dirty Infomission instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -98,8 +98,8 @@ public class UsersHome {
 		}
 	}
 
-	public void attachClean(Users instance) {
-		log.debug("attaching clean Users instance");
+	public void attachClean(Infomission instance) {
+		log.debug("attaching clean Infomission instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -109,8 +109,8 @@ public class UsersHome {
 		}
 	}
 
-	public void delete(Users persistentInstance) {
-		log.debug("deleting Users instance");
+	public void delete(Infomission persistentInstance) {
+		log.debug("deleting Infomission instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -120,10 +120,10 @@ public class UsersHome {
 		}
 	}
 
-	public Users merge(Users detachedInstance) {
-		log.debug("merging Users instance");
+	public Infomission merge(Infomission detachedInstance) {
+		log.debug("merging Infomission instance");
 		try {
-			Users result = (Users) sessionFactory.getCurrentSession().merge(detachedInstance);
+			Infomission result = (Infomission) sessionFactory.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -132,44 +132,11 @@ public class UsersHome {
 		}
 	}
 
-	public Users findById(int id) {
+	public Infomission findById(int id) {
+		log.debug("getting Infomission instance with id: " + id);
 		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		log.debug("getting Users instance with id: " + id);
-		try {
-
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Users instance = (Users) sessionFactory.getCurrentSession().get("dao.Users", id);
-			tx.commit();
-			if (instance == null) {
-				log.debug("get successful, no instance found");
-			} else {
-				log.debug("get successful, instance found");
-			}
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
-	
-	public Users findByUsername(String username) {
-		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		log.debug("getting Users instance with username: " + username);
-		try {
-
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Users instance = (Users) sessionFactory.getCurrentSession().createQuery("from Users u where u.email = '"+username+"'").getSingleResult();
-			tx.commit();
+			Infomission instance = (Infomission) sessionFactory.getCurrentSession()
+					.get("com.objectif.onu.insarag_webapp.dao.Infomission", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -182,11 +149,12 @@ public class UsersHome {
 		}
 	}
 
-	public List<Users> findByExample(Users instance) {
-		log.debug("finding Users instance by example");
+	public List findByExample(Infomission instance) {
+		log.debug("finding Infomission instance by example");
 		try {
-			List<Users> results = (List<Users>) sessionFactory.getCurrentSession().createCriteria("dao.Users")
-					.add(create(instance)).list();
+			List results = sessionFactory.getCurrentSession()
+					.createCriteria("com.objectif.onu.insarag_webapp.dao.Infomission").add(Example.create(instance))
+					.list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;
 		} catch (RuntimeException re) {
@@ -195,7 +163,7 @@ public class UsersHome {
 		}
 	}
 	
-	public List<Users> selectAll() {
+	public List<Infomission> findAllByAlerte(Alerte instance) {
 		try {
 			sessionFactory.openSession();
 			log.info("session opened !");
@@ -205,32 +173,18 @@ public class UsersHome {
 
 		log.debug("finding Users instance by example");
 		try {
-			ArrayList<Users> list = new ArrayList<Users>();
+			ArrayList<Infomission> list = new ArrayList<Infomission>();
 		      try {
 				Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
 				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from Users");
+				ResultSet rs = stmt.executeQuery("select i.idinfoMission, i.idMission, i.detailMission from Infomission i, Mission m where m.idalerte = "+instance.getIdalerte());
 			      while(rs.next()){
-			    	  Users usr = new Users();
+			    	  Infomission info = new Infomission();
 			         //Retrieve by column name
-			    	  usr.setIdusers(rs.getInt("idusers"));
-			    	  usr.setPassword(rs.getString("password"));
-			    	  usr.setEmail(rs.getString("email"));
-			    	  usr.setEnMission(rs.getByte("enMission"));
-			    	  usr.setNom(rs.getString("nom"));
-			    	  usr.setPrenom(rs.getString("prenom"));
-			    	  usr.setTelephone(rs.getString("telephone"));
-//			         int id  = rs.getInt("id");
-//			         int age = rs.getInt("age");
-//			         String first = rs.getString("first");
-//			         String last = rs.getString("last");
-//
-//			         //Display values
-//			         System.out.print("ID: " + id);
-//			         System.out.print(", Age: " + age);
-//			         System.out.print(", First: " + first);
-//			         System.out.println(", Last: " + last);
-			    	  list.add(usr);
+			    	  info.setIdinfoMission(rs.getInt("i.idinfoMission"));
+			    	  info.setDetailMission(rs.getString("i.detailMission"));
+			    	  info.setIdMission(rs.getInt("i.idMission"));
+			    	  list.add(info);
 			      }
 			      rs.close();
 			      stmt.close();
@@ -239,24 +193,38 @@ public class UsersHome {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		      
-//			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-//			Query<Users> query = sessionFactory.getCurrentSession().createQuery("from Users");
-//			ArrayList<Users> list = (ArrayList<Users>)query.list();
-//			System.out.println(list.get(0).getNom());
-//			tx.commit();
-//			ArrayList<Users> res = new ArrayList<Users>();
-//			if (list != null) {
-//				for (Users m : list) {
-//					System.out.println(m);
-//				}
-//			}
-//			log.debug("find all successfull, result size: " + list.size());
-////			for (Users u : list) {
-////				res.add(u);
-////			}
-//			return res;
 		      return list;
+		} catch (RuntimeException re) {
+			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+	
+	public void insertInfoMission(String contenu, Alerte toInsertInto) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		log.debug("finding Users instance by example");
+		try {
+			ArrayList<Infomission> list = new ArrayList<Infomission>();
+		      try {
+				Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+				String query = "insert into Infomission(idMission, detailMission) VALUES ("
+						+ "(SELECT idMission FROM Mission WHERE idalerte = "+toInsertInto.getIdalerte()+"),"
+						+ "?)";
+				PreparedStatement stmt = conn.prepareStatement(query);
+				stmt.setString(1, contenu);
+				stmt.execute();
+			      stmt.close();
+			      conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
 			throw re;

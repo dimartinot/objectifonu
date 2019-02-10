@@ -1,5 +1,5 @@
 package com.objectif.onu.insarag_webapp.model;
-// Generated 20-Jan-2019 19:43:36 by Hibernate Tools 5.0.6.Final
+// Generated 10-Feb-2019 17:05:31 by Hibernate Tools 5.3.0.Beta2
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,8 +18,8 @@ public class Users implements java.io.Serializable {
 	private Byte enMission;
 	private String nom;
 	private String prenom;
-	private Set<Alerte> alertes = new HashSet<Alerte>(0);
-	private Set<Roles> roleses = new HashSet<Roles>(0);
+	private Set arepondus = new HashSet(0);
+	private Set roleses = new HashSet(0);
 
 	public Users() {
 	}
@@ -34,7 +34,7 @@ public class Users implements java.io.Serializable {
 	}
 
 	public Users(Grade grade, Postes postes, String email, String password, String telephone, Byte enMission,
-			String nom, String prenom, Set<Alerte> alertes, Set<Roles> roleses) {
+			String nom, String prenom, Set arepondus, Set roleses) {
 		this.grade = grade;
 		this.postes = postes;
 		this.email = email;
@@ -43,7 +43,7 @@ public class Users implements java.io.Serializable {
 		this.enMission = enMission;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.alertes = alertes;
+		this.arepondus = arepondus;
 		this.roleses = roleses;
 	}
 
@@ -119,19 +119,19 @@ public class Users implements java.io.Serializable {
 		this.prenom = prenom;
 	}
 
-	public Set<Alerte> getAlertes() {
-		return this.alertes;
+	public Set getArepondus() {
+		return this.arepondus;
 	}
 
-	public void setAlertes(Set<Alerte> alertes) {
-		this.alertes = alertes;
+	public void setArepondus(Set arepondus) {
+		this.arepondus = arepondus;
 	}
 
-	public Set<Roles> getRoleses() {
+	public Set getRoleses() {
 		return this.roleses;
 	}
 
-	public void setRoleses(Set<Roles> roleses) {
+	public void setRoleses(Set roleses) {
 		this.roleses = roleses;
 	}
 

@@ -16,7 +16,10 @@ import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
+import com.objectif.onu.insarag_webapp.model.Arepondu;
 import com.objectif.onu.insarag_webapp.model.Grade;
+import com.objectif.onu.insarag_webapp.model.Infomission;
+import com.objectif.onu.insarag_webapp.model.Mission;
 import com.objectif.onu.insarag_webapp.model.Pays;
 import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
@@ -48,6 +51,9 @@ public class RolesHome {
 					.addClass(Ville.class)
 					.addClass(Pays.class)
 					.addClass(Alerte.class)
+					.addClass(Arepondu.class)
+					.addClass(Infomission.class)
+					.addClass(Mission.class)
 					.buildSessionFactory(registry);
 			return s;
 //			return (SessionFactory) new InitialContext().lookup("SessionFactory");
@@ -142,9 +148,16 @@ public class RolesHome {
 		log.debug("getting Roles instance with id: " + id);
 
 		try {
+			Roles res;
 			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
 			Query query = sessionFactory.getCurrentSession().createQuery("from Roles as roles where roles.users = "+id);
-			Roles res = (Roles) query.getSingleResult();
+			Object r = (Object) query.getSingleResult();
+			if (r == null) {
+				res = new Roles();
+				res.setTitre("USER");
+			} else {
+				res = (Roles)r;
+			}
 			tx.commit();
 			if (res == null) {
 				log.debug("get successful, no instance found");
