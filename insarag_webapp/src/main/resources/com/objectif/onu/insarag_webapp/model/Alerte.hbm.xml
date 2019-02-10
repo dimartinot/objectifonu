@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 20-Jan-2019 19:44:53 by Hibernate Tools 5.0.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="insarag" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.objectif.onu.insarag_webapp.model.Alerte" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="alerte">
+        <id name="idalerte" type="int">
+            <column name="idalerte"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="entete" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="entete"/>
+        </property>
+        <property generated="never" lazy="false" name="dateDebut" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="date_debut"/>
+        </property>
+        <property generated="never" lazy="false" name="dateFin" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="date_fin"/>
+        </property>
+        <property generated="never" lazy="false" name="infosSupp" optimistic-lock="true" type="string" unique="false">
+            <column length="16777215" name="infos_supp"/>
+        </property>
+        <property generated="never" lazy="false" name="pays" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="pays"/>
+        </property>
+        <property generated="never" lazy="false" name="ville" optimistic-lock="true" type="string" unique="false">
+            <column length="45" name="ville"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="false" lazy="true" mutable="true" name="userses" optimistic-lock="true" sort="unsorted" table="arepondu">
+            <key on-delete="noaction">
+                <column name="idAlerte" not-null="true"/>
+            </key>
+            <many-to-many embed-xml="true" entity-name="com.objectif.onu.insarag_webapp.model.Users" not-found="exception" unique="false">
+                <column name="idUser" not-null="true"/>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
