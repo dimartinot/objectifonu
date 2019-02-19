@@ -24,13 +24,14 @@ import com.objectif.onu.insarag_webapp.model.Alerte;
 import com.objectif.onu.insarag_webapp.model.Arepondu;
 import com.objectif.onu.insarag_webapp.model.Grade;
 import com.objectif.onu.insarag_webapp.model.Infomission;
+import com.objectif.onu.insarag_webapp.model.Liensutiles;
 import com.objectif.onu.insarag_webapp.model.Mission;
 import com.objectif.onu.insarag_webapp.model.Pays;
 import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
 import com.objectif.onu.insarag_webapp.model.Users;
 import com.objectif.onu.insarag_webapp.model.Ville;
-
+import static com.objectif.onu.insarag_webapp.service.DBData.*;
 /**
  * Home object for domain model class Infomission.
  * @see com.objectif.onu.insarag_webapp.dao.Infomission
@@ -38,13 +39,7 @@ import com.objectif.onu.insarag_webapp.model.Ville;
  */
 public class InfomissionHome {
 	
-	   // JDBC driver name and database URL
-	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost:3306/insarag";
 
-	   //  Database credentials
-	   static final String USER = "root";
-	   static final String PASS = "root";
 
 	private static final Log log = LogFactory.getLog(InfomissionHome.class);
 
@@ -67,6 +62,7 @@ public class InfomissionHome {
 					.addClass(Arepondu.class)
 					.addClass(Infomission.class)
 					.addClass(Mission.class)
+					.addClass(Liensutiles.class)
 					.buildSessionFactory(registry);
 			return s;
 //			return (SessionFactory) new InitialContext().lookup("SessionFactory");
@@ -208,7 +204,6 @@ public class InfomissionHome {
 			log.error(e.getMessage());
 		}
 
-		log.debug("finding Users instance by example");
 		try {
 			ArrayList<Infomission> list = new ArrayList<Infomission>();
 		      try {

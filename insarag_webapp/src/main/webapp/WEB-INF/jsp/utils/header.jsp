@@ -41,7 +41,7 @@
 		</div>
       </li>
       <li class="nav-item color1">
-        <a class="nav-link" href="#">Mission</a>
+        <a class="nav-link" href="/mission/">Mission</a>
       </li>
       <li class="nav-item">
         <a class="nav-link color1" href="#">Organisation</a>

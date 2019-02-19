@@ -1,8 +1,13 @@
 package com.objectif.onu.insarag_webapp.dao;
-// Generated 13-Jan-2019 15:01:39 by Hibernate Tools 5.0.6.Final
+// Generated 19-Feb-2019 14:45:55 by Hibernate Tools 5.3.0.Beta2
 
-import static org.hibernate.criterion.Example.create;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -12,7 +17,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
+import org.hibernate.criterion.Example;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
@@ -26,15 +31,16 @@ import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
 import com.objectif.onu.insarag_webapp.model.Users;
 import com.objectif.onu.insarag_webapp.model.Ville;
+import static com.objectif.onu.insarag_webapp.service.DBData.*;
 
 /**
- * Home object for domain model class Roles.
- * @see dao.Roles
+ * Home object for domain model class Liensutiles.
+ * @see com.objectif.onu.insarag_webapp.dao.Liensutiles
  * @author Hibernate Tools
  */
-public class RolesHome {
+public class LiensutilesHome {
 
-	private static final Log log = LogFactory.getLog(RolesHome.class);
+	private static final Log log = LogFactory.getLog(LiensutilesHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -65,8 +71,8 @@ public class RolesHome {
 		}
 	}
 
-	public void persist(Roles transientInstance) {
-		log.debug("persisting Roles instance");
+	public void persist(Liensutiles transientInstance) {
+		log.debug("persisting Liensutiles instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -76,8 +82,8 @@ public class RolesHome {
 		}
 	}
 
-	public void attachDirty(Roles instance) {
-		log.debug("attaching dirty Roles instance");
+	public void attachDirty(Liensutiles instance) {
+		log.debug("attaching dirty Liensutiles instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -87,8 +93,8 @@ public class RolesHome {
 		}
 	}
 
-	public void attachClean(Roles instance) {
-		log.debug("attaching clean Roles instance");
+	public void attachClean(Liensutiles instance) {
+		log.debug("attaching clean Liensutiles instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -98,8 +104,8 @@ public class RolesHome {
 		}
 	}
 
-	public void delete(Roles persistentInstance) {
-		log.debug("deleting Roles instance");
+	public void delete(Liensutiles persistentInstance) {
+		log.debug("deleting Liensutiles instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -109,10 +115,10 @@ public class RolesHome {
 		}
 	}
 
-	public Roles merge(Roles detachedInstance) {
-		log.debug("merging Roles instance");
+	public Liensutiles merge(Liensutiles detachedInstance) {
+		log.debug("merging Liensutiles instance");
 		try {
-			Roles result = (Roles) sessionFactory.getCurrentSession().merge(detachedInstance);
+			Liensutiles result = (Liensutiles) sessionFactory.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -121,12 +127,11 @@ public class RolesHome {
 		}
 	}
 
-	public Roles findById(java.lang.Integer id) {
-		log.debug("getting Roles instance with id: " + id);
+	public Liensutiles findById(int id) {
+		log.debug("getting Liensutiles instance with id: " + id);
 		try {
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Roles instance = (Roles) sessionFactory.getCurrentSession().get("com.objectif.onu.insarag_webapp.model.Roles", id);
-			tx.commit();
+			Liensutiles instance = (Liensutiles) sessionFactory.getCurrentSession()
+					.get("com.objectif.onu.insarag_webapp.dao.Liensutiles", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -139,50 +144,72 @@ public class RolesHome {
 		}
 	}
 
-	public Roles findByUserId(int id) {
-
+	public List findByExample(Liensutiles instance) {
+		log.debug("finding Liensutiles instance by example");
 		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		log.debug("getting Roles instance with id: " + id);
-
-		try {
-			Roles res;
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Query query = sessionFactory.getCurrentSession().createQuery("from Roles as roles where roles.users = "+id);
-			Object r = (Object) query.getSingleResult();
-			if (r == null) {
-				res = new Roles();
-				res.setTitre("USER");
-			} else {
-				res = (Roles)r;
-			}
-			tx.commit();
-			if (res == null) {
-				log.debug("get successful, no instance found");
-			} else {
-				log.debug("get successful, instance found");
-			}
-			return res;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
-	
-	public List<Roles> findByExample(Roles instance) {
-		log.debug("finding Roles instance by example");
-		try {
-			List<Roles> results = (List<Roles>) sessionFactory.getCurrentSession().createCriteria("dao.Roles")
-					.add(create(instance)).list();
+			List results = sessionFactory.getCurrentSession()
+					.createCriteria("com.objectif.onu.insarag_webapp.dao.Liensutiles").add(Example.create(instance))
+					.list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+	
+	public List<Liensutiles> findByMission(Alerte a) {
+		try {
+			ArrayList<Liensutiles> list = new ArrayList<Liensutiles>();
+			try {
+				Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select l.idliensutiles, l.intitule, l.contenu, l.date, l.isLink from Liensutiles l, Mission m where m.idalerte = "+a.getIdalerte());
+			      while(rs.next()){
+			    	  Liensutiles lien = new Liensutiles();
+			         //Retrieve by column name
+			    	  lien.setIdliensutiles(rs.getInt("l.idliensutiles"));
+			    	  lien.setIntitule(rs.getString("l.intitule"));
+			    	  lien.setContenu(rs.getString("l.contenu"));
+			    	  lien.setDate(rs.getDate("l.date"));
+			    	  lien.setIsLink(rs.getByte("l.isLink"));
+			    	  list.add(lien);
+			      }
+			      rs.close();
+			      stmt.close();
+			      conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		      return list;
+		} catch (RuntimeException re) {
+			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+	
+	public boolean insert(Liensutiles instance) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			sessionFactory.getCurrentSession().persist(instance);
+			tx.commit();
+		} catch (RuntimeException re) {
+			log.error("insert failed", re);
+			throw re;
+		}
+		return false;
 	}
 }

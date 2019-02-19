@@ -5,7 +5,11 @@
     <%@ page session="true" %>
     <%@ page import="com.objectif.onu.insarag_webapp.model.Alerte" %>
         <%@ page import="com.objectif.onu.insarag_webapp.model.Infomission" %>
+                <%@ page import="com.objectif.onu.insarag_webapp.model.Liensutiles" %>
+        
         <%@ page import="java.util.List" %>
+                <%@ page import="java.util.ArrayList" %>
+        
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -41,16 +45,25 @@
 <body>
 <% Alerte a = (Alerte)request.getAttribute("alerte"); 
 	List<Infomission> list = (List<Infomission>)request.getAttribute("list_infomission");
+	List<Liensutiles> listLiens = (List<Liensutiles>)request.getAttribute("list_liens");
+	if (listLiens == null) {
+		listLiens = new ArrayList<Liensutiles>();
+	}
 %>
 <div class ="container" style="width: 80vw">
+<h1> Mission </h1>
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
 	  <li class="nav-item">
-	    <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Ma Mission :</a>
+	    <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Informations mission</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" id="add_info-tab" data-toggle="tab" href="#add_info" role="tab" aria-controls="add_info" aria-selected="false">Ajout d'informations supplémentaires :</a>
-	  </li><li class="nav-item">
-	    <a class="nav-link" id="fiche_ops-tab" data-toggle="tab" href="#fiche_ops" role="tab" aria-controls="fiche_ops" aria-selected="false">Fiche ops</a>
+	    <a class="nav-link" id="add_info-tab" data-toggle="tab" href="#add_info" role="tab" aria-controls="add_info" aria-selected="false">Ajout d'informations</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="fiche_ops-tab" data-toggle="tab" href="#fiche_ops" role="tab" aria-controls="fiche_ops" aria-selected="false">Génération de fiches missions</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" id="lien-tab" data-toggle="tab" href="#liens_utiles" role="tab" aria-controls="liens_utiles" aria-selected="false">Liens utiles</a>
 	  </li>
 	</ul>
 	
@@ -85,12 +98,12 @@
 				</div>
 			</div>
 	</div>
-	<div class="tab-pane fade" id="fiche_ops" role="tabpanel" aria-labelledby="fiche_ops-tab">
+		<div class="tab-pane fade" id="fiche_ops" role="tabpanel" aria-labelledby="fiche_ops-tab">
 	  	<div class="jumbotron jumbotron-fluid">
-				<div class="container">
+				<div class="container" id="toPdf">
 					<h1 class="display-4">Remplissage du formulaire d'une fiche opérationelle</h1>
 					<p class="lead">
-						<form id="toPdf">
+						<form >
 							<div class="form-group">
 								<div class="form-row">
 									<div class="col-md-6">
@@ -303,11 +316,50 @@
 							</div>
 						</form>
 						<br>
-						<button onclick="print()" class="btn btn-info">Envoyer !</button> 
+						<button onclick="print(4)" class="btn btn-info">Envoyer !</button> 
 					</p>
 				</div>
 			</div>
 	  </div>
+		<div class="tab-pane fade" id="liens_utiles" role="tabpanel" aria-labelledby="lien-tab">
+		<div class="jumbotron jumbotron-fluid">
+				<div class="container">
+					<h1 class="display-4">Liens utiles</h1>
+					<p class="lead">
+						<form method="GET">
+						<table class="table table-hover table-light">
+						  <thead>
+						    <tr>
+						      <th scope="col">Intitulé</th>
+						      <th scope="col">Contenu</th>
+						      <th scope="col">Date d'ajout</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						  <% for (Liensutiles l : listLiens ) { %>
+						    <tr>
+						      <th scope="row"><%= l.getIntitule() %></th>
+						      <% if (l.getIsLink() == 1) { %>
+						      	<td><a href="<%= l.getContenu() %>"><%= l.getContenu() %></a></td>
+						      <% } else {%>
+						      	<td><%=l.getContenu()%></td>
+						      <% } %>
+						      <td><%= l.getDate() %></td>
+						    </tr>
+						    <% } %>
+						    <tr>
+						    		<th scope="row"><input class="form-control" type="text" name="intitule"></th>
+						    		<td><input class="form-control" type="text" name="contenu"><input type="checkbox" class="form-check-input" name="isLink" id="isLink"><label class="form-check-label" for="isLink">lien (Y/N)</label></td>
+						    		<td><button type="submit" class="btn btn-info"> Créer !</button></td>
+						    </tr>
+						  </tbody>
+						</table>
+						</form>
+					</p>
+				</div>
+			</div>
+		</div>
+
 	</div>
  
 </div>
@@ -341,9 +393,10 @@ if (navigator.geolocation) {
 		html2canvas(document.querySelector('#toPdf'), 
 								{scale: quality}
 						 ).then(canvas => {
-			let pdf = new jsPDF('p', 'mm', 'a4');
 			var img = canvas.toDataURL('image/jpeg');
- 			pdf.addImage(img, 'jpeg', 0, 0, 210, 295);
+			console.log(canvas)
+			let pdf = new jsPDF('p', 'mm', [canvas.height, canvas.width]);
+ 			pdf.addImage(img, 'jpeg',0 , 0, canvas.width, canvas.height);
  			pdf.save(filename);
 		}); 
 	}

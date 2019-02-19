@@ -19,6 +19,7 @@ import com.objectif.onu.insarag_webapp.model.Alerte;
 import com.objectif.onu.insarag_webapp.model.Arepondu;
 import com.objectif.onu.insarag_webapp.model.Grade;
 import com.objectif.onu.insarag_webapp.model.Infomission;
+import com.objectif.onu.insarag_webapp.model.Liensutiles;
 import com.objectif.onu.insarag_webapp.model.Mission;
 import com.objectif.onu.insarag_webapp.model.Pays;
 import com.objectif.onu.insarag_webapp.model.Postes;
@@ -54,6 +55,7 @@ public class PostesHome {
 					.addClass(Arepondu.class)
 					.addClass(Infomission.class)
 					.addClass(Mission.class)
+					.addClass(Liensutiles.class)
 					.buildSessionFactory(registry);
 			return s;
 //			return (SessionFactory) new InitialContext().lookup("SessionFactory");

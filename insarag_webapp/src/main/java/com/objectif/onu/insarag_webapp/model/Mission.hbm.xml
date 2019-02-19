@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 10-Feb-2019 17:09:42 by Hibernate Tools 5.3.0.Beta2 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-Feb-2019 14:22:15 by Hibernate Tools 5.3.0.Beta2 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="insarag" dynamic-insert="false" dynamic-update="false" mutable="true" name="com.objectif.onu.insarag_webapp.model.Mission" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="mission">
-        <id name="idmission" type="int">
+        <id name="idmission" type="java.lang.Integer">
             <column name="idmission"/>
-            <generator class="assigned"/>
+            <generator class="identity"/>
         </id>
         <many-to-one class="com.objectif.onu.insarag_webapp.model.Alerte" embed-xml="true" fetch="select" insert="true" name="alerte" not-found="exception" optimistic-lock="true" unique="false" update="true">
             <column name="idalerte" not-null="true"/>
         </many-to-one>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="liensutileses" optimistic-lock="true" sort="unsorted" table="liensutiles">
+            <key on-delete="noaction">
+                <column name="idMission" not-null="true"/>
+            </key>
+            <one-to-many class="com.objectif.onu.insarag_webapp.model.Liensutiles" embed-xml="true" not-found="exception"/>
+        </set>
     </class>
 </hibernate-mapping>

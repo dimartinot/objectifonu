@@ -12,4 +12,5 @@
   	<table-filter match-catalog="insarag" match-name="ville"/>
   	<table-filter match-catalog="insarag" match-name="mission"/>
   	<table-filter match-catalog="insarag" match-name="infomission"/>
+  	<table-filter match-catalog="insarag" match-name="liensutiles"/>
 </hibernate-reverse-engineering>

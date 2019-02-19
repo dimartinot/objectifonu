@@ -9,15 +9,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
 import com.objectif.onu.insarag_webapp.model.Arepondu;
 import com.objectif.onu.insarag_webapp.model.Grade;
 import com.objectif.onu.insarag_webapp.model.Infomission;
+import com.objectif.onu.insarag_webapp.model.Liensutiles;
 import com.objectif.onu.insarag_webapp.model.Mission;
 import com.objectif.onu.insarag_webapp.model.Pays;
 import com.objectif.onu.insarag_webapp.model.Postes;
@@ -53,6 +56,7 @@ public class MissionHome {
 					.addClass(Arepondu.class)
 					.addClass(Infomission.class)
 					.addClass(Mission.class)
+					.addClass(Liensutiles.class)
 					.buildSessionFactory(registry);
 			return s;
 //			return (SessionFactory) new InitialContext().lookup("SessionFactory");
@@ -144,6 +148,27 @@ public class MissionHome {
 			return results;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+	
+	public Mission findByAlerte(Alerte a) {
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			//On recupere l'alerte la plus récente de l'utilisateur instance
+			Query q = sessionFactory.getCurrentSession().createQuery(
+					"FROM Mission mission "
+					+ "WHERE mission.alerte.idalerte = "+a.getIdalerte());
+			//("+ "SELECT idAlerte FROM arepondu WHERE idUser = "+instance.getIdusers()+")
+			List<Mission> results = (List<Mission>) q.list();
+			return results.get(0);
+		} catch (RuntimeException re) {
+			log.error("insert failed", re);
 			throw re;
 		}
 	}
