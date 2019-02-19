@@ -84,10 +84,18 @@ public class RolesHome {
 		}
 	}
 
-	public void delete(Roles persistentInstance) {
+	public void deleteById(int id) {
 		log.debug("deleting Roles instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			Roles instance = (Roles) sessionFactory.getCurrentSession().createQuery("from Roles r where r.users = '"+id+"'").getSingleResult();
+			sessionFactory.getCurrentSession().delete(instance);
+			tx.commit();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -106,12 +114,52 @@ public class RolesHome {
 			throw re;
 		}
 	}
+	
+	public void update(Roles persistentInstance) {
+		log.debug("update Users instance");
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			sessionFactory.getCurrentSession().update(persistentInstance);
+			tx.commit();
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
+	
+	public void addRoles(Roles persistentInstance) {
+		log.debug("update Users instance");
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			sessionFactory.getCurrentSession().save(persistentInstance);
+			tx.commit();
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
 
 	public Roles findById(java.lang.Integer id) {
 		log.debug("getting Roles instance with id: " + id);
 		try {
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Roles instance = (Roles) sessionFactory.getCurrentSession().get("com.objectif.onu.insarag_webapp.model.Roles", id);
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}Roles instance = (Roles) sessionFactory.getCurrentSession().get("com.objectif.onu.insarag_webapp.model.Roles", id);
 			tx.commit();
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -136,7 +184,12 @@ public class RolesHome {
 		log.debug("getting Roles instance with id: " + id);
 
 		try {
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
 			Query query = sessionFactory.getCurrentSession().createQuery("from Roles as roles where roles.users = "+id);
 			Roles res = (Roles) query.getSingleResult();
 			tx.commit();

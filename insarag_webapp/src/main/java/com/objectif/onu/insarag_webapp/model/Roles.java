@@ -46,4 +46,19 @@ public class Roles implements java.io.Serializable {
 		this.titre = titre;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((titre == null) ? 0 : titre.hashCode());
+		return result;
+	}
+
+	public boolean equals(String titre) {
+		if (this.getTitre().equals(titre))
+			return true;
+		else return false;
+	}
+	
+
 }
