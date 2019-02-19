@@ -1,6 +1,7 @@
 html,body{
     height: 100%;
-	background:#bfd7ea;
+    margin: 0;
+	background:White;
 
 }
 
@@ -8,6 +9,79 @@ html,body{
 	border : 3px solid #7c616c!important;
 }
 .container {
-	height:75.6%;
-	margin-top:11%;
+	min-height: 100%;	
+	margin-bottom: 40px;
 }
+
+button.com{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+button.alert{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+.push {
+  height: 50px;
+}
+
+
+.accueil{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+button.carte{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+
+button.orga{
+  background-color: #bfd7ea; /* bleu */
+  border : 3px solid #7c616c!important;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  padding: 63px 50px;
+  text-align: center;
+  display: inline-block;
+  font-size: 30px;
+}
+.modif{
+  font-size: 25px;
+}
+
+.consult{
+  font-size: 20px;
+}
+
+
+.lien{
+  font-size: 20px;
+}
+
