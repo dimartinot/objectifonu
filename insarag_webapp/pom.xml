@@ -48,6 +48,12 @@
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>
         </dependency>
+		<dependency>
+    		<groupId>com.tokbox</groupId>
+    		<artifactId>opentok-server-sdk</artifactId>
+    		<version>4.3.0</version>
+		</dependency>
+
   	</dependencies>
 	
 
