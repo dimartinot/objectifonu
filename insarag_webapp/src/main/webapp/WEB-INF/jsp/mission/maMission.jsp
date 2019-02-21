@@ -20,17 +20,24 @@
     <meta name="description" content="A layout example that shows off a responsive product landing page.">
     <title>Objectif ONU - Ma Mission</title>
 
+<!----- INSERTION DES SCRIPTS ----->
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="<c:url value="\js\mission\html2canvas.js" />"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
 <!-- <link href="css\bootstrap\bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
- --><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <!-- <script src="\js\bootstrap.min.js" rel="stylesheet" id="bootstrap-js" ></script>
- --><link href="css\utils\header.css" rel="stylesheet" id="header-css">
+ -->
+ 
+ 
+<!----- INSERTION DES STYLESHEETS ----->
+ 
+ <link href="css\utils\header.css" rel="stylesheet" id="header-css">
 <link href="css\utils\footer.css" rel="stylesheet" id="footer-css">
 <link href="css\accueil.css" rel="stylesheet" id="accueil-css">
 <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-<!------ Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.1.3/css/jquery.orgchart.min.css" />
 
 </head>
 
@@ -43,6 +50,14 @@
 
 
 <body>
+<style>
+	.content {
+		height: auto !important; /* To have multiple lines in the orgchart */
+	}
+	.node {
+		width: auto !important;
+	}
+</style>
 <% Alerte a = (Alerte)request.getAttribute("alerte"); 
 	List<Infomission> list = (List<Infomission>)request.getAttribute("list_infomission");
 	List<Liensutiles> listLiens = (List<Liensutiles>)request.getAttribute("list_liens");
@@ -67,6 +82,9 @@
 	  </li>
 	  <li class="nav-item">
 	  	<a class="nav-link" id="translator-tab" data-toggle="tab" href="#translator" role="tab" aria-controls="translator" aria-selected="false">Traducteur</a>
+	  </li>
+	  <li class="nav-item">
+	  	<a class="nav-link" id="orgChart-tab" data-toggle="tab" href="#orgChart" role="tab" aria-controls="orgChart" aria-selected="false">Diagramme d'organisation</a>
 	  </li>
 	</ul>
 	
@@ -368,9 +386,98 @@
 				
 						
 				</iframe>
-		</div> 
+		</div>
 	</div>
- 
+ 	
+		<div class="tab-pane fade" id="orgChart" role="tabpanel" aria-labelledby="orgChart-tab">
+			<div class="jumbotron jubomtron-fluid">
+				<div class="container">
+					<h1 class="display-4">Organigramme :</h1>
+					<p class="lead">
+						<div id="chart-container">
+						</div>
+					</p>
+				</div>
+			</div>
+			
+			<script src="<c:url value="\js\mission\jquery.orgchart.js" />"></script>
+			
+			<script type="text/javascript">
+			 $(function() {
+			
+				 var datasource = {
+				   'name': 'MANAGEMENT',
+				   'title': 'Team leader : <b> Nom Prénom </b><br>'+
+				   			'Deputy team leader : <b> Nom Prénom </b><br>'+
+				   			'Planning officer : <b> Nom Prénom </b><br>'+
+				   			'Safety officer : <b> Nom Prénom </b><br>'+
+				   			'Liaison officer : <b> Nom Prénom </b><br>'+
+				   			'Deputy Liaison officer : <b> Nom Prénom </b><br>'+
+				   			'Structural engineer : <b> Nom Prénom </b>',
+				   'children': [
+				     { 'name': 'SEARCH', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
+				    	 							'Dog handler : <b> Nom Prénom </b><br>'+
+				    	 							'Dog handler : <b> Nom Prénom </b><br>'+
+				    	 							'Dog handler : <b> Nom Prénom </b><br>'+
+				    	 							'Dog handler : <b> Nom Prénom </b><br>'+
+				    	 							'HAZMAT specialist : <b> Nom Prénom </b><br>'+
+				    	 							'HAZMAT specialist : <b> Nom Prénom </b><br>'+
+				    	 							'HAZMAT specialist : <b> Nom Prénom </b><br>'+
+				    	 							'technical search specialist : <b> Nom Prénom </b><br>'+
+				    	 							'technical search specialist : <b> Nom Prénom </b><br>'+
+				    	 							'technical search specialist : <b> Nom Prénom </b>'},
+				     { 'name': 'RESCUE 1', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
+				    	 								'Rescue squad leader : <b> Nom Prénom </b><br>'+
+				    	 								'Rescue technician : <b> Nom Prénom </b>',
+				       'children': [
+				         { 'name': 'RESCUE 2', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
+				        	 							'Rescue squad leader : <b> Nom Prénom </b><br>'+
+				        	 							'Rescue technician : <b> Nom Prénom </b>',
+				           'children': [
+				        	   { 'name': 'RESCUE 3', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
+								   	 							'Rescue squad leader : <b> Nom Prénom </b><br>'+
+								   	 							'Rescue technician : <b> Nom Prénom </b>',
+							      'children': [
+							        { 'name': 'RESCUE 4', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
+									   	 							'Rescue squad leader : <b> Nom Prénom </b><br>'+
+									   	 							'Rescue technician : <b> Nom Prénom </b>'}
+							      ]
+							    }
+				           ]
+				         }
+				       ]
+				     },
+				     { 'name': 'MEDICAL', 'title': 'Medical doctor : <b> Nom Prénom </b><br>'+
+											    	 'Medical doctor : <b> Nom Prénom </b><br>'+
+											    	 'Medical doctor : <b> Nom Prénom </b><br>'+
+											    	 'Paramedic/nurse : <b> Nom Prénom </b><br>'+
+											    	 'Paramedic/nurse : <b> Nom Prénom </b><br>'+
+											    	 'Paramedic/nurse : <b> Nom Prénom </b><br>'+
+											    	 'Paramedic/nurse : <b> Nom Prénom </b><br>'+
+											    	 'Veterinary : <b> Nom Prénom </b>'},
+				   	{'name': 'LOGISTICS', 'title': 'Logistics team manager : <b> Nom Prénom </b><br>'+
+				    		 'Deputy logistics team manager : <b> Nom Prénom </b><br>'+
+				    		 'Transport specialist/MEC : <b> Nom Prénom </b><br>'+
+				    		 'Transport specialist/MEC : <b> Nom Prénom </b><br>'+
+				    		 'Logistician : <b> Nom Prénom </b><br>'+
+				    		 'Logistician : <b> Nom Prénom </b><br>'+
+				    		 'Base manager : <b> Nom Prénom </b><br>'+
+				    		 'Base manager : <b> Nom Prénom </b><br>'+
+				    		 'Communications specialist : <b> Nom Prénom </b><br>'+
+				    		 'Communications specialist : <b> Nom Prénom </b><br>'+
+				    		 'Communications specialist : <b> Nom Prénom </b><br>'}	
+				   ]
+				 };
+				
+				 $('#chart-container').orgchart({
+				   'data' : datasource,
+				   'nodeContent': 'title'
+				 });
+			});
+			
+			 
+			</script>
+		</div> 
 </div>
 </body>
 <script>
@@ -409,8 +516,8 @@ if (navigator.geolocation) {
  			pdf.save(filename);
 		}); 
 	}
- 
-</script>
+ </script>
+
 <jsp:include page="../utils/footer.jsp" />
 
 </html>
