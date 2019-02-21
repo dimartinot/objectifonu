@@ -82,6 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .and()
           .sessionManagement()
           .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+        http.headers().frameOptions().disable();	
     }
     
     @Bean

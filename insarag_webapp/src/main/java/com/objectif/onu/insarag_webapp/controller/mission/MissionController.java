@@ -71,5 +71,9 @@ public class MissionController {
 		return new ModelAndView("redirect:/mission/");
 	}
 	
+	@RequestMapping("/translator")
+	public String translator(HttpServletRequest request) {
+		return "/mission/iframe_translator";
+	}
 	
 }

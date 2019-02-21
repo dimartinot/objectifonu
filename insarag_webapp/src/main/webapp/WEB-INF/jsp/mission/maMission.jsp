@@ -65,6 +65,9 @@
 	  <li class="nav-item">
 	    <a class="nav-link" id="lien-tab" data-toggle="tab" href="#liens_utiles" role="tab" aria-controls="liens_utiles" aria-selected="false">Liens utiles</a>
 	  </li>
+	  <li class="nav-item">
+	  	<a class="nav-link" id="translator-tab" data-toggle="tab" href="#translator" role="tab" aria-controls="translator" aria-selected="false">Traducteur</a>
+	  </li>
 	</ul>
 	
 	<div class="tab-content" id="nav-tabContent">
@@ -322,44 +325,50 @@
 			</div>
 	  </div>
 		<div class="tab-pane fade" id="liens_utiles" role="tabpanel" aria-labelledby="lien-tab">
-		<div class="jumbotron jumbotron-fluid">
-				<div class="container">
-					<h1 class="display-4">Liens utiles</h1>
-					<p class="lead">
-						<form method="GET">
-						<table class="table table-hover table-light">
-						  <thead>
-						    <tr>
-						      <th scope="col">Intitulé</th>
-						      <th scope="col">Contenu</th>
-						      <th scope="col">Date d'ajout</th>
-						    </tr>
-						  </thead>
-						  <tbody>
-						  <% for (Liensutiles l : listLiens ) { %>
-						    <tr>
-						      <th scope="row"><%= l.getIntitule() %></th>
-						      <% if (l.getIsLink() == 1) { %>
-						      	<td><a href="<%= l.getContenu() %>"><%= l.getContenu() %></a></td>
-						      <% } else {%>
-						      	<td><%=l.getContenu()%></td>
-						      <% } %>
-						      <td><%= l.getDate() %></td>
-						    </tr>
-						    <% } %>
-						    <tr>
-						    		<th scope="row"><input class="form-control" type="text" name="intitule"></th>
-						    		<td><input class="form-control" type="text" name="contenu"><input type="checkbox" class="form-check-input" name="isLink" id="isLink"><label class="form-check-label" for="isLink">lien (Y/N)</label></td>
-						    		<td><button type="submit" class="btn btn-info"> Créer !</button></td>
-						    </tr>
-						  </tbody>
-						</table>
-						</form>
-					</p>
+			<div class="jumbotron jumbotron-fluid">
+					<div class="container">
+						<h1 class="display-4">Liens utiles</h1>
+						<p class="lead">
+							<form method="GET">
+							<table class="table table-hover table-light">
+							  <thead>
+							    <tr>
+							      <th scope="col">Intitulé</th>
+							      <th scope="col">Contenu</th>
+							      <th scope="col">Date d'ajout</th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							  <% for (Liensutiles l : listLiens ) { %>
+							    <tr>
+							      <th scope="row"><%= l.getIntitule() %></th>
+							      <% if (l.getIsLink() == 1) { %>
+							      	<td><a href="<%= l.getContenu() %>"><%= l.getContenu() %></a></td>
+							      <% } else {%>
+							      	<td><%=l.getContenu()%></td>
+							      <% } %>
+							      <td><%= l.getDate() %></td>
+							    </tr>
+							    <% } %>
+							    <tr>
+							    		<th scope="row"><input class="form-control" type="text" name="intitule"></th>
+							    		<td><input class="form-control" type="text" name="contenu"><input type="checkbox" class="form-check-input" name="isLink" id="isLink"><label class="form-check-label" for="isLink">lien (Y/N)</label></td>
+							    		<td><button type="submit" class="btn btn-info"> Créer !</button></td>
+							    </tr>
+							  </tbody>
+							</table>
+							</form>
+						</p>
+					</div>
 				</div>
-			</div>
 		</div>
-
+		<div class="tab-pane fade" id="translator" role="tabpanel" aria-labelledby="translator-tab">
+			<div class="jumbotron jumbotron-fluid">
+				<iframe style="margin: 5vw" width="90%" height="400" src="/mission/translator">
+				
+						
+				</iframe>
+		</div> 
 	</div>
  
 </div>
