@@ -9,6 +9,8 @@
         
         <%@ page import="java.util.List" %>
                 <%@ page import="java.util.ArrayList" %>
+                <%@ page import="java.text.SimpleDateFormat" %>
+                <%@ page import = "java.util.Date" %>
         
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -128,13 +130,370 @@
 				</div>
 			</div>
 	</div>
-		<div class="tab-pane fade" id="fiche_ops" role="tabpanel" aria-labelledby="fiche_ops-tab">
+		<div class="tab-pane fade" id="team_fact" role="tabpanel" aria-labelledby="team_fact-tab">
 	  		<div class="jumbotron jumbotron-fluid">
+	  			<div class="container" id="toPdf1">
+	  				<h1 class="display-4">Fiche de détails d'équipe</h1>
+	  				<p class="lead">
+	  					<form>
+	  						<div class="form-group">
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="team-id">A.0 ID Équipe</label>
+	  									<input class="form-control" id="team-id" placeholder="Team-ID">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="team-name">A.1 Nom d'équipe</label>
+	  									<input class="form-control" id="team-name" placeholder="Team name">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="home-country">A.2 Pays d'origine</label>
+	  									<input class="form-control" id="home-country" placeholder="Home country">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="num-of-pers">A.3 Nombre de membres</label>
+	  									<input class="form-control" id="num-of-pers" placeholder="Number of persons">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="num-of-dogs">A.4 Nombre de chiens</label>
+	  									<input class="form-control" id="num-of-dogs" placeholder="Number of dogs">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A5. Type de réponse de l'équipe: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="responseType" type="radio" id="leger-a5">
+							    			<label for="leger-a5">Léger</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="responseType" type="radio" id="medium-a5">
+							    			<label for="medium-a5">Moyenne</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="responseType" type="radio" id="heavy-a5">
+							    			<label for="heavy-a5">Lourde</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A6. Classification INSARAG: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="classInsarag" type="radio" id="none-a6">
+							    			<label for="none-a6">Aucune</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="classInsarag" type="radio" id="medium-a6">
+							    			<label for="medium-a6">Moyenne</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="classInsarag" type="radio" id="heavy-a6">
+							    			<label for="heavy-a6">Lourde</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A7. Recherche technique: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="techSearch" type="radio" id="y-a7">
+							    			<label for="y-a7">Oui</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="techSearch" type="radio" id="n-a7">
+							    			<label for="n-a7">Non</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A8. Recherche canine: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="canineSearch" type="radio" id="y-a8">
+							    			<label for="y-a8">Oui</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="canineSearch" type="radio" id="n-a8">
+							    			<label for="n-a8">Non</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A9. Sauvetage: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="rescue" type="radio" id="y-a9">
+							    			<label for="y-a9">Oui</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="rescue" type="radio" id="n-a9">
+							    			<label for="n-a9">Non</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A10. Medicamentation: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="medical" type="radio" id="y-a10">
+							    			<label for="y-a10">Oui</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="medical" type="radio" id="n-a10">
+							    			<label for="n-a10">Non</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A11. Hazmat detection: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="hazmat" type="radio" id="y-a11">
+							    			<label for="y-a11">Oui</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="hazmat" type="radio" id="n-a11">
+							    			<label for="n-a11">Non</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group col-md-6">
+						    			<label>A12. Ingénieurs de structure: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="structuralEngineers" type="radio" id="y-a12">
+							    			<label for="y-a12">Oui</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="structuralEngineers" type="radio" id="n-a12">
+							    			<label for="n-a12">Non</label>
+							    		</div>
+							    	</fieldset>
+							    	<div class="col-md-6">
+							    		<label for="number">Montant :</label>
+							    		<input class="form-control" id="number" placeholder="Number">
+							    	</div>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A13. RDC/OSOCC support: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="RDC/OSOCC" type="radio" id="y-a13">
+							    			<label for="y-a13">Oui</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="RDC/OSOCC" type="radio" id="n-a13">
+							    			<label for="n-a13">Non</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+						    		<fieldset class="form-group">
+						    			<label>A14. UC Support: </label>
+						    			<div class="form-check">
+							    			<input class="form-check-input" name="uc" type="radio" id="y-a14">
+							    			<label for="y-a14">Oui</label>
+							    		</div>
+							    		<div class="form-check">
+							    			<input class="form-check-input" name="uc" type="radio" id="n-a14">
+							    			<label for="n-a14">Non</label>
+							    		</div>
+							    	</fieldset>
+						    	</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="other_cap">A.15 Autres capacités</label>
+	  									<input class="form-control" id="other_cap" placeholder="Other capabilities">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="water_ss">A.16 Auto-suffisance en eau (en j) : </label>
+	  									<input class="form-control" id="water_ss">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="food_ss">A.17 Auto-suffisance en nourriture (en j) : </label>
+	  									<input class="form-control" id="food_ss">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<label for="arrival_date">A.18 Date d'arrivée attendue : </label>
+	  								<input class="form-control" id="arrival_date" type="date">
+	  							</div>
+	  							<div class="form-row">
+	  								<label for="arrival_time">A.19 Heure d'arrivée attendue : </label>
+	  								<input class="form-control" id="arrival_time" type="time">
+	  							</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="arrival_point">A.20 Point d'arrivée : </label>
+	  									<input class="form-control" id="arrival_point">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="aircraft_type">A.21 Type d'aéronef : </label>
+	  									<input class="form-control" id="aircraft_type">
+	  								</div>
+	  							</div>
+	  							<h2>Prérequis support</h2>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="transport_persons">B.1 Transports pour du personnel (qté) : </label>
+	  									<input class="form-control" id="transport_persons">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="transport_dogs">B.2 Transport pour chiens (qté) : </label>
+	  									<input class="form-control" id="transport_dogs">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="transport_equip">B.3 Transports pour de l'équipement (en tonnes) : </label>
+	  									<input class="form-control" id="transport_equip">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="transport_dogs">B.4 Transport pour chiens (qté) : </label>
+	  									<input class="form-control" id="transport_dogs">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<label for="gasoline">B.5 Gasoil (litres par jour)</label>
+	  								<input class="form-control" id="gasoline">
+	  							</div>
+	  							<div class="form-row">
+	  								<label for="diesel">B.6 Diesel (litres par jour)</label>
+	  								<input class="form-control" id="diesel">
+	  							</div>
+	  							
+	  							<div class="form-row">
+	  								<label>B.7 Gaz de découpe (en cylindres)</label>
+	  								<div class="col-md-6">
+	  									<label for="oxygen-number">Quantité: </label>
+	  									<input class="form-control" id="oxygen-number">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="oxygen-size">Taille: </label>
+	  									<input class="form-control" id="oxygen-size">
+	  								</div>
+	  							</div>
+	  							
+	  							<div class="form-row">
+	  								<label>B.8 Oxygène médical</label>
+	  								<div class="col-md-6">
+	  									<label for="oxygen-numero">No: </label>
+	  									<input class="form-control" id="oxygen-numero">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="oxygen-med-size">Taille: </label>
+	  									<input class="form-control" id="oxygen-med-size">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<label for="boo-space">B.9 Pré-requis d'espace <i>BoO</i></label>
+	  								<input class="form-control" id="boo-space">
+	  							</div>
+	  							<div class="form-row">
+	  								<label for="other-needs">B.10 Autre(s) nécessité(s) logistique</label>
+	  								<input class="form-control" id="other-needs">
+	  							</div>
+	  							
+	  							<h2>Contacts</h2>
+	  							
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="c1-name">C.1 Nom de contact 1: </label>
+	  									<input class="form-control" id="c1-name">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="c2-name">C.5 Nom de contact 2: </label>
+	  									<input class="form-control" id="c2-name">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="c1-phone">C.2 Tél: </label>
+	  									<input class="form-control" id="c1-phone">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="c2-phone">C.6 Tél: </label>
+	  									<input class="form-control" id="c2-phone">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="c1-satphone">C.3 Téléphone satellite: </label>
+	  									<input class="form-control" id="c1-satphone">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="c2-satphone">C.7 Téléphone satellite: </label>
+	  									<input class="form-control" id="c2-satphone">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<div class="col-md-6">
+	  									<label for="c1-email">C.4 Email: </label>
+	  									<input class="form-control" id="c1-email">
+	  								</div>
+	  								<div class="col-md-6">
+	  									<label for="c2-email">C.8 Email: </label>
+	  									<input class="form-control" id="c2-email">
+	  								</div>
+	  							</div>
+	  							<div class="form-row">
+	  								<label for="op-address">C.9 Adresse de la base d'opérations (si connue)</label>
+	  								<input class="form-control" id="op-address">
+	  							</div>
+	  							
+	  							<div class="form-row">
+	  								<label for="freq-boo">C.10 Radio fréquence <i>(BoO)</i></label>
+	  								<input class="form-control" id="freq-boo">
+	  							</div>
+	  							
+	  							<div class="form-row">
+	  								<label for="freq-boo">C.11 Coordonnées GPS <i>BoO</i>, si connues</label>
+	  								<input class="form-control" id="freq-boo">
+	  							</div>
+	  							
+	  							<div class="form-row">
+						    		<label for="info-filler">Informations remplies par: </label> 
+						    		<input class="form-control" id="info-filler" value="<%
+							  				Object obj = request.getSession().getAttribute("user");
+											if (obj != null) {
+												Users us = (Users)request.getSession().getAttribute("user");
+												out.print(us.getNom()+" "+us.getPrenom());
+											} else {
+												out.print(" Non connecté ");
+											}
+											%>" disabled>
+									<label for="title-filler">Grade: </label> 
+						    		<input class="form-control" id="title-filler" value="Lieutenant<%
+											/* if (obj != null) {
+												Users us = (Users)request.getSession().getAttribute("user");
+												out.print(us.getGrade().getLibelle());
+											} else {
+												out.print(" Non connecté ");
+											} */
+											%>" disabled>
+						    	</div>
+						    	<div class="form-row">
+						    		<label for="today-date">Date: </label>
+						    		<input class="form-control" id="today-date" value="<%= new SimpleDateFormat("dd-MM-yyyy").format(new Date()) %>" disabled>
+						    	</div>
+	  						</div>
+	  					</form>
+	  					<br>
+						<button onclick="print(4,1)" class="btn btn-info">Envoyer !</button>
+	  				</p>
+	  			</div>
 	  		</div>
 	  	</div>
 		<div class="tab-pane fade" id="fiche_ops" role="tabpanel" aria-labelledby="fiche_ops-tab">
 	  		<div class="jumbotron jumbotron-fluid">
-				<div class="container" id="toPdf">
+				<div class="container" id="toPdf2">
 					<h1 class="display-4">Fiche d'extraction de victime</h1>
 					<p class="lead">
 						<form >
@@ -329,7 +688,7 @@
 						    	<div class="form-row">
 						    		<label for="info-filler">Informations remplies par: </label> 
 						    		<input class="form-control" id="info-filler" value="<%
-							  				Object obj = request.getSession().getAttribute("user");
+							  				obj = request.getSession().getAttribute("user");
 											if (obj != null) {
 												Users us = (Users)request.getSession().getAttribute("user");
 												out.print(us.getNom()+" "+us.getPrenom());
@@ -350,7 +709,7 @@
 							</div>
 						</form>
 						<br>
-						<button onclick="print(4)" class="btn btn-info">Envoyer !</button> 
+						<button onclick="print(4,2)" class="btn btn-info">Envoyer !</button> 
 					</p>
 				</div>
 			</div>
@@ -520,10 +879,10 @@ if (navigator.geolocation) {
  hour.value = currentDate.getHours() + ":" + currentDate.getMinutes();
  
  //Print to pdf
- function print(quality = 1) {
+ function print(quality = 1, id) {
 		const filename  = 'Fiche_Ops.pdf';
 
-		html2canvas(document.querySelector('#toPdf'), 
+		html2canvas(document.querySelector('#toPdf'+id), 
 								{scale: quality}
 						 ).then(canvas => {
 			var img = canvas.toDataURL('image/jpeg');

@@ -68,6 +68,7 @@ public class MissionController {
 		Alerte a = ah.selectLastFromUser(connectedUser.getUser());
 		String contenu = request.getParameter("info-textarea");
 		imh.insertInfoMission(contenu,a);
+
 		return new ModelAndView("redirect:/mission/");
 	}
 	
