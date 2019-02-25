@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.StringEscapeUtils;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
@@ -106,10 +107,23 @@ public class InfomissionHome {
 	}
 
 	public void delete(Infomission persistentInstance) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
 		log.debug("deleting Infomission instance");
+		Transaction tx;
+		if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+			tx = sessionFactory.getCurrentSession().beginTransaction();
+		} else {
+			tx = sessionFactory.getCurrentSession().getTransaction();
+		}
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
+			tx.commit();
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -129,10 +143,22 @@ public class InfomissionHome {
 	}
 
 	public Infomission findById(int id) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
 		log.debug("getting Infomission instance with id: " + id);
+		Transaction tx;
+		if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+			tx = sessionFactory.getCurrentSession().beginTransaction();
+		} else {
+			tx = sessionFactory.getCurrentSession().getTransaction();
+		}
 		try {
 			Infomission instance = (Infomission) sessionFactory.getCurrentSession()
-					.get("com.objectif.onu.insarag_webapp.dao.Infomission", id);
+					.get("com.objectif.onu.insarag_webapp.model.Infomission", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -149,7 +175,7 @@ public class InfomissionHome {
 		log.debug("finding Infomission instance by example");
 		try {
 			List results = sessionFactory.getCurrentSession()
-					.createCriteria("com.objectif.onu.insarag_webapp.dao.Infomission").add(Example.create(instance))
+					.createCriteria("com.objectif.onu.insarag_webapp.model.Infomission").add(Example.create(instance))
 					.list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;

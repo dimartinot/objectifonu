@@ -105,10 +105,22 @@ public class LiensutilesHome {
 	}
 
 	public void delete(Liensutiles persistentInstance) {
-		log.debug("deleting Liensutiles instance");
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		Transaction tx;
+		if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+			tx = sessionFactory.getCurrentSession().beginTransaction();
+		} else {
+			tx = sessionFactory.getCurrentSession().getTransaction();
+		}
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
+			tx.commit();
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -128,10 +140,21 @@ public class LiensutilesHome {
 	}
 
 	public Liensutiles findById(int id) {
-		log.debug("getting Liensutiles instance with id: " + id);
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		Transaction tx;
+		if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+			tx = sessionFactory.getCurrentSession().beginTransaction();
+		} else {
+			tx = sessionFactory.getCurrentSession().getTransaction();
+		}
 		try {
 			Liensutiles instance = (Liensutiles) sessionFactory.getCurrentSession()
-					.get("com.objectif.onu.insarag_webapp.dao.Liensutiles", id);
+					.get("com.objectif.onu.insarag_webapp.model.Liensutiles", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {

@@ -76,4 +76,21 @@ public class MissionController {
 		return "/mission/iframe_translator";
 	}
 	
+	@RequestMapping("/delete_infomission")
+	public ModelAndView deleteInfoMission(HttpServletRequest request) {
+		if (request.getParameter("id") != null) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			imh.delete(imh.findById(id));
+		}
+		return new ModelAndView("redirect:/mission/");
+	}
+	
+	@RequestMapping("/delete_usefullink")
+	public ModelAndView deleteUsefulLink(HttpServletRequest request) {
+		if (request.getParameter("id") != null) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			lh.delete(lh.findById(id));
+		}
+		return new ModelAndView("redirect:/mission/");
+	}
 }

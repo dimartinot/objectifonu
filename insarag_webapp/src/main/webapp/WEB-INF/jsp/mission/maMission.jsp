@@ -74,8 +74,14 @@
 	  <li class="nav-item">
 	    <a class="nav-link" id="add_info-tab" data-toggle="tab" href="#add_info" role="tab" aria-controls="add_info" aria-selected="false">Ajout d'informations</a>
 	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" id="fiche_ops-tab" data-toggle="tab" href="#fiche_ops" role="tab" aria-controls="fiche_ops" aria-selected="false">Génération de fiches missions</a>
+	  <li class="nav-item dropdown">
+	  	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Génération de fiches missions</a>
+	    <div class="dropdown-menu">
+	      	<a class="dropdown-item" id="team_fact-tab" data-toggle="tab" href="#team_fact" role = "tab" aria-controls="team_fact" aria-selected="false">Fiche de détail d'équipe</a>
+	    		      	<div class="dropdown-divider"></div>
+	    	<a class="dropdown-item" id="fiche_ops-tab" data-toggle="tab" href="#fiche_ops" role="tab" aria-controls="fiche_ops" aria-selected="false">Fiche d'extraction de victime</a>
+
+	    </div>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" id="lien-tab" data-toggle="tab" href="#liens_utiles" role="tab" aria-controls="liens_utiles" aria-selected="false">Liens utiles</a>
@@ -97,6 +103,9 @@
 						<% for (Infomission i : list) { %>
 							<div class="alert alert-info" role="alert">
 								<%= i.getDetailMission() %>
+								<a href="/mission/delete_infomission?id=<%= i.getIdinfoMission() %>" class="close" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </a>
 							</div>
 						<% } %>
 					</p>
@@ -120,9 +129,13 @@
 			</div>
 	</div>
 		<div class="tab-pane fade" id="fiche_ops" role="tabpanel" aria-labelledby="fiche_ops-tab">
-	  	<div class="jumbotron jumbotron-fluid">
+	  		<div class="jumbotron jumbotron-fluid">
+	  		</div>
+	  	</div>
+		<div class="tab-pane fade" id="fiche_ops" role="tabpanel" aria-labelledby="fiche_ops-tab">
+	  		<div class="jumbotron jumbotron-fluid">
 				<div class="container" id="toPdf">
-					<h1 class="display-4">Remplissage du formulaire d'une fiche opérationelle</h1>
+					<h1 class="display-4">Fiche d'extraction de victime</h1>
 					<p class="lead">
 						<form >
 							<div class="form-group">
@@ -365,7 +378,11 @@
 							      <% } else {%>
 							      	<td><%=l.getContenu()%></td>
 							      <% } %>
-							      <td><%= l.getDate() %></td>
+							      <td><%= l.getDate() %>
+							      	<a href="/mission/delete_usefullink?id=<%= l.getIdliensutiles() %>" class="close" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </a>
+							      </td>
 							    </tr>
 							    <% } %>
 							    <tr>
