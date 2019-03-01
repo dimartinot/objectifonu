@@ -133,7 +133,11 @@
 		<div class="tab-pane fade" id="team_fact" role="tabpanel" aria-labelledby="team_fact-tab">
 	  		<div class="jumbotron jumbotron-fluid">
 	  			<div class="container" id="toPdf1">
-	  				<h1 class="display-4">Fiche de détails d'équipe</h1>
+	  				<div class="row">
+	  					<div class="col-8"><h1 class="display-4">Fiche de détails d'équipe</h1></div>
+	  					<div class="col-4"><img src="<c:url value="/img/mission/logo_insarag.png"/>"></div>
+	  				</div>
+	  				
 	  				<p class="lead">
 	  					<form>
 	  						<div class="form-group">
@@ -494,7 +498,10 @@
 		<div class="tab-pane fade" id="fiche_ops" role="tabpanel" aria-labelledby="fiche_ops-tab">
 	  		<div class="jumbotron jumbotron-fluid">
 				<div class="container" id="toPdf2">
-					<h1 class="display-4">Fiche d'extraction de victime</h1>
+				<div class="row">
+						<div class="col-8"><h1 class="display-4">Fiche d'extraction de victime</h1></div>
+	  					<div class="col-4"><img src="<c:url value="/img/mission/logo_insarag.png"/>"></div>
+	  				</div>
 					<p class="lead">
 						<form >
 							<div class="form-group">
