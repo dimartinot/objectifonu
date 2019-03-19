@@ -153,6 +153,7 @@ public class RolesHome {
 			Roles res;
 			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
 			Query query = sessionFactory.getCurrentSession().createQuery("from Roles as roles where roles.users = "+id);
+			System.out.println("id = "+id);
 			Object r = (Object) query.getSingleResult();
 			if (r == null) {
 				res = new Roles();

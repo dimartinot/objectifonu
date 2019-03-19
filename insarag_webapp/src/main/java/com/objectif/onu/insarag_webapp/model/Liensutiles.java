@@ -1,5 +1,5 @@
 package com.objectif.onu.insarag_webapp.model;
-// Generated 19-Feb-2019 14:21:18 by Hibernate Tools 5.3.0.Beta2
+// Generated 19-Mar-2019 16:05:44 by Hibernate Tools 5.3.0.Beta2
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class Liensutiles implements java.io.Serializable {
 
-	private int idliensutiles;
+	private Integer idliensutiles;
 	private Mission mission;
 	private String intitule;
 	private String contenu;
@@ -18,13 +18,11 @@ public class Liensutiles implements java.io.Serializable {
 	public Liensutiles() {
 	}
 
-	public Liensutiles(int idliensutiles, Mission mission) {
-		this.idliensutiles = idliensutiles;
+	public Liensutiles(Mission mission) {
 		this.mission = mission;
 	}
 
-	public Liensutiles(int idliensutiles, Mission mission, String intitule, String contenu, Date date, Byte isLink) {
-		this.idliensutiles = idliensutiles;
+	public Liensutiles(Mission mission, String intitule, String contenu, Date date, Byte isLink) {
 		this.mission = mission;
 		this.intitule = intitule;
 		this.contenu = contenu;
@@ -32,11 +30,11 @@ public class Liensutiles implements java.io.Serializable {
 		this.isLink = isLink;
 	}
 
-	public int getIdliensutiles() {
+	public Integer getIdliensutiles() {
 		return this.idliensutiles;
 	}
 
-	public void setIdliensutiles(int idliensutiles) {
+	public void setIdliensutiles(Integer idliensutiles) {
 		this.idliensutiles = idliensutiles;
 	}
 

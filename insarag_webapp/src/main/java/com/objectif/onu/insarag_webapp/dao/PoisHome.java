@@ -1,5 +1,9 @@
 package com.objectif.onu.insarag_webapp.dao;
-// Generated 10-Feb-2019 17:07:34 by Hibernate Tools 5.3.0.Beta2
+// Generated 19-Mar-2019 16:06:19 by Hibernate Tools 5.3.0.Beta2
+
+import static com.objectif.onu.insarag_webapp.service.DBData.DB_URL;
+import static com.objectif.onu.insarag_webapp.service.DBData.PASS;
+import static com.objectif.onu.insarag_webapp.service.DBData.USER;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,13 +13,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.naming.InitialContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.text.StringEscapeUtils;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
@@ -33,17 +35,15 @@ import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
 import com.objectif.onu.insarag_webapp.model.Users;
 import com.objectif.onu.insarag_webapp.model.Ville;
-import static com.objectif.onu.insarag_webapp.service.DBData.*;
+
 /**
- * Home object for domain model class Infomission.
- * @see com.objectif.onu.insarag_webapp.dao.Infomission
+ * Home object for domain model class Pois.
+ * @see com.objectif.onu.insarag_webapp.dao.Pois
  * @author Hibernate Tools
  */
-public class InfomissionHome {
-	
+public class PoisHome {
 
-
-	private static final Log log = LogFactory.getLog(InfomissionHome.class);
+	private static final Log log = LogFactory.getLog(PoisHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -75,8 +75,8 @@ public class InfomissionHome {
 		}
 	}
 
-	public void persist(Infomission transientInstance) {
-		log.debug("persisting Infomission instance");
+	public void persist(Pois transientInstance) {
+		log.debug("persisting Pois instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -86,8 +86,8 @@ public class InfomissionHome {
 		}
 	}
 
-	public void attachDirty(Infomission instance) {
-		log.debug("attaching dirty Infomission instance");
+	public void attachDirty(Pois instance) {
+		log.debug("attaching dirty Pois instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -97,8 +97,8 @@ public class InfomissionHome {
 		}
 	}
 
-	public void attachClean(Infomission instance) {
-		log.debug("attaching clean Infomission instance");
+	public void attachClean(Pois instance) {
+		log.debug("attaching clean Pois instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -108,34 +108,21 @@ public class InfomissionHome {
 		}
 	}
 
-	public void delete(Infomission persistentInstance) {
-		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		log.debug("deleting Infomission instance");
-		Transaction tx;
-		if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
-			tx = sessionFactory.getCurrentSession().beginTransaction();
-		} else {
-			tx = sessionFactory.getCurrentSession().getTransaction();
-		}
+	public void delete(Pois persistentInstance) {
+		log.debug("deleting Pois instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
-			tx.commit();
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
 		}
 	}
 
-	public Infomission merge(Infomission detachedInstance) {
-		log.debug("merging Infomission instance");
+	public Pois merge(Pois detachedInstance) {
+		log.debug("merging Pois instance");
 		try {
-			Infomission result = (Infomission) sessionFactory.getCurrentSession().merge(detachedInstance);
+			Pois result = (Pois) sessionFactory.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -144,23 +131,11 @@ public class InfomissionHome {
 		}
 	}
 
-	public Infomission findById(int id) {
+	public Pois findById(java.lang.Integer id) {
+		log.debug("getting Pois instance with id: " + id);
 		try {
-			sessionFactory.openSession();
-			log.info("session opened !");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-		log.debug("getting Infomission instance with id: " + id);
-		Transaction tx;
-		if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
-			tx = sessionFactory.getCurrentSession().beginTransaction();
-		} else {
-			tx = sessionFactory.getCurrentSession().getTransaction();
-		}
-		try {
-			Infomission instance = (Infomission) sessionFactory.getCurrentSession()
-					.get("com.objectif.onu.insarag_webapp.model.Infomission", id);
+			Pois instance = (Pois) sessionFactory.getCurrentSession().get("com.objectif.onu.insarag_webapp.dao.Pois",
+					id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -172,22 +147,8 @@ public class InfomissionHome {
 			throw re;
 		}
 	}
-
-	public List findByExample(Infomission instance) {
-		log.debug("finding Infomission instance by example");
-		try {
-			List results = sessionFactory.getCurrentSession()
-					.createCriteria("com.objectif.onu.insarag_webapp.model.Infomission").add(Example.create(instance))
-					.list();
-			log.debug("find by example successful, result size: " + results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
 	
-	public List<Infomission> findAllByAlerte(Alerte instance) {
+	public List<Pois> findAllByAlerte(Alerte instance) {
 		try {
 			sessionFactory.openSession();
 			log.info("session opened !");
@@ -196,18 +157,20 @@ public class InfomissionHome {
 		}
 
 		try {
-			ArrayList<Infomission> list = new ArrayList<Infomission>();
+			ArrayList<Pois> list = new ArrayList<Pois>();
 		      try {
 				Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
 				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("select i.idinfoMission, i.idMission, i.detailMission from Infomission i, Mission m where i.idMission = m.idmission and m.idalerte = "+instance.getIdalerte());
+				ResultSet rs = stmt.executeQuery("select p.idpois, p.lat, p.longi, p.info, p.idMission from Pois p, Mission m where m.idalerte = "+instance.getIdalerte()+" and p.idMission = m.idmission");
 			      while(rs.next()){
-			    	  Infomission info = new Infomission();
+			    	 Pois pois = new Pois();
 			         //Retrieve by column name
-			    	  info.setIdinfoMission(rs.getInt("i.idinfoMission"));
-			    	  info.setDetailMission(rs.getString("i.detailMission"));
-			    	  info.setIdMission(rs.getInt("i.idMission"));
-			    	  list.add(info);
+			    	 	pois.setIdMission(rs.getInt("p.idMission"));
+			    	 	pois.setIdpois(rs.getInt("p.idpois"));
+			    	 	pois.setInfo(rs.getString("p.info"));
+			    	 	pois.setLat(rs.getDouble("p.lat"));
+			    	 	pois.setLongi(rs.getDouble("p.longi"));
+			    	  list.add(pois);
 			      }
 			      rs.close();
 			      stmt.close();
@@ -223,7 +186,7 @@ public class InfomissionHome {
 		}
 	}
 	
-	public void insertInfoMission(String contenu, Alerte toInsertInto) {
+	public void insertPois(Pois toBeInserted, Alerte toInsertInto) {
 		try {
 			sessionFactory.openSession();
 			log.info("session opened !");
@@ -235,11 +198,13 @@ public class InfomissionHome {
 			ArrayList<Infomission> list = new ArrayList<Infomission>();
 		      try {
 				Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
-				String query = "insert into Infomission(idMission, detailMission) VALUES ("
+				String query = "insert into pois(idMission, lat, longi, info) VALUES ("
 						+ "(SELECT idMission FROM Mission WHERE idalerte = "+toInsertInto.getIdalerte()+"),"
-						+ "?)";
+						+ "?,?,?)";
 				PreparedStatement stmt = conn.prepareStatement(query);
-				stmt.setString(1, contenu);
+				stmt.setDouble(1, toBeInserted.getLat());
+				stmt.setDouble(2, toBeInserted.getLongi());
+				stmt.setString(3, toBeInserted.getInfo());
 				stmt.execute();
 			      stmt.close();
 			      conn.close();
@@ -247,6 +212,19 @@ public class InfomissionHome {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} catch (RuntimeException re) {
+			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+
+	public List findByExample(Pois instance) {
+		log.debug("finding Pois instance by example");
+		try {
+			List results = sessionFactory.getCurrentSession().createCriteria("com.objectif.onu.insarag_webapp.dao.Pois")
+					.add(Example.create(instance)).list();
+			log.debug("find by example successful, result size: " + results.size());
+			return results;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
 			throw re;

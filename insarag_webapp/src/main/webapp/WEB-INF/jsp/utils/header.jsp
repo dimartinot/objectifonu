@@ -29,6 +29,22 @@
       <li class="nav-item active">
         <a class="nav-link color1" href="/">Accueil <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item dropdown">
+      	<a class="nav-link color1 dropdown-toggle" href="#" id="alerteDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Alerte
+
+      	(<b id="numberOfAlerts"></b>)</a>
+      	
+      	<div class="dropdown-menu" aria-labelledby="alerteDropdown">
+      		<a class="dropdown-item" href="/alert/">Accueil</a>
+      		<a class="dropdown-item" href="/alert/to_respond">Répondre (<b id = "numberOfAlertsBis"></b>)</a>
+      	</div>
+      </li>
+      <li class="nav-item color1">
+        <a class="nav-link" href="/mission/">Mission</a>
+      </li>
+	        <li class="nav-item">
+        <a class="nav-link color1" href="/map/">Carte</a>
+      </li>
 	  <li class="nav-item color1 dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Chat
@@ -40,25 +56,8 @@
 
 		</div>
       </li>
-      <li class="nav-item color1">
-        <a class="nav-link" href="/mission/">Mission</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link color1" href="#">Organisation</a>
-      </li>
-	        <li class="nav-item">
-        <a class="nav-link color1" href="#">Carte</a>
-      </li>
-      <li class="nav-item dropdown">
-      	<a class="nav-link color1 dropdown-toggle" href="#" id="alerteDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Alerte
-
-      	(<b id="numberOfAlerts"></b>)</a>
-      	
-      	<div class="dropdown-menu" aria-labelledby="alerteDropdown">
-      		<a class="dropdown-item" href="/alert/">Accueil</a>
-      		<a class="dropdown-item" href="/alert/to_respond">Répondre (<b id = "numberOfAlertsBis"></b>)</a>
-      	</div>
-      </li>
+      
+      
             <li class="nav-item">
 		      	<a class="nav-link" href="/profil">
 		      			<img class="rounded" src="http://placehold.it/400x300" width="30" height="30" alt="">

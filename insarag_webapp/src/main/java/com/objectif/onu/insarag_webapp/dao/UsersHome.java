@@ -27,6 +27,7 @@ import com.objectif.onu.insarag_webapp.model.Infomission;
 import com.objectif.onu.insarag_webapp.model.Liensutiles;
 import com.objectif.onu.insarag_webapp.model.Mission;
 import com.objectif.onu.insarag_webapp.model.Pays;
+import com.objectif.onu.insarag_webapp.model.Pois;
 import com.objectif.onu.insarag_webapp.model.Postes;
 import com.objectif.onu.insarag_webapp.model.Roles;
 import com.objectif.onu.insarag_webapp.model.Users;
@@ -69,6 +70,7 @@ public class UsersHome {
 					.addClass(Infomission.class)
 					.addClass(Mission.class)
 					.addClass(Liensutiles.class)
+					.addClass(Pois.class)
 					.buildSessionFactory(registry);
 			return s;
 //			return (SessionFactory) new InitialContext().lookup("SessionFactory");
