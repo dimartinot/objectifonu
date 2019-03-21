@@ -1,4 +1,6 @@
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="from"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +31,9 @@
 <body>
 <div class="page">
 <div class="container emp-profile">
-            <form class="form-horizontal" role="form" method="GET">
+            <form method="POST"
+          action="/saveusers" >
+          
                 <div class="row">
                     <div class="col-md-3">
                         <div class="profile-img">
@@ -42,38 +46,39 @@
                     </div>
                  </div>
          		<div class="form-group">
-            <label class="col-lg-3 control-label">Prénom :</label>
+            <label name="prenom" class="col-lg-3 control-label">Prénom :</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="<%
+              <input class="form-control" name="input-prenom" type="text" value="<%
 						Users obj = (Users)request.getSession().getAttribute("user");
 						out.print(obj.getPrenom());
-						%>">
+						%>" />
+				<input style="display: none" class="form-control" type="text" value="<%= obj.getIdusers()%>" name="input-id"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Nom :</label>
+            <label name="nom" class="col-lg-3 control-label">Nom :</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="<%= obj.getNom()%>">
+              <input class="form-control" type="text" value="<%= obj.getNom()%>" name="input-nom"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Téléphone :</label>
+            <label name="tel" class="col-lg-3 control-label">Téléphone :</label>
             <div class="col-lg-8">
             <% if ( obj.getTelephone() != null) { %>
-              <input class="form-control" type="text" value="<% out.print(obj.getTelephone()); %>">
+              <input class="form-control" type="text" value="<% out.print(obj.getTelephone()); %>" name="input-tel"/>
             <% } else { %>
            	<input class="form-control" type="text" value="">
               <% } %>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Email :</label>
+            <label name="email" class="col-lg-3 control-label">Email :</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="<%= obj.getEmail()%>">
+              <input class="form-control" type="text" value="<%= obj.getEmail()%>" name="input-email"/>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-lg-3 control-label">Poste:</label>
+            <label name="poste" class="col-lg-3 control-label">Poste:</label>
             <div class="col-lg-8">
               <div class="ui-select">
                 <select id="user_time_zone" class="form-control" disabled>
@@ -86,18 +91,18 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-3 control-label">Grade:</label>
+            <label name="grade" class="col-md-3 control-label">Grade:</label>
             <div class="col-md-8">
-              <input class="form-control" type="text" value="Grade" disabled>
+              <input class="form-control" type="text" value="1" disabled name="input-grade"/>
             </div>
           </div>
           
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
-              <input type="button" class="btn btn-primary" value="Sauvegarder les changements">
+              <input type="submit" class="btn btn-primary" value="Sauvegarder les changements" name="sauvegarder"/>
               <span></span>
-              <input type="reset" class="btn btn-default" value="Annuler">
+              <input type="reset" class="btn btn-default" value="Annuler" name="annuler"/>
             </div>
           </div>
             </form>

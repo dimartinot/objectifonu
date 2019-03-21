@@ -11,8 +11,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
@@ -100,7 +102,7 @@ public class PostesHome {
 		}
 	}
 
-	public void delete(Postes persistentInstance) {
+	public void deleteById(Postes persistentInstance) {
 		log.debug("deleting Postes instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -122,11 +124,41 @@ public class PostesHome {
 			throw re;
 		}
 	}
+	
+	public List<Postes> findAllPostes(){
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		log.debug("getting all users from the database");
+		try {
+
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}return (List<Postes>) sessionFactory.getCurrentSession().createQuery("from Postes").list();
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+		
+	}
 
 	public Postes findById(int id) {
 		log.debug("getting Postes instance with id: " + id);
 		try {
-			Postes instance = (Postes) sessionFactory.getCurrentSession().get("dao.Postes", id);
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			Postes instance = (Postes) sessionFactory.getCurrentSession().createQuery("from Postes p where p.idPoste = '"+id+"'").getSingleResult();
+			tx.commit();
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -146,6 +178,33 @@ public class PostesHome {
 					.add(create(instance)).list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;
+		} catch (RuntimeException re) {
+			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+	
+	public List<Postes> selectAll() {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		log.debug("finding Users instance by example");
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			Query query = sessionFactory.getCurrentSession().createQuery("from Postes");
+			List<Postes> list = query.list();
+			tx.commit();
+			log.debug("find all successfull, result size: " + list.size());
+			return list;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);
 			throw re;

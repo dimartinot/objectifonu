@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -113,10 +114,19 @@ public class UsersHome {
 		}
 	}
 
-	public void delete(Users persistentInstance) {
+	public void deleteById(int id) {
+		
 		log.debug("deleting Users instance");
 		try {
-			sessionFactory.getCurrentSession().delete(persistentInstance);
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			Users instance = (Users) sessionFactory.getCurrentSession().createQuery("from Users u where u.idusers = '"+id+"'").getSingleResult();
+			sessionFactory.getCurrentSession().delete(instance);
+			tx.commit();
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
@@ -135,7 +145,66 @@ public class UsersHome {
 			throw re;
 		}
 	}
+	
+	public void update(Users persistentInstance) {
+		log.debug("update Users instance");
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			sessionFactory.getCurrentSession().update(persistentInstance);
+			tx.commit();
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
+	
+	public void addUsers(Users persistentInstance) {
+		log.debug("update Users instance");
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			sessionFactory.getCurrentSession().save(persistentInstance);
+			tx.commit();
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
 
+	public List<Users> findAllUsers(){
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		log.debug("getting all users from the database");
+		try {
+
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}return (List<Users>) sessionFactory.getCurrentSession().createQuery("from Users").list();
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+		
+	}
+	
 	public Users findById(int id) {
 		try {
 			sessionFactory.openSession();
@@ -145,10 +214,28 @@ public class UsersHome {
 		}
 		log.debug("getting Users instance with id: " + id);
 		try {
-
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-			Users instance = (Users) sessionFactory.getCurrentSession().get("dao.Users", id);
+			
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			
+			Users instance = (Users) sessionFactory.getCurrentSession().createQuery("from Users u where u.idusers = '"+id+"'").getSingleResult();
+			Hibernate.initialize(instance.getArepondus());
+			Hibernate.initialize(instance.getEmail());
+			Hibernate.initialize(instance.getEnMission());
+			Hibernate.initialize(instance.getGrade());
+			Hibernate.initialize(instance.getIdusers());
+			Hibernate.initialize(instance.getNom());
+			Hibernate.initialize(instance.getPassword());
+			Hibernate.initialize(instance.getPostes());
+			Hibernate.initialize(instance.getPrenom());
+			Hibernate.initialize(instance.getRoleses());
+			Hibernate.initialize(instance.getTelephone());
 			tx.commit();
+
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -171,7 +258,12 @@ public class UsersHome {
 		log.debug("getting Users instance with username: " + username);
 		try {
 
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
 			Users instance = (Users) sessionFactory.getCurrentSession().createQuery("from Users u where u.email = '"+username+"'").getSingleResult();
 			tx.commit();
 			if (instance == null) {
@@ -189,8 +281,7 @@ public class UsersHome {
 	public List<Users> findByExample(Users instance) {
 		log.debug("finding Users instance by example");
 		try {
-			List<Users> results = (List<Users>) sessionFactory.getCurrentSession().createCriteria("dao.Users")
-					.add(create(instance)).list();
+			List<Users> results = (List<Users>) sessionFactory.getCurrentSession().createCriteria("dao.Users").add(create(instance)).list();
 			log.debug("find by example successful, result size: " + results.size());
 			return results;
 		} catch (RuntimeException re) {

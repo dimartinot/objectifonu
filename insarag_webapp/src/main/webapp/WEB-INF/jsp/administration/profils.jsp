@@ -1,4 +1,7 @@
+<%@ page session="true" %>
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
+<%@ page import="com.objectif.onu.insarag_webapp.model.Roles" %>
+<%@ page import="java.util.Set" %>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,7 +13,7 @@
 
 
 <link href="css\bootstrap\bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="\js\bootstrap.min.js" rel="stylesheet" id="bootstrap-js" ></script>
 <link href="css\utils\header.css" rel="stylesheet" id="header-css">
@@ -29,7 +32,7 @@
 <body>
 <div class="page">
 <div class="container emp-profile">
-            <form action="/modifprofil" method="post">
+            <div class="post">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
@@ -40,21 +43,33 @@
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-		                                Grade + <%
-						Users obj = (Users)request.getSession().getAttribute("user");
-						out.print(obj.getNom()+" "+obj.getPrenom());
-						%>
+                                    	<% Users obj = (Users)(request.getSession().getAttribute("user"));
+                                    	boolean visual = false;
+                                     	Set<Roles> sr = (Set<Roles>)obj.getRoleses();
+
+                                     	for (Roles r : sr) {
+                                     		if (r.getTitre().equals("SUPER-ADMIN") || r.getTitre().equals("ADMIN") ) { 
+                                     			visual = true; } }%> 
+                                    	
+		                                 <%= (request.getParameter("grade") == null) ? obj.getGrade().getLibelle() : request.getParameter("grade")  %> <%= (request.getParameter("nom") == null) ? obj.getNom() : request.getParameter("nom")  %>
                                     </h5>
                                     <h6>
                                         Grade
                                     </h6>
                                     <%
-									
-										if (obj.getEnMission() == 1) { %>			
+										if (request.getParameter("enmission") == null) {
+											if ((obj.getEnMission()) == 1) { %>			
+		                                    <p class="proile-rating">ACTIVITE : <span>EN MISSION</span></p>
+		                                    <% } else { %>
+		                                    <p class="proile-rating">ACTIVITE : <span>DISPONIBLE</span></p>
+		                                    <% } %>
+									 <% } else { 
+										 if (Integer.parseInt(request.getParameter("enmission")) == 1) { %>			
+									 
                                     <p class="proile-rating">ACTIVITE : <span>EN MISSION</span></p>
                                     <% } else { %>
                                     <p class="proile-rating">ACTIVITE : <span>DISPONIBLE</span></p>
-                                    <% } %>
+                                    <% }} %>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Infos</a>
@@ -63,12 +78,28 @@
                         </div>
                     </div>
                     <div class="col-md-2">
+                     <%
+						if (request.getParameter("id") == null) { 
+										        
+				        %>
+                    	<form action ="modifprofil" method="post">
                         <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-                        <br></br>
-                        <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Promouvoir"/>
-                        <br></br>
-                        <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Supprimer"/>
+                        </form>
+                        <% } %>
+                        <% 
+				        	if ((visual) && (request.getParameter("id") != null)) {
+				        %>
                         
+                        <form method ="POST">
+                        <input style = "display: none" name="id" value = <%=  request.getParameter("id")   %> >
+                        <input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Promouvoir" id = "promute"/>
+                        </form>
+                       	<div style ="height: 5px"></div>
+                        <form method ="POST">
+                        <input style = "display: none" name="id" value = <%= request.getParameter("id")  %> >
+                        <input type="button" class="btn-info profile-edit-btn" name="btnAddMore" value="Supprimer"/>
+                        </form>
+                        <% } %>
                     </div>
                    
                 </div>
@@ -81,7 +112,7 @@
                                                 <label>Prenom</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><%= obj.getPrenom() %></p>
+                                                <p><%= (request.getParameter("prenom") == null) ? obj.getPrenom() : request.getParameter("prenom")  %></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -89,7 +120,7 @@
                                                 <label>Nom</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><%= obj.getNom() %></p>
+                                                <p><%= (request.getParameter("nom") == null) ? obj.getNom() : request.getParameter("nom")  %></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -97,14 +128,15 @@
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><%= obj.getEmail() %></p>
+                                                <p><%= (request.getParameter("email") == null) ? obj.getEmail() : request.getParameter("email")  %></p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Téléphone</label>
                                             </div>
-                                            <% if (obj.getTelephone() == null) { %>
+                                            <% if (request.getParameter("tel") == null) { %>
+                                           		<% if (obj.getTelephone() == null) { %>
                                             <div class="col-md-6">
                                                 <p><i>Non communiqué</i></p>
                                             </div>
@@ -113,21 +145,27 @@
                                                 <p><i><%= obj.getTelephone() %></i></p>
                                             </div>
                                             <% } %>
+                                            <% } else { %>
+                                            <div class="col-md-6">
+                                                <p><i><%= request.getParameter("tel") %></i></p>
+                                            </div>
+                                            <% } %>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Poste</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>À implémenter...<%-- <%= obj.getPostes() %> --%></p>
+                                                <p><%= (request.getParameter("poste") == null) ? obj.getPostes().getLibelle() : request.getParameter("poste")  %></p>
                                             </div>
                                         </div>
                             </div>
                             
                         </div>
                     </div>
-                </div>
-            </form>
+                
+            </div>
+            </div>
                       
         
         

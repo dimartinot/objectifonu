@@ -9,8 +9,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 
 import com.objectif.onu.insarag_webapp.model.Alerte;
@@ -98,7 +100,7 @@ public class GradeHome {
 		}
 	}
 
-	public void delete(Grade persistentInstance) {
+	public void deleteById(Grade persistentInstance) {
 		log.debug("deleting Grade instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
@@ -124,7 +126,14 @@ public class GradeHome {
 	public Grade findById(int id) {
 		log.debug("getting Grade instance with id: " + id);
 		try {
-			Grade instance = (Grade) sessionFactory.getCurrentSession().get("dao.Grade", id);
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			Grade instance = (Grade) sessionFactory.getCurrentSession().createQuery("from Grade g where g.idGrade = '"+id+"'").getSingleResult();
+			tx.commit();
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
@@ -148,5 +157,60 @@ public class GradeHome {
 			log.error("find by example failed", re);
 			throw re;
 		}
+	}
+	
+	public Grade findByUserId(int id) {
+
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		log.debug("getting Grade instance with id: " + id);
+
+		try {
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}
+			Query query = sessionFactory.getCurrentSession().createQuery("from Grade as grade where grade.users = "+id);
+			Grade res = (Grade) query.getSingleResult();
+			tx.commit();
+			if (res == null) {
+				log.debug("get successful, no instance found");
+			} else {
+				log.debug("get successful, instance found");
+			}
+			return res;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	public List<Grade> findAllGrades(){
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		log.debug("getting all users from the database");
+		try {
+
+			Transaction tx;
+			if (sessionFactory.getCurrentSession().getTransaction().isActive() == false) {
+				tx = sessionFactory.getCurrentSession().beginTransaction();
+			} else {
+				tx = sessionFactory.getCurrentSession().getTransaction();
+			}return (List<Grade>) sessionFactory.getCurrentSession().createQuery("from Grade").list();
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+		
 	}
 }
