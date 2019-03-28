@@ -39,8 +39,8 @@
       <div class="row text-center text-lg-left">
 
         <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil rounded-circle">COM.</button>
+          <a href="/mission/" class="d-block mb-4 h-100">
+            <button class="btn btn-info accueil rounded-circle">ORGA.</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
@@ -56,13 +56,8 @@
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
+          <a href="/map/" class="d-block mb-4 h-100">
 			<button class="btn btn-info accueil rounded-circle">CARTE</button>
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6">
-          <a href="#" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil rounded-circle">ORGA.</button>
           </a>
         </div>
 

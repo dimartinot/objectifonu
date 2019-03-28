@@ -1,9 +1,17 @@
 package com.objectif.onu.insarag_webapp.dao;
 // Generated 10-Feb-2019 17:07:34 by Hibernate Tools 5.3.0.Beta2
 
-import java.util.List;
+import static com.objectif.onu.insarag_webapp.service.DBData.DB_URL;
+import static com.objectif.onu.insarag_webapp.service.DBData.PASS;
+import static com.objectif.onu.insarag_webapp.service.DBData.USER;
 
-import javax.naming.InitialContext;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -173,5 +181,42 @@ public class MissionHome {
 			log.error("insert failed", re);
 			throw re;
 		}
+	}
+
+	public HashMap<String, String> getUsersOfMission(int idAlerte) {
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+			String query = "SELECT u.nom, u.prenom, p.libelle FROM users u, arepondu ar, postes p WHERE "
+					+ idAlerte + " = ar.idAlerte AND "
+					+ "ar.idUser = u.idusers AND "
+					+ "u.idPoste = p.idPoste";
+			System.out.println(query);
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			HashMap<String, String> res = new HashMap<String, String>();
+			 while(rs.next()){
+				 String nom = rs.getString("u.nom");
+				 String prenom = rs.getString("u.prenom");
+				 String libelle = rs.getString("p.libelle");
+				 if (res.containsKey(libelle)) {
+					 libelle = libelle + "1";
+					 int counter = 1;
+					 while (res.containsKey(libelle)) {
+						 counter++;
+						 libelle = libelle.substring(0, libelle.length()-1) + counter;
+					 }
+				 }
+				 res.put(libelle, nom+" "+prenom);
+			 }
+		      stmt.close();
+		      conn.close();
+		      return res;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

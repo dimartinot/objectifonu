@@ -1,6 +1,7 @@
 package com.objectif.onu.insarag_webapp.controller.mission;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,10 +57,12 @@ public class MissionController {
 		}
 		List<Infomission> list = imh.findAllByAlerte(a);
 		List<Liensutiles> listLiens = lh.findByMission(a);
+		HashMap<String,String> hm = mh.getUsersOfMission(a.getIdalerte());
+		System.out.println(hm.keySet());
 		request.setAttribute("list_infomission", list);
 		request.setAttribute("list_liens", listLiens);
 		request.setAttribute("alerte",a);
-		
+		request.setAttribute("users", hm);
 		return "/mission/maMission";
 	}
 	

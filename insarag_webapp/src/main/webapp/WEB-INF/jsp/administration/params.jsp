@@ -67,7 +67,7 @@
             <% if ( obj.getTelephone() != null) { %>
               <input class="form-control" type="text" value="<% out.print(obj.getTelephone()); %>" name="input-tel"/>
             <% } else { %>
-           	<input class="form-control" type="text" value="">
+           	<input class="form-control" type="text" value=""  name="input-tel">
               <% } %>
             </div>
           </div>

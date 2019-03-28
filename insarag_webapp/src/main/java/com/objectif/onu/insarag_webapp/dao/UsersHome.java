@@ -298,7 +298,6 @@ public class UsersHome {
 			log.error(e.getMessage());
 		}
 
-		log.debug("finding Users instance by example");
 		try {
 			ArrayList<Users> list = new ArrayList<Users>();
 		      try {
@@ -315,16 +314,6 @@ public class UsersHome {
 			    	  usr.setNom(rs.getString("nom"));
 			    	  usr.setPrenom(rs.getString("prenom"));
 			    	  usr.setTelephone(rs.getString("telephone"));
-//			         int id  = rs.getInt("id");
-//			         int age = rs.getInt("age");
-//			         String first = rs.getString("first");
-//			         String last = rs.getString("last");
-//
-//			         //Display values
-//			         System.out.print("ID: " + id);
-//			         System.out.print(", Age: " + age);
-//			         System.out.print(", First: " + first);
-//			         System.out.println(", Last: " + last);
 			    	  list.add(usr);
 			      }
 			      rs.close();
@@ -335,22 +324,51 @@ public class UsersHome {
 				e.printStackTrace();
 			}
 		      
-//			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-//			Query<Users> query = sessionFactory.getCurrentSession().createQuery("from Users");
-//			ArrayList<Users> list = (ArrayList<Users>)query.list();
-//			System.out.println(list.get(0).getNom());
-//			tx.commit();
-//			ArrayList<Users> res = new ArrayList<Users>();
-//			if (list != null) {
-//				for (Users m : list) {
-//					System.out.println(m);
-//				}
-//			}
-//			log.debug("find all successfull, result size: " + list.size());
-////			for (Users u : list) {
-////				res.add(u);
-////			}
-//			return res;
+		      return list;
+		} catch (RuntimeException re) {
+			log.error("find by example failed", re);
+			throw re;
+		}
+	}
+	
+	public List<Users> selectAllFromAlerte(int idAlerte) {
+		try {
+			sessionFactory.openSession();
+			log.info("session opened !");
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+
+		try {
+			ArrayList<Users> list = new ArrayList<Users>();
+		      try {
+				Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select * from Users u, arepondu ar, Postes p where ar.idAlerte = "+idAlerte+" AND ar.idUser = u.idusers AND p.idPoste = u.idPoste");
+			      while(rs.next()){
+			    	  Users usr = new Users();
+			         //Retrieve by column name
+			    	  usr.setIdusers(rs.getInt("u.idusers"));
+			    	  usr.setPassword(rs.getString("u.password"));
+			    	  usr.setEmail(rs.getString("u.email"));
+			    	  usr.setEnMission(rs.getByte("u.enMission"));
+			    	  usr.setNom(rs.getString("u.nom"));
+			    	  usr.setPrenom(rs.getString("u.prenom"));
+			    	  usr.setTelephone(rs.getString("u.telephone"));
+			    	  
+			    	  Postes p = new Postes();
+			    	  p.setLibelle(rs.getString("p.libelle"));
+			    	  p.setIdPoste(rs.getInt("p.idPoste"));
+			    	  usr.setPostes(p);
+			    	  list.add(usr);
+			      }
+			      rs.close();
+			      stmt.close();
+			      conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		      return list;
 		} catch (RuntimeException re) {
 			log.error("find by example failed", re);

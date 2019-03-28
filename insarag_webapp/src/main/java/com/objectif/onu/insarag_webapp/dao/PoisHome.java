@@ -195,7 +195,6 @@ public class PoisHome {
 		}
 
 		try {
-			ArrayList<Infomission> list = new ArrayList<Infomission>();
 		      try {
 				Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
 				String query = "insert into pois(idMission, lat, longi, info) VALUES ("

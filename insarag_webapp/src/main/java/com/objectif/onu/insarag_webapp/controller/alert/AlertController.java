@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.objectif.onu.insarag_webapp.bean.ActiveUserBean;
 import com.objectif.onu.insarag_webapp.dao.AlerteHome;
 import com.objectif.onu.insarag_webapp.dao.PaysHome;
+import com.objectif.onu.insarag_webapp.dao.UsersHome;
 import com.objectif.onu.insarag_webapp.dao.VilleHome;
 import com.objectif.onu.insarag_webapp.model.Alerte;
 import com.objectif.onu.insarag_webapp.model.Pays;
+import com.objectif.onu.insarag_webapp.model.Users;
 import com.objectif.onu.insarag_webapp.model.Ville;
 
 @Controller
@@ -27,17 +29,19 @@ public class AlertController {
 	private AlerteHome ah = new AlerteHome();
 	private PaysHome ph = new PaysHome();
 	private VilleHome vh = new VilleHome();
-
+	private UsersHome uh = new UsersHome();
+	
 	@Autowired
 	ActiveUserBean connectedUser;
 	
 	@RequestMapping("/last_alert")
 	public String alert_popup(HttpServletRequest request) throws Exception {
 		Alerte a = ah.selectLastFromUser(connectedUser.getUser());
-		
 		if (a != null) {
 			request.setAttribute("no_alert", false);
 			request.setAttribute("alerte", a);
+			List<Users> u = uh.selectAllFromAlerte(a.getIdalerte());
+			request.setAttribute("users", u);
 		} else {
 			request.setAttribute("no_alert", true);
 		}

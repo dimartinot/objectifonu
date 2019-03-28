@@ -59,7 +59,16 @@ public class AdministrationController {
 		return "/administration/profils";
 	} 
 	@RequestMapping("/profil")
-	public String admin() throws Exception {
+	public String admin(HttpServletRequest request) throws Exception {
+		boolean isSuperAdmin = false;
+		for (Object o : connectedUser.getUser().getRoleses()) {
+			Roles r = (Roles)o;
+			if (r.getTitre().equals("SUPER-ADMIN")) {
+				isSuperAdmin = true;
+				break;
+			}
+		}
+		request.setAttribute("isSuperAdmin", isSuperAdmin);
 		return "/administration/administration";
 	} 
 	

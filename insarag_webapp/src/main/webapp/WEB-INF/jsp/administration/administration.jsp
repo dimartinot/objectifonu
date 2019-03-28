@@ -36,16 +36,21 @@
 
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="/modifprofil" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil modif rounded-circle">MODIFIER</button>
+            <button class="btn btn-info accueil modif rounded-circle">MODIF.</button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="/consult" class="d-block mb-4 h-100">
-			<button class="btn btn-info accueil consult rounded-circle">CONSULTER</button>
+			<button class="btn btn-info accueil consult rounded-circle">VOIR. </button>
           </a>
         </div>
-        
-        
+        <% if ((Boolean)request.getAttribute("isSuperAdmin")) {%>
+        <div class="col-lg-3 col-md-4 col-xs-6">
+          <a href="/formuser" class="d-block mb-4 h-100">
+			<button class="btn btn-info accueil consult rounded-circle">CREER.</button>
+          </a>
+        </div>
+        <% } %>
       </div>
      </div>
 

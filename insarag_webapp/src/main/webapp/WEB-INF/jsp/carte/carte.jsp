@@ -16,6 +16,8 @@
 <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+<script type="text/javascript" src="<c:url value= '\js\FileSaver.js'/>" ></script>
+
 <!-- jquerry 
 <script src="http://code.jquery.com/jquery.js"> </script>
 -->
@@ -103,31 +105,44 @@
 		  background-color: #E8FFCD;
 		color : black;
 		}
+		.list-group-item {
+			margin-bottom: 10px;
+		}
   </style>
   <% 
 	List<Pois> list = (List<Pois>)request.getAttribute("list_pois");
 %>
   <div class="container">
-  	<div class="row" style="margin-top:25px;">
+  	<div class="row" style="margin-top:25px;margin-bottom:25px;">
   		<div class="col">
 		  <div class="card" style="width:500px; margin: 0 auto;">
 		  	<div class="card-body">
 				<div id="map" style="height: 500px; background: grey; border-top: 1px solid #5c8a8a; border-right: 1px solid #5c8a8a; border-bottom: 1px solid #5c8a8a;" class="news_bottom_right"></div>
+		  		<div>
+		  			<ul>
+		  				<li><b>Départ : </b><div id="departCoordinates"></div></li>
+		  				<li><b>Arrivée : </b><div id="arriveeCoordinates"></div></li>
+		  			</ul>
+		  		</div>
 		  	</div>
 		  	<div class="card-body">
 		  		<strong> Options</strong>
 		  		<ul class="list-group list-group-horizontal">
 		  			<li class="list-group-item"><button class="btn btn-primary btn-lg btn-block" id="addmarker" onclick="buttonAddMarker()" >Ajouter point d'interet</button></li>
-<!-- 					<li class="list-group-item"><button class="btn btn-success btn-lg btn-block" id="addarrive" onclick="buttonAddMarkerDepart()">Placer départ</button></li>
-					<li class="list-group-item"><button class="btn btn-danger btn-lg btn-block" id="adddepart" onclick="buttonAddMarkerArriver()">Placer arrivé</button></li> -->
+ 					<li class="list-group-item"><button class="btn btn-success btn-lg btn-block" id="launchParcours" onclick="lancerParcours()" disabled>Lancer parcours !</button></li>
+					<li class="list-group-item"><button class="btn btn-info btn-lg btn-block" id="adddepart" onclick="resetD_A()">Ré-initialiser les points de départ/arrivée</button></li>
 		  		</ul>
 		  	</div>
 		  </div>
 		</div>
 		<div class="col">
-			<div class="list-group" id="list_of_pois">
+			<div style="overflow-y:scroll;height:800px;" class="list-group" id="list_of_pois">
 				<% for (Pois p : list) { %>
-					<a class="list-group-item list-group-item-action" onclick="centerToCoordinates(<%= p.getLat() %>,<%= p.getLongi()%>)"><strong><%= p.getInfo()%></strong></br>lat:<%= p.getLat() %> | lon:<%= p.getLongi()%></a>
+					<a class="list-group-item list-group-item-action" onclick="centerToCoordinates(<%= p.getLat() %>,<%= p.getLongi()%>)">
+					<strong><%= p.getInfo()%></strong></br>lat:<%= p.getLat() %> | lon:<%= p.getLongi()%>
+					<button class="btn_d btn btn-success btn-block" onclick="setDepart(<%= p.getLat() %>,<%= p.getLongi()%>)">Point de départ</button>
+					<button class="btn_a btn btn-danger btn-block" onclick="setArrivee(<%= p.getLat() %>,<%= p.getLongi()%>)">Point d'arrivée</button>
+					</a>
 				<% } %>
 			</div>
 		</div>
@@ -207,7 +222,10 @@ function addMarker(map) {
 				
 				var li = document.createElement("a");
 				li.setAttribute("class","list-group-item list-group-item-action");
-				li.innerHTML = "<strong>"+infos+"</strong></br>lat: "+coord.lat.toFixed(4)+" lon:"+coord.lng.toFixed(4)+"<a role='button' class='btn btn-info' style='float:right' href='/map/save?lat="+coord.lat.toFixed(4)+"&lon="+coord.lng.toFixed(4)+"&info="+infos+"'>&U0001f4be</a>";
+				li.innerHTML = "<strong>"+infos+"</strong></br>lat: "+coord.lat.toFixed(4)+" lon:"+coord.lng.toFixed(4)+"<a role='button' class='btn btn-info' style='float:right' href='/map/save?lat="+coord.lat.toFixed(4)+"&lon="+coord.lng.toFixed(4)+"&info="+infos+"'>Ajout</a>";
+				li.innerHTML += 
+					"<button class='btn_d btn btn-success btn-block' onclick='setDepart("+coord.lat.toFixed(4)+","+coord.lng.toFixed(4)+")'>Point de départ</button>"+
+					"<button class='btn_a btn btn-danger btn-block' onclick='setArrivee("+coord.lat.toFixed(4)+","+coord.lng.toFixed(4)+")'>Point d'arrivée</button>"
 				li.setAttribute("onclick","centerToCoordinates("+coord.lat.toFixed(4)+","+coord.lng.toFixed(4)+")");
 				div_list.appendChild(li);
 
@@ -232,6 +250,154 @@ function buttonAddMarker() {
 }
 function affInfos() {
 
+}
+var depart ="";
+var arrivee ="";
+var depart_set = false;
+var arrivee_set = false;
+function setDepart(lat,lon) {
+	depart = lat+","+lon;
+	list = document.getElementsByClassName("btn_d");
+	Array.prototype.forEach.call(list, function(el) {
+	    el.disabled = true
+	});
+	document.getElementById("departCoordinates").innerHTML = lat+", "+lon;
+	depart_set = true;
+	if (depart_set && arrivee_set) {
+		document.getElementById("launchParcours").disabled = false;
+	}
+} 
+
+function setArrivee(lat,lon) {
+	arrivee = lat+","+lon;
+	list = document.getElementsByClassName("btn_a");
+	document.getElementById("arriveeCoordinates").innerHTML = lat+", "+lon;
+	Array.prototype.forEach.call(list, function(el) {
+	    el.disabled = true
+	});
+	arrivee_set = true;
+	if (depart_set && arrivee_set) {
+		document.getElementById("launchParcours").disabled = false;
+	}
+}
+
+function resetD_A() {
+	document.getElementById("arriveeCoordinates").innerHTML = "";
+	document.getElementById("departCoordinates").innerHTML ="";
+	list = document.getElementsByClassName("btn_a");
+	Array.prototype.forEach.call(list, function(el) {
+	    el.disabled = false
+	});
+	list = document.getElementsByClassName("btn_d");
+	Array.prototype.forEach.call(list, function(el) {
+	    el.disabled = false
+	});
+	depart_set = false;
+	arrivee_set = false;
+}
+
+//Define a callback function to process the routing response:
+var onResult = function(result) {
+  var route,
+    routeShape,
+    startPoint,
+    endPoint,
+    linestring;
+  if(result.response.route) {
+  // Pick the first route from the response:
+  route = result.response.route[0];
+  // Pick the route's shape:
+  routeShape = route.shape;
+
+  // Create a linestring to use as a point source for the route line
+  linestring = new H.geo.LineString();
+
+  // Push all the points in the shape into the linestring:
+  routeShape.forEach(function(point) {
+    var parts = point.split(',');
+    linestring.pushLatLngAlt(parts[0], parts[1]);
+  });
+
+  // Retrieve the mapped positions of the requested waypoints:
+  startPoint = route.waypoint[0].mappedPosition;
+  endPoint = route.waypoint[1].mappedPosition;
+
+  // Create a polyline to display the route:
+  var routeLine = new H.map.Polyline(linestring, {
+    style: { strokeColor: 'blue', lineWidth: 10 }
+  });
+
+  // Create a marker for the start point:
+  var startMarker = new H.map.Marker({
+    lat: startPoint.latitude,
+    lng: startPoint.longitude
+  });
+
+  // Create a marker for the end point:
+  var endMarker = new H.map.Marker({
+    lat: endPoint.latitude,
+    lng: endPoint.longitude
+  });
+
+  // Add the route polyline and the two markers to the map:
+  map.addObjects([routeLine, startMarker, endMarker]);
+
+  // Set the map's viewport to make the whole route visible:
+  map.setViewBounds(routeLine.getBounds());
+  }
+};
+
+function lancerParcours() {
+	document.getElementById("launchParcours").disabled = true;
+	var routingParameters = {
+			  // The routing mode:
+			  'mode': 'fastest;car',
+			  // The start point of the route:
+			  'waypoint0': "geo!" + depart,
+			  // The end point of the route:
+			  'waypoint1': "geo!" + arrivee,
+			  // To retrieve the shape of the route we choose the route
+			  // representation mode 'display'
+			  'representation': 'display'
+			};
+	// Get an instance of the routing service:
+	var router = platform.getRoutingService();
+	
+	var parameterBis = { // The routing mode:
+		  'mode': 'fastest;car',
+		  // The start point of the route:
+		  'waypoint0': depart,
+		  // The end point of the route:
+		  'waypoint1': arrivee,
+		  // To retrieve the shape of the route we choose the route
+		  // representation mode 'display'
+		  'departure' : 'now'
+		};
+
+	// Call calculateRoute() with the routing parameters,
+	// the callback and an error callback function (called if a
+	// communication error occurs):
+	router.calculateRoute(routingParameters, onResult,
+	  function(error) {
+	    alert(error.message);
+	  });
+	
+	  router.calculateRoute(parameterBis,
+		function (result) {
+		  var tmp = document.createElement("div");
+		  tmp.innerHTML = "Départ: "+depart;
+		  tmp.innerHTML += "\nArrivée: "+arrivee;
+		  result.response.route[0].leg[0].maneuver.forEach(function(point) {
+			  tmp.innerHTML += "\n"+point.instruction;
+		  });
+		  str = tmp.textContent;
+		  var blob = new Blob([str],{type: "text/plain;charset=utf-8"});
+		  saveAs(blob,"instructions.txt");
+		  console.log(str);
+			//console.log(result.response.route[0].leg[0].maneuver);//a.response.route[0].leg[0].maneuver
+		}, function (error) {
+			alert(error);
+	});
 }
 
 

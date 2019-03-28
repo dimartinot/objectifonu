@@ -1,7 +1,7 @@
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ page import="com.objectif.onu.insarag_webapp.model.Alerte" %>
   <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
- 
+ 	<%@ page import="java.util.List" %>
  <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,6 +29,7 @@
 			<% Boolean b = (Boolean)request.getAttribute("no_alert"); 
 	if (!b) {
 				Alerte obj = (Alerte)request.getAttribute("alerte");
+				List<Users> ul = (List<Users>)request.getAttribute("users");
 				%>
 			<div class="container contact-form">
 	            <div class="contact-image">
@@ -72,15 +73,15 @@
 		               			</tr>
 		               		</thead>
 		               		<tbody>
-		               		<%--  <% for (Users u : obj.getUserses()) { %>
+		               		  <% for (Users u : ul) { %>
 			               		<tr>
 			               			<td><%= u.getNom() %> - <%= u.getPrenom() %></td>
-			               			<td>Lieutenant</td>
+			               			<td><%= u.getPostes().getLibelle() %></td>
 			               			<td>
 			               				<input type="radio" aria-label="est présent" checked disabled />
 			               			</td>
 			               		</tr>
-			               		<% } %> --%>
+			               		<% } %> 
 			              	</tbody>
 		               	</table>
 		              </div>

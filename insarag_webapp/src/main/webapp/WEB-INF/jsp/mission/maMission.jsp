@@ -11,7 +11,8 @@
                 <%@ page import="java.util.ArrayList" %>
                 <%@ page import="java.text.SimpleDateFormat" %>
                 <%@ page import = "java.util.Date" %>
-        
+                <%@ page import = "java.util.HashMap" %>
+                
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -65,6 +66,10 @@
 	List<Liensutiles> listLiens = (List<Liensutiles>)request.getAttribute("list_liens");
 	if (listLiens == null) {
 		listLiens = new ArrayList<Liensutiles>();
+	}
+	HashMap<String,String> hm = (HashMap<String,String>)request.getAttribute("users");
+	if (hm == null) {
+		hm = new HashMap<String,String>();
 	}
 %>
 <div class ="container" style="width: 80vw">
@@ -790,65 +795,48 @@
 			
 				 var datasource = {
 				   'name': 'MANAGEMENT',
-				   'title': 'Team leader : <b> Nom Prénom </b><br>'+
-				   			'Deputy team leader : <b> Nom Prénom </b><br>'+
-				   			'Planning officer : <b> Nom Prénom </b><br>'+
-				   			'Safety officer : <b> Nom Prénom </b><br>'+
-				   			'Liaison officer : <b> Nom Prénom </b><br>'+
-				   			'Deputy Liaison officer : <b> Nom Prénom </b><br>'+
-				   			'Structural engineer : <b> Nom Prénom </b>',
+				   'title': 'Team leader : <b> <%= (hm.get("Team Leader") != null) ? hm.get("Team Leader") : "<b>Non défini...</b>" %> </b><br>'+
+				   			'Deputy team leader : <b> <%= (hm.get("Deputy Team Leader") != null) ? hm.get("Deputy Team Leader") : "<b>Non défini...</b>" %> </b><br>'+
+				   			'Planning officer : <b> <%= (hm.get("Planning Officer") != null) ? hm.get("Planning Officer") : "<b>Non défini...</b>" %> </b><br>'+
+				   			'Safety officer : <b> <%= (hm.get("Safety Officer") != null) ? hm.get("Safety Officer") : "<b>Non défini...</b>" %> </b><br>'+
+				   			'Liaison officer : <b> <%= (hm.get("Liaison Officer") != null) ? hm.get("Liaison Officer") : "<b>Non défini...</b>" %> </b><br>'+
+				   			'Deputy Liaison officer : <b> <%= (hm.get("Deputy Liaison Officer") != null) ? hm.get("Deputy Liaison Officer") : "<b>Non défini...</b>" %> </b><br>'+
+				   			'Structural engineer : <b> <%= (hm.get("Structural Engineer") != null) ? hm.get("Structural Engineer") : "<b>Non défini...</b>" %> </b>',
 				   'children': [
-				     { 'name': 'SEARCH', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
-				    	 							'Dog handler : <b> Nom Prénom </b><br>'+
-				    	 							'Dog handler : <b> Nom Prénom </b><br>'+
-				    	 							'Dog handler : <b> Nom Prénom </b><br>'+
-				    	 							'Dog handler : <b> Nom Prénom </b><br>'+
-				    	 							'HAZMAT specialist : <b> Nom Prénom </b><br>'+
-				    	 							'HAZMAT specialist : <b> Nom Prénom </b><br>'+
-				    	 							'HAZMAT specialist : <b> Nom Prénom </b><br>'+
-				    	 							'technical search specialist : <b> Nom Prénom </b><br>'+
-				    	 							'technical search specialist : <b> Nom Prénom </b><br>'+
-				    	 							'technical search specialist : <b> Nom Prénom </b>'},
-				     { 'name': 'RESCUE 1', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
-				    	 								'Rescue squad leader : <b> Nom Prénom </b><br>'+
-				    	 								'Rescue technician : <b> Nom Prénom </b>',
-				       'children': [
-				         { 'name': 'RESCUE 2', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
-				        	 							'Rescue squad leader : <b> Nom Prénom </b><br>'+
-				        	 							'Rescue technician : <b> Nom Prénom </b>',
-				           'children': [
-				        	   { 'name': 'RESCUE 3', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
-								   	 							'Rescue squad leader : <b> Nom Prénom </b><br>'+
-								   	 							'Rescue technician : <b> Nom Prénom </b>',
-							      'children': [
-							        { 'name': 'RESCUE 4', 'title': 'Rescue team manager : <b> Nom Prénom </b><br>'+
-									   	 							'Rescue squad leader : <b> Nom Prénom </b><br>'+
-									   	 							'Rescue technician : <b> Nom Prénom </b>'}
-							      ]
-							    }
-				           ]
-				         }
-				       ]
+				     { 'name': 'SEARCH', 'title': 'Rescue team manager : <b> <%= (hm.get("Rescue Team Manager") != null) ? hm.get("Rescue Team Manager") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'Dog handler : <b> <%= (hm.get("Dog Handler1") != null) ? hm.get("Dog Handler1") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'Dog handler : <b> <%= (hm.get("Dog Handler2") != null) ? hm.get("Dog Handler2") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'Dog handler : <b> <%= (hm.get("Dog Handler3") != null) ? hm.get("Dog Handler3") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'Dog handler : <b> <%= (hm.get("Dog Handler4") != null) ? hm.get("Dog Handler4") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'HAZMAT specialist : <b> <%= (hm.get("HAZMAT Specialist1") != null) ? hm.get("HAZMAT Specialist1") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'HAZMAT specialist : <b> <%= (hm.get("HAZMAT Specialist2") != null) ? hm.get("HAZMAT Specialist2") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'HAZMAT specialist : <b> <%= (hm.get("HAZMAT Specialist3") != null) ? hm.get("HAZMAT Specialist3") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'technical search specialist : <b> <%= (hm.get("Technical Search Specialist1") != null) ? hm.get("Technical Search Specialist1") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'technical search specialist : <b> <%= (hm.get("Technical Search Specialist2") != null) ? hm.get("Technical Search Specialist2") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 							'technical search specialist : <b> <%= (hm.get("Technical Search Specialist3") != null) ? hm.get("Technical Search Specialist3") : "<b>Non défini...</b>" %> </b>'},
+				     { 'name': 'RESCUE 1', 'title': 'Rescue team manager : <b> <%= (hm.get("Rescue team manager") != null) ? hm.get("Rescue team manager") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 								'Rescue squad leader : <b> <%= (hm.get("Rescue squad leader") != null) ? hm.get("Rescue squad leader") : "<b>Non défini...</b>" %> </b><br>'+
+				    	 								'Rescue technician : <b> <%= (hm.get("Rescue technician") != null) ? hm.get("Rescue technician") : "<b>Non défini...</b>" %> </b>'
 				     },
-				     { 'name': 'MEDICAL', 'title': 'Medical doctor : <b> Nom Prénom </b><br>'+
-											    	 'Medical doctor : <b> Nom Prénom </b><br>'+
-											    	 'Medical doctor : <b> Nom Prénom </b><br>'+
-											    	 'Paramedic/nurse : <b> Nom Prénom </b><br>'+
-											    	 'Paramedic/nurse : <b> Nom Prénom </b><br>'+
-											    	 'Paramedic/nurse : <b> Nom Prénom </b><br>'+
-											    	 'Paramedic/nurse : <b> Nom Prénom </b><br>'+
-											    	 'Veterinary : <b> Nom Prénom </b>'},
-				   	{'name': 'LOGISTICS', 'title': 'Logistics team manager : <b> Nom Prénom </b><br>'+
-				    		 'Deputy logistics team manager : <b> Nom Prénom </b><br>'+
-				    		 'Transport specialist/MEC : <b> Nom Prénom </b><br>'+
-				    		 'Transport specialist/MEC : <b> Nom Prénom </b><br>'+
-				    		 'Logistician : <b> Nom Prénom </b><br>'+
-				    		 'Logistician : <b> Nom Prénom </b><br>'+
-				    		 'Base manager : <b> Nom Prénom </b><br>'+
-				    		 'Base manager : <b> Nom Prénom </b><br>'+
-				    		 'Communications specialist : <b> Nom Prénom </b><br>'+
-				    		 'Communications specialist : <b> Nom Prénom </b><br>'+
-				    		 'Communications specialist : <b> Nom Prénom </b><br>'}	
+				     { 'name': 'MEDICAL', 'title': 'Medical doctor : <b> <%= (hm.get("Medical doctor1") != null) ? hm.get("Medical doctor1") : "<b>Non défini...</b>" %> </b><br>'+
+											    	 'Medical doctor : <b> <%= (hm.get("Medical doctor2") != null) ? hm.get("Medical doctor2") : "<b>Non défini...</b>" %> </b><br>'+
+											    	 'Medical doctor : <b> <%= (hm.get("Medical doctor3") != null) ? hm.get("Medical doctor3") : "<b>Non défini...</b>" %> </b><br>'+
+											    	 'Paramedic/nurse : <b> <%= (hm.get("Paramedic/nurse1") != null) ? hm.get("Paramedic/nurse1") : "<b>Non défini...</b>" %> </b><br>'+
+											    	 'Paramedic/nurse : <b> <%= (hm.get("Paramedic/nurse2") != null) ? hm.get("Paramedic/nurse2") : "<b>Non défini...</b>" %> </b><br>'+
+											    	 'Paramedic/nurse : <b> <%= (hm.get("Paramedic/nurse3") != null) ? hm.get("Paramedic/nurse3") : "<b>Non défini...</b>" %> </b><br>'+
+											    	 'Paramedic/nurse : <b> <%= (hm.get("Paramedic/nurse4") != null) ? hm.get("Paramedic/nurse4") : "<b>Non défini...</b>" %> </b><br>'+
+											    	 'Veterinary : <b> <%= (hm.get("Veterinary") != null) ? hm.get("Veterinary") : "<b>Non défini...</b>" %> </b>'},
+				   	{'name': 'LOGISTICS', 'title': 'Logistics team manager : <b> <%= (hm.get("Logistics team manager") != null) ? hm.get("Logistics team manager") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Deputy logistics team manager : <b> <%= (hm.get("Deputy logistics team manager") != null) ? hm.get("Deputy logistics team manager") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Transport specialist/MEC : <b> <%= (hm.get("Transport specialist/MEC1") != null) ? hm.get("Transport specialist/MEC1") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Transport specialist/MEC : <b> <%= (hm.get("Transport specialist/MEC2") != null) ? hm.get("Transport specialist/MEC2") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Logistician : <b> <%= (hm.get("Logistician1") != null) ? hm.get("Logistician1") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Logistician : <b> <%= (hm.get("Logistician2") != null) ? hm.get("Logistician2") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Base manager : <b> <%= (hm.get("Base manager1") != null) ? hm.get("Base manager1") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Base manager : <b> <%= (hm.get("Base manager2") != null) ? hm.get("Base manager2") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Communications specialist : <b> <%= (hm.get("Communications specialist1") != null) ? hm.get("Communications specialist1") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Communications specialist : <b> <%= (hm.get("Communications specialist2") != null) ? hm.get("Communications specialist2") : "<b>Non défini...</b>" %> </b><br>'+
+				    		 'Communications specialist : <b> <%= (hm.get("Communications specialist3") != null) ? hm.get("Communications specialist3") : "<b>Non défini...</b>" %> </b><br>'}	
 				   ]
 				 };
 				
