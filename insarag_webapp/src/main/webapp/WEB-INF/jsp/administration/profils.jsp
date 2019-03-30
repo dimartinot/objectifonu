@@ -1,4 +1,6 @@
 <%@ page session="true" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page import="com.objectif.onu.insarag_webapp.model.Users" %>
 <%@ page import="com.objectif.onu.insarag_webapp.model.Roles" %>
 <%@ page import="java.util.Set" %>
@@ -36,7 +38,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="http://placehold.it/400x300" alt=""/>
+                            <img src="<c:url value='/img/mission/logo_insarag.png'/>" alt=""/>
                             
                         </div>
                     </div>

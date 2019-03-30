@@ -36,12 +36,12 @@
 
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="/consulprofil" class="d-block mb-4 h-100">
-            <button class="btn btn-info accueil modif rounded-circle">Mon Profile</button>
+            <button class="btn btn-info accueil modif rounded-circle">Moi.  </button>
           </a>
         </div>
         <div class="col-lg-3 col-md-4 col-xs-6">
           <a href="/consulusers" class="d-block mb-4 h-100">
-			<button class="btn btn-info accueil consult rounded-circle">Utilisateurs</button>
+			<button class="btn btn-info accueil consult rounded-circle">Autres. </button>
           </a>
         </div>
  

@@ -34,7 +34,11 @@
 <!-- Header -->
 <jsp:include page="../utils/header.jsp" />
 <!-- Header -->
-
+<style>
+	#main_container {
+		margin-top:5% !important;
+	}
+</style>
  <body>
  	<% Users obj = (Users)(request.getSession().getAttribute("user"));
  	boolean visual = false;
@@ -42,79 +46,78 @@
  	for (Roles r : sr) {
  		if (r.getTitre().equals("SUPER-ADMIN")) { 
  			visual = true; } }%>
- 	<% if (visual) { %>
+<%--  	<% if (visual) { %>
  	<div class ="col-md-4 offset-md-4" >
 		<form action="formuser" method="POST" >
-		<input  type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Créer Utilisateur"/>
+		<input  type="submit" class="btn btn-info profile-edit-btn" name="btnAddMore" value="Créer Utilisateur"/>
 		</form>
 		</div>
-	<% } %>
-	<div class="container">
-		<br>
-		<br>
-				<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nom</th>
-      <th scope="col">Prénom</th>
-      <th scope="col">Grade</th>
-      <th scope="col">Poste</th>
-      <th scope="col"></th>
-      <% if (visual) { %>
-      <th scope="col"></th>
-      <% } %>
-      
-
-    </tr>
-  </thead>
-  <tbody>
-  	<% List<Users> lu = (List<Users>) request.getAttribute("list_of_users");
-  	%>
-
-  	<% for(Users u : lu) { 
-  			
-  			if (obj.getIdusers() != u.getIdusers()) {%>
-  	
-  	
-    <tr>
-      <th scope="row"><%= u.getIdusers() %></th>
-      <td> <%= u.getNom() %> </td>
-      <td><%= u.getPrenom() %></td>
-      <td><%= u.getGrade().getLibelle()  %></td>
-      <td><%= u.getPostes().getLibelle()  %></td>
-      <td><form action="consulprofil" method="POST" >
-  	<input style = "display: none" name="id" value = <%= u.getIdusers() %> >
-  	<input style = "display: none" name="nom" value = <%= u.getNom() %> >
-  	<input style = "display: none" name="prenom" value = <%= u.getPrenom() %> >
-  	<input style = "display: none" name="tel" value = <%= u.getTelephone() %> >
-  	<input style = "display: none" name="email" value = <%= u.getEmail() %> >
-  	<input style = "display: none" name="grade" value = <%= u.getGrade().getLibelle() %> >
-  	<input style = "display: none" name="poste" value = <%= u.getPostes().getLibelle() %> >
-  	<input style = "display: none" name="enmission" value = <%= u.getEnMission() %> >
-  	<input style = "display: none" name="roles" value = <%= u.getRoleses() %> >
-  	<input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Consulter"/>
-  	</form> </td>
-  	<% if (visual) { %>
-  		<td><form action="/promute" method="POST" >
-  		<input style = "display: none" name="id-prom" value = <%= u.getIdusers() %> >
-  		<input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Promouvoir"/>
-  		</form>
-  		<div style="height: 5px"></div>
-  		<form action= "/supprimer" method="POST" >
-  		<input style = "display: none" name="id-supp"  value = <%= u.getIdusers() %> >
-  		<input type="submit" class="btn-info profile-edit-btn" name="btnAddMore" value="Supprimer"/>
-  		</form> </td>
-  		<% } %> 
-  	
-    </tr>
-    
-    
-    <% }} %>
-    
-  </tbody>
-</table>
-			
+	<% } %> --%>
+	<div class="container" style="border: 1px solid black">
+<div style="overflow-y: scroll; height:800px;" >
+	<table class="table table-hover">
+	  <thead>
+	    <tr>
+	      <th scope="col">ID</th>
+	      <th scope="col">Nom</th>
+	      <th scope="col">Prénom</th>
+	      <th scope="col">Grade</th>
+	      <th scope="col">Poste</th>
+	      <th scope="col"></th>
+	      <% if (visual) { %>
+	      <th scope="col"></th>
+	      <% } %>
+	      
+	
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% List<Users> lu = (List<Users>) request.getAttribute("list_of_users");
+	  	%>
+	
+	  	<% for(Users u : lu) { 
+	  			
+	  			if (obj.getIdusers() != u.getIdusers()) {%>
+	  	
+	  	
+	    <tr>
+	      <th scope="row"><%= u.getIdusers() %></th>
+	      <td> <%= u.getNom() %> </td>
+	      <td><%= u.getPrenom() %></td>
+	      <td><%= u.getGrade().getLibelle()  %></td>
+	      <td><%= u.getPostes().getLibelle()  %></td>
+	      <td><form action="consulprofil" method="POST" >
+	  	<input style = "display: none" name="id" value = <%= u.getIdusers() %> >
+	  	<input style = "display: none" name="nom" value = <%= u.getNom() %> >
+	  	<input style = "display: none" name="prenom" value = <%= u.getPrenom() %> >
+	  	<input style = "display: none" name="tel" value = <%= u.getTelephone() %> >
+	  	<input style = "display: none" name="email" value = <%= u.getEmail() %> >
+	  	<input style = "display: none" name="grade" value = <%= u.getGrade().getLibelle() %> >
+	  	<input style = "display: none" name="poste" value = <%= u.getPostes().getLibelle() %> >
+	  	<input style = "display: none" name="enmission" value = <%= u.getEnMission() %> >
+	  	<input style = "display: none" name="roles" value = <%= u.getRoleses() %> >
+	  	<input type="submit" class="btn btn-info profile-edit-btn" name="btnAddMore" value="Consulter"/>
+	  	</form> </td>
+	  	<% if (visual) { %>
+	  		<td><form action="/promute" method="POST" >
+	  		<input style = "display: none" name="id-prom" value = <%= u.getIdusers() %> >
+	  		<input type="submit" class="btn btn-success profile-edit-btn" name="btnAddMore" value="Promouvoir"/>
+	  		</form>
+	  		<div style="height: 5px"></div>
+	  		<form action= "/supprimer" method="POST" >
+	  		<input style = "display: none" name="id-supp"  value = <%= u.getIdusers() %> >
+	  		<input type="submit" class="btn btn-danger profile-edit-btn" name="btnAddMore" value="Supprimer"/>
+	  		</form> </td>
+	  		<% } %> 
+	  	
+	    </tr>
+	    
+	    
+	    <% }} %>
+	    
+	  </tbody>
+	</table>
+</div>
 			
     </div>
  </body>
